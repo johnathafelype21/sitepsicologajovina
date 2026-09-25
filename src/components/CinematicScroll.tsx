@@ -5,12 +5,13 @@ export interface CinematicScrollProps {
 }
 
 const FRAME_COUNT = 240;
-const CACHE_LIMIT = 20;
-const LOAD_CONCURRENCY = 4;
-const AHEAD_RADIUS = 14;
-const BEHIND_RADIUS = 5;
-const MAX_FRAME_STEP_PER_TICK = 1;
-const FRAME_ASSET_VERSION = 'manual240-smooth-v3';
+const CACHE_LIMIT = 18;
+const LOAD_CONCURRENCY = 3;
+const PRELOAD_DECODE_COUNT = 12;
+const PREFETCH_BYTE_COUNT = 72;
+const AHEAD_RADIUS = 12;
+const BEHIND_RADIUS = 4;
+const FRAME_ASSET_VERSION = 'manual240-ultrasmooth-v4';
 
 function frameUrl(isMobile: boolean, index: number) {
   const folder = isMobile ? 'mobile' : 'desktop';
@@ -83,24 +84,25 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
     if (!context) return;
 
     let cancelled = false;
-    let rafId: number | null = null;
-    let resizeRafId: number | null = null;
+    let animationRaf: number | null = null;
+    let resizeRaf: number | null = null;
+    let idleHandle: number | null = null;
+
     let targetFrame = 0;
     let animatedFrame = 0;
     let renderedFrame = -1;
     let direction = 1;
     let lastScrollY = window.scrollY;
+    let lastWarmCenter = -1;
     let activeLoads = 0;
+    let isNearSection = false;
 
     const cache = new Map<number, ImageBitmap>();
     const loading = new Set<number>();
     const queued = new Set<number>();
     const queue: number[] = [];
 
-    // Mantém aproximadamente a mesma duração visual do layout original:
-    // ~600vh no desktop e ~500vh no mobile, mas distribui os 240 frames
-    // densamente para eliminar a sensação de "degraus" no scroll.
-    const getPixelsPerFrame = () => (isMobile ? 14 : 18);
+    const getPixelsPerFrame = () => (isMobile ? 12 : 16);
 
     const syncSectionHeight = () => {
       const travel = (FRAME_COUNT - 1) * getPixelsPerFrame();
@@ -110,9 +112,9 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
     const resizeCanvas = () => {
       const rect = canvas.getBoundingClientRect();
 
-      // DPR muito alto aumenta drasticamente o custo de cada drawImage.
-      // 1.5 preserva nitidez e reduz o trabalho por frame.
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      // Mobile GPUs are much more sensitive to large backing canvases.
+      const dprCap = isMobile ? 1.15 : 1.35;
+      const dpr = Math.min(window.devicePixelRatio || 1, dprCap);
       const width = Math.max(1, Math.round(rect.width * dpr));
       const height = Math.max(1, Math.round(rect.height * dpr));
 
@@ -127,7 +129,7 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
       if (cache.size <= CACHE_LIMIT) return;
 
       const removable = [...cache.keys()]
-        .filter((index) => index !== renderedFrame)
+        .filter((index) => index !== renderedFrame && index !== center)
         .sort((a, b) => Math.abs(b - center) - Math.abs(a - center));
 
       while (cache.size > CACHE_LIMIT && removable.length > 0) {
@@ -166,10 +168,7 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
         if (index === undefined) break;
 
         queued.delete(index);
-
-        if (cache.has(index) || loading.has(index)) {
-          continue;
-        }
+        if (cache.has(index) || loading.has(index)) continue;
 
         activeLoads += 1;
         loading.add(index);
@@ -178,7 +177,8 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
           try {
             const response = await fetch(frameUrl(isMobile, index), {
               cache: 'force-cache',
-            });
+              priority: index <= 3 ? 'high' : 'auto',
+            } as RequestInit);
 
             if (!response.ok || cancelled) return;
 
@@ -193,9 +193,16 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
 
             cache.set(index, bitmap);
             pruneCache(Math.round(animatedFrame));
+
+            if (index === 0 && renderedFrame < 0) {
+              drawFrame(0);
+            }
+
+            if (isNearSection) {
+              scheduleAnimation();
+            }
           } catch {
-            // Se um frame falhar momentaneamente, ele poderá ser enfileirado
-            // novamente quando entrar na janela prioritária.
+            // A próxima janela de prioridade tenta novamente se necessário.
           } finally {
             loading.delete(index);
             activeLoads -= 1;
@@ -217,18 +224,21 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
       }
 
       queued.add(index);
-
-      if (highPriority) {
-        queue.unshift(index);
-      } else {
-        queue.push(index);
-      }
+      if (highPriority) queue.unshift(index);
+      else queue.push(index);
     };
 
     const warmWindow = (center: number) => {
+      if (center === lastWarmCenter) return;
+      lastWarmCenter = center;
+
+      // Descarta apenas solicitações que ainda nem começaram. Assim um scroll
+      // rápido não deixa uma fila enorme de frames que já ficaram para trás.
+      queue.length = 0;
+      queued.clear();
+
       enqueueFrame(center, true);
 
-      // Prioriza primeiro os próximos quadros no sentido do movimento.
       for (let distance = 1; distance <= AHEAD_RADIUS; distance += 1) {
         enqueueFrame(center + distance * direction, distance <= 4);
       }
@@ -243,14 +253,12 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
     const nearestReadyFrame = (index: number) => {
       if (cache.has(index)) return index;
 
-      // Pequeno fallback apenas para não congelar a tela caso um arquivo
-      // específico ainda esteja terminando de decodificar.
-      for (let distance = 1; distance <= 3; distance += 1) {
-        const towardMotion = index - distance * direction;
-        if (cache.has(towardMotion)) return towardMotion;
+      for (let distance = 1; distance <= 2; distance += 1) {
+        const behind = index - distance * direction;
+        if (cache.has(behind)) return behind;
 
-        const opposite = index + distance * direction;
-        if (cache.has(opposite)) return opposite;
+        const ahead = index + distance * direction;
+        if (cache.has(ahead)) return ahead;
       }
 
       return renderedFrame;
@@ -260,7 +268,6 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
       const rect = section.getBoundingClientRect();
       const travel = Math.max(section.offsetHeight - window.innerHeight, 1);
       const progress = Math.min(1, Math.max(0, -rect.top / travel));
-
       targetFrame = progress * (FRAME_COUNT - 1);
 
       const currentScrollY = window.scrollY;
@@ -269,23 +276,22 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
         lastScrollY = currentScrollY;
       }
 
-      warmWindow(Math.round(targetFrame));
+      const center = Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(targetFrame)));
+      warmWindow(center);
     };
 
-    const tick = () => {
-      if (cancelled) return;
+    const animate = () => {
+      animationRaf = null;
+      if (cancelled || !isNearSection) return;
 
       const delta = targetFrame - animatedFrame;
 
-      if (Math.abs(delta) > 0.01) {
-        // O alvo pode saltar vários frames por causa da roda do mouse/trackpad,
-        // mas a imagem avança no máximo 1 frame por repaint. Isso transforma
-        // saltos de scroll em uma sequência visual contínua de até 60 fps.
-        const step = Math.max(
-          -MAX_FRAME_STEP_PER_TICK,
-          Math.min(MAX_FRAME_STEP_PER_TICK, delta),
-        );
-
+      if (Math.abs(delta) > 0.015) {
+        // Easing adaptativo: suave para pequenos movimentos e capaz de
+        // acompanhar flicks maiores sem ficar muitos frames atrasado.
+        const easedStep = delta * 0.2;
+        const maxStep = isMobile ? 1.35 : 1.6;
+        const step = Math.max(-maxStep, Math.min(maxStep, easedStep));
         animatedFrame += step;
       } else {
         animatedFrame = targetFrame;
@@ -299,53 +305,117 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
       warmWindow(wanted);
 
       const ready = nearestReadyFrame(wanted);
-      if (ready >= 0) {
-        drawFrame(ready);
-      }
+      if (ready >= 0) drawFrame(ready);
 
-      rafId = window.requestAnimationFrame(tick);
+      const stillMoving = Math.abs(targetFrame - animatedFrame) > 0.015;
+      const exactFrameMissing = !cache.has(Math.round(targetFrame));
+
+      if (stillMoving || exactFrameMissing) {
+        animationRaf = window.requestAnimationFrame(animate);
+      }
     };
 
+    function scheduleAnimation() {
+      if (!isNearSection || animationRaf !== null) return;
+      animationRaf = window.requestAnimationFrame(animate);
+    }
+
     const handleScroll = () => {
+      if (!isNearSection) return;
       updateTargetFromScroll();
+      scheduleAnimation();
     };
 
     const handleResize = () => {
-      if (resizeRafId !== null) return;
+      if (resizeRaf !== null) return;
 
-      resizeRafId = window.requestAnimationFrame(() => {
-        resizeRafId = null;
+      resizeRaf = window.requestAnimationFrame(() => {
+        resizeRaf = null;
         syncSectionHeight();
         resizeCanvas();
-        updateTargetFromScroll();
+
+        if (isNearSection) {
+          updateTargetFromScroll();
+          scheduleAnimation();
+        }
       });
+    };
+
+    // O componente só entra em modo de animação quando se aproxima da tela.
+    // Fora dessa área não existe loop contínuo de RAF.
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        isNearSection = entry.isIntersecting;
+
+        if (isNearSection) {
+          updateTargetFromScroll();
+          scheduleAnimation();
+        } else if (animationRaf !== null) {
+          window.cancelAnimationFrame(animationRaf);
+          animationRaf = null;
+        }
+      },
+      { rootMargin: '125% 0px 125% 0px', threshold: 0 },
+    );
+
+    const prefetchCompressedBytes = async () => {
+      let cursor = PRELOAD_DECODE_COUNT;
+
+      const worker = async () => {
+        while (!cancelled && cursor < PREFETCH_BYTE_COUNT) {
+          const index = cursor;
+          cursor += 1;
+
+          try {
+            const response = await fetch(frameUrl(isMobile, index), {
+              cache: 'force-cache',
+              priority: 'low',
+            } as RequestInit);
+
+            if (response.ok) await response.arrayBuffer();
+          } catch {
+            // Prefetch é opcional: a janela ativa ainda consegue carregar.
+          }
+        }
+      };
+
+      await Promise.all([worker(), worker()]);
     };
 
     syncSectionHeight();
     resizeCanvas();
-    updateTargetFromScroll();
 
-    // Só prepara uma pequena janela inicial; não decodifica dezenas de imagens
-    // de uma vez e não baixa os 240 arquivos concorrendo com a rolagem.
-    for (let index = 0; index <= 10; index += 1) {
+    // Um pequeno conjunto inicial fica pronto antes de o usuário chegar ao efeito.
+    for (let index = 0; index < PRELOAD_DECODE_COUNT; index += 1) {
       enqueueFrame(index, index <= 2);
     }
     pumpQueue();
 
+    const ric = window.requestIdleCallback?.bind(window);
+    if (ric) {
+      idleHandle = ric(() => {
+        void prefetchCompressedBytes();
+      }, { timeout: 1200 });
+    } else {
+      idleHandle = window.setTimeout(() => {
+        void prefetchCompressedBytes();
+      }, 700);
+    }
+
+    visibilityObserver.observe(section);
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
 
-    rafId = window.requestAnimationFrame(tick);
-
     return () => {
       cancelled = true;
+      visibilityObserver.disconnect();
 
-      if (rafId !== null) {
-        window.cancelAnimationFrame(rafId);
-      }
+      if (animationRaf !== null) window.cancelAnimationFrame(animationRaf);
+      if (resizeRaf !== null) window.cancelAnimationFrame(resizeRaf);
 
-      if (resizeRafId !== null) {
-        window.cancelAnimationFrame(resizeRafId);
+      if (idleHandle !== null) {
+        if (window.cancelIdleCallback) window.cancelIdleCallback(idleHandle);
+        else window.clearTimeout(idleHandle);
       }
 
       window.removeEventListener('scroll', handleScroll);
