@@ -65,12 +65,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .stitch/results
+          git add .stitch/results .stitch/designs
 
           if git diff --cached --quiet; then
-            echo "No new Stitch results."
+            echo "No new Stitch results or design assets."
           else
-            git commit -m "chore: save Stitch MCP results"
+            git commit -m "chore: save Stitch MCP results and design assets"
             git push
           fi
 
