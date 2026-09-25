@@ -1,0 +1,12 @@
+{
+  "action": "call_tool",
+  "tool": "create_design_system_from_design_md",
+  "arguments": {
+    "projectId": "6397409268031532647",
+    "selectedScreenInstance": {
+      "id": "11458765886093725855",
+      "sourceScreen": "projects/6397409268031532647/screens/11458765886093725855"
+    },
+    "deviceType": "DESKTOP"
+  }
+}
