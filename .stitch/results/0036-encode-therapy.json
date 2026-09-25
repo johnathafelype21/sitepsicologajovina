@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "request": {
+    "action": "encode_design_image",
+    "slug": "therapy"
+  },
+  "preview": {
+    "imagePath": ".stitch/designs/therapy.png",
+    "outputPath": ".stitch/designs/therapy.png.b64",
+    "bytes": 2125184
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "request": {
+    "action": "encode_design_image",
+    "slug": "about"
+  },
+  "preview": {
+    "imagePath": ".stitch/designs/about.png",
+    "outputPath": ".stitch/designs/about.png.b64",
+    "bytes": 2506057
+  }
+}
