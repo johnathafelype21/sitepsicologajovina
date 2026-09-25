@@ -1,0 +1,23 @@
+{
+  "source": "Stitch project 9619358137858501701",
+  "colors": {
+    "canvas": "#FCFAF7",
+    "canvasSoft": "#FFF8F6",
+    "surface": "#F7F4EE",
+    "linen": "#EFE9DF",
+    "olive": "#2D3B2D",
+    "oliveDeep": "#243024",
+    "caramel": "#C08A4E",
+    "bronze": "#B89758",
+    "terracotta": "#C87355",
+    "umber": "#3D2C24",
+    "line": "#E2DACD"
+  },
+  "fonts": { "display": "Playfair Display", "body": "Plus Jakarta Sans" },
+  "spacing": {
+    "gutter": "1.5rem",
+    "gutterMobile": "1rem",
+    "margin": "3rem",
+    "marginMobile": "1.25rem"
+  }
+}

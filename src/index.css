@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  color: #3D2C24;
+  background: #FCFAF7;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; }
+* { box-sizing: border-box; }
+::selection { background: rgba(192, 138, 78, 0.28); }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+.editorial-glow {
+  background:
+    radial-gradient(circle at 25% 15%, rgba(192, 138, 78, .14), transparent 36%),
+    radial-gradient(circle at 78% 84%, rgba(200, 115, 85, .12), transparent 38%);
+}
+.depth-card {
+  transform: perspective(1000px) translateZ(0);
+  transition: transform 280ms ease, box-shadow 280ms ease;
+}
+.depth-card:hover {
+  transform: perspective(1000px) translateY(-4px) translateZ(10px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .reveal.is-visible { opacity: 1; transform: none; transition: none; }
+  .depth-card:hover { transform: none; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
