@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react';
+
 const tones = ['olive','cream','terracotta','charcoal'] as const;
 
 export interface MentoringStackProps {
@@ -11,7 +13,7 @@ export default function MentoringStack({ pillars }: Readonly<MentoringStackProps
         <article
           key={title}
           className={`mentoring-stack-card mentoring-stack-${tones[index]}`}
-          style={{ '--stack-index': index } as React.CSSProperties}
+          style={{ '--stack-index': index } as CSSProperties}
         >
           <div className="mentoring-stack-meta">
             <span>{String(index + 1).padStart(2, '0')}</span>
