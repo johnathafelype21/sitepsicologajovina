@@ -70,7 +70,7 @@ export default function HomePage({ className = '' }: Readonly<HomePageProps>) {
         <div className="mx-auto max-w-[1180px] px-5 lg:px-8">
           <div className="reveal grid items-end gap-10 md:grid-cols-[.8fr_1.2fr]">
             <div>
-              <p className="eyebrow">VOLtar PARA SI</p>
+              <p className="eyebrow">VOLTAR PARA SI</p>
               <h2 className="mt-4 font-display text-[clamp(2.6rem,5vw,4.7rem)] leading-[.98] tracking-[-0.04em] text-olive">
                 Sua história explica muito.
                 <span className="block italic text-caramel">Mas não precisa decidir tudo.</span>
