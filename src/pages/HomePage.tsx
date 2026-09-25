@@ -1,6 +1,7 @@
 import { ArrowRight, MapPin, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import CTASection from '../components/CTASection';
+import CinematicScroll from '../components/CinematicScroll';
 import EditorialArt from '../components/EditorialArt';
 import HomePathways from '../components/HomePathways';
 import LivingMarquee from '../components/LivingMarquee';
@@ -69,6 +70,8 @@ export default function HomePage({ className = '' }: Readonly<HomePageProps>) {
       </section>
 
       <LivingMarquee />
+
+      <CinematicScroll />
 
       <section className="motion-stage bg-canvas py-24 md:py-32">
         <div className="mx-auto grid max-w-[1180px] items-start gap-14 px-5 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
