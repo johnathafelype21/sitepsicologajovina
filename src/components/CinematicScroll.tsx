@@ -138,7 +138,7 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
 
     const drawFrame = (index: number) => {
       const image = frameCacheRef.current.get(index);
-      if (!isReady(image)) return false;
+      if (!image || !isReady(image)) return false;
       if (renderedFrameRef.current === index) return true;
 
       drawCover(context, image, canvas.width, canvas.height);
@@ -161,7 +161,7 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
       }
 
       const cached = frameCacheRef.current.get(index);
-      if (isReady(cached)) {
+      if (cached && isReady(cached)) {
         return Promise.resolve(cached);
       }
 
