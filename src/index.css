@@ -1854,6 +1854,7 @@ main > section:not(.hero-v2):not(.living-marquee):not(.cinematic-scroll) {
 
 
 /* --- Video scrub mode: hardware-decoded, aspect-ratio safe --- */
+/* production refresh */
 .cinematic-scroll-video-mode .cinematic-scroll-sticky {
   display: block;
   background: #EDE2D5;
