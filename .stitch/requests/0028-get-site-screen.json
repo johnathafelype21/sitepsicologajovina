@@ -1,0 +1,7 @@
+{
+  "action": "call_tool",
+  "tool": "get_screen",
+  "arguments": {
+    "name": "projects/9619358137858501701/screens/2f5846b667334cad85ab76614ae839db"
+  }
+}
