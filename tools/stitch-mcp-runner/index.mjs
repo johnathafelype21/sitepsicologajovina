@@ -58,6 +58,63 @@ if (!apiKey) {
 
 const request = JSON.parse(await fs.readFile(requestPath, "utf8"));
 
+if (request.action === "sync_stitch_screen") {
+  try {
+    const required = ["slug", "htmlUrl", "screenshotUrl", "width"];
+    for (const key of required) {
+      if (!request[key]) {
+        throw new Error(`sync_stitch_screen requires '${key}'.`);
+      }
+    }
+
+    const designsDir = ".stitch/designs";
+    await fs.mkdir(designsDir, { recursive: true });
+
+    const htmlPath = path.join(designsDir, `${request.slug}.html`);
+    const pngPath = path.join(designsDir, `${request.slug}.png`);
+    const fetchScript = ".agents/skills/react-components/scripts/fetch-stitch.sh";
+    const screenshotUrl = `${request.screenshotUrl}=w${request.width}`;
+
+    const htmlFetch = await runProcess("bash", [fetchScript, request.htmlUrl, htmlPath]);
+    const pngFetch = await runProcess("bash", [fetchScript, screenshotUrl, pngPath]);
+
+    const htmlStat = await fs.stat(htmlPath);
+    const pngStat = await fs.stat(pngPath);
+
+    await writeResult({
+      ok: true,
+      request: {
+        action: request.action,
+        slug: request.slug,
+        title: request.title ?? null
+      },
+      assets: {
+        htmlPath,
+        htmlBytes: htmlStat.size,
+        screenshotPath: pngPath,
+        screenshotBytes: pngStat.size
+      },
+      logs: {
+        html: htmlFetch.stdout,
+        screenshot: pngFetch.stdout
+      }
+    });
+  } catch (error) {
+    await writeResult({
+      ok: false,
+      request: {
+        action: request.action,
+        slug: request.slug ?? null,
+        title: request.title ?? null
+      },
+      error: error instanceof Error ? error.message : String(error)
+    });
+    process.exitCode = 1;
+  }
+
+  process.exit();
+}
+
 if (request.action === "upload_url_to_stitch") {
   try {
     if (!request.url || !request.projectId || !request.filename) {
@@ -171,7 +228,7 @@ try {
     });
   } else {
     throw new Error(
-      "Unsupported action. Use 'list_tools', 'call_tool', or 'upload_url_to_stitch'."
+      "Unsupported action. Use 'list_tools', 'call_tool', 'upload_url_to_stitch', or 'sync_stitch_screen'."
     );
   }
 
