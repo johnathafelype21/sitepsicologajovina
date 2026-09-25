@@ -1,10 +1,9 @@
+import { ArrowRight } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import SectionHeading from '../components/SectionHeading';
 import { useReveal } from '../hooks/useReveal';
 
-export interface MentoringPageProps {
-  readonly className?: string;
-}
+export interface MentoringPageProps { readonly className?: string; }
 
 export default function MentoringPage({ className = '' }: Readonly<MentoringPageProps>) {
   useReveal();
@@ -17,32 +16,44 @@ export default function MentoringPage({ className = '' }: Readonly<MentoringPage
 
   return (
     <main className={className}>
-      <section className="bg-canvas-soft py-20 dark:bg-dark-canvas">
-        <div className="mx-auto max-w-[1240px] px-5 lg:px-8">
-          <div className="reveal max-w-3xl">
-            <SectionHeading overline="DESENVOLVIMENTO & NOVOS CICLOS" title="Mentoria para Mulheres" text="Um processo direcionado para mulheres que desejam ganhar clareza, fortalecer a identidade e construir novos caminhos." />
-          </div>
+      <section className="hero-shell border-b border-line/70 py-20">
+        <div className="mx-auto max-w-[1180px] px-5 lg:px-8">
+          <p className="eyebrow">MENTORIA PARA MULHERES</p>
+          <h1 className="mt-5 max-w-4xl font-display text-[clamp(3.4rem,8vw,7rem)] leading-[.92] tracking-[-0.055em] text-olive">
+            Clareza para reconhecer
+            <span className="block italic text-caramel">quem você está se tornando.</span>
+          </h1>
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-umber/65">Um processo direcionado para identidade, escolhas, reposicionamento e construção de novos ciclos.</p>
         </div>
       </section>
 
-      <section className="bg-canvas py-20 dark:bg-dark-canvas">
-        <div className="mx-auto max-w-[1240px] px-5 lg:px-8">
-          <div className="grid gap-5 md:grid-cols-2">
-            {pillars.map(([title, text]) => (
-              <article key={title} className="reveal rounded-xl border border-line bg-surface p-7 shadow-soft dark:border-white/10 dark:bg-dark-surface">
-                <h3 className="font-display text-2xl text-olive dark:text-dark-text">{title}</h3>
-                <p className="mt-3 text-sm leading-6 text-umber/70 dark:text-dark-muted">{text}</p>
+      <section className="bg-canvas py-24">
+        <div className="mx-auto max-w-[1180px] px-5 lg:px-8">
+          <SectionHeading overline="QUATRO EIXOS" title="Um processo com direção, sem perder profundidade." />
+          <div className="mt-12 grid gap-px overflow-hidden rounded-[1.75rem] border border-line bg-line md:grid-cols-2">
+            {pillars.map(([title, text], index) => (
+              <article key={title} className="reveal min-h-[260px] bg-canvas p-8">
+                <span className="font-display text-3xl italic text-caramel/50">0{index + 1}</span>
+                <h3 className="mt-8 font-display text-3xl text-olive">{title}</h3>
+                <p className="mt-4 max-w-md text-sm leading-7 text-umber/62">{text}</p>
               </article>
             ))}
           </div>
-          <div className="reveal mt-12 rounded-xl bg-olive p-8 text-canvas dark:bg-dark-surface md:p-10">
-            <h2 className="font-display text-3xl">Mentoria e terapia não são a mesma coisa.</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-canvas/75">A mentoria é mais direcionada a clareza, identidade, escolhas e desenvolvimento. A terapia é um espaço de elaboração emocional e compreensão de padrões, relações e experiências. O formato mais adequado pode ser conversado no primeiro contato.</p>
+        </div>
+      </section>
+
+      <section className="bg-olive py-24 text-canvas">
+        <div className="mx-auto grid max-w-[1180px] gap-12 px-5 lg:grid-cols-[.85fr_1.15fr] lg:px-8">
+          <SectionHeading overline="IMPORTANTE" title="Mentoria e terapia não são a mesma coisa." light />
+          <div className="reveal">
+            <p className="text-base leading-8 text-canvas/68">A mentoria é mais direcionada a clareza, identidade, escolhas e desenvolvimento. A terapia é um espaço de elaboração emocional e compreensão de padrões, relações e experiências.</p>
+            <p className="mt-5 text-base leading-8 text-canvas/68">O formato mais adequado pode ser conversado no primeiro contato.</p>
+            <a href="/contato" className="mt-7 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[.1em] text-canvas">Entender qual caminho faz sentido <ArrowRight size={14} /></a>
           </div>
         </div>
       </section>
 
-      <CTASection title="Quer entender se a mentoria faz sentido para você?" text="Converse diretamente pelo WhatsApp e explique brevemente o momento que você está vivendo." />
+      <CTASection title="Quer entender se a mentoria faz sentido para você?" text="Converse diretamente pelo WhatsApp e conte brevemente o momento que você está vivendo." />
     </main>
   );
 }
