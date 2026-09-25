@@ -1,42 +1,40 @@
 import { ArrowRight, MapPin, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import CTASection from '../components/CTASection';
-import PhotoPlaceholder from '../components/PhotoPlaceholder';
+import EditorialArt from '../components/EditorialArt';
 import SectionHeading from '../components/SectionHeading';
-import ServiceCard from '../components/ServiceCard';
 import WhatsAppIcon from '../components/WhatsAppIcon';
 import { siteData } from '../data/mockData';
-import { useReveal } from '../hooks/useReveal';
 import { useWhatsApp } from '../hooks/useWhatsApp';
 
 export interface HomePageProps {
   readonly className?: string;
 }
 
+const marqueeItems = ['Terapia', 'Identidade', 'Presença', 'Clareza', 'Direção', 'Novos ciclos'];
+
 export default function HomePage({ className = '' }: Readonly<HomePageProps>) {
-  useReveal();
   const { buildUrl } = useWhatsApp({ defaultMessage: 'Olá, Jovina. Gostaria de agendar um atendimento.' });
 
   return (
     <main className={className}>
-      <section className="hero-shell relative overflow-hidden border-b border-line/70 bg-canvas-soft">
-        <div className="organic-orbit organic-orbit-a" aria-hidden="true" />
-        <div className="organic-orbit organic-orbit-b" aria-hidden="true" />
-
-        <div className="mx-auto grid min-h-[720px] max-w-[1320px] items-center gap-14 px-5 py-16 lg:grid-cols-[1.08fr_.78fr] lg:px-10 lg:py-20">
-          <div className="reveal relative z-10 max-w-[760px]">
-            <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-caramel/30 bg-canvas/70 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-caramel backdrop-blur">
+      <section className="hero-v2 motion-stage border-b border-line/70">
+        <div className="mx-auto grid max-w-[1320px] items-center gap-14 px-5 py-16 lg:grid-cols-[1.05fr_.8fr] lg:px-10 lg:py-20">
+          <div className="hero-v2-copy">
+            <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-caramel/30 bg-white/55 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-caramel backdrop-blur">
               <span className="h-1.5 w-1.5 rounded-full bg-caramel" />
               {siteData.home.eyebrow}
             </div>
 
-            <h1 className="font-display text-[clamp(3.25rem,7vw,6.8rem)] leading-[.92] tracking-[-0.055em] text-olive">
-              Um caminho de volta
-              <span className="block font-normal italic text-caramel">para quem você é.</span>
+            <h1 className="max-w-[800px] font-display text-[clamp(3.6rem,7.8vw,7.5rem)] leading-[.88] tracking-[-0.062em] text-olive">
+              <span className="hero-v2-word">Voltar</span>
+              <span className="hero-v2-word">para</span>
+              <span className="hero-v2-word">si</span>
+              <span className="block font-normal italic text-caramel">muda a direção.</span>
             </h1>
 
-            <p className="mt-8 max-w-2xl text-[17px] leading-8 text-umber/70 md:text-[19px]">
-              {siteData.home.intro}
+            <p className="mt-8 max-w-2xl text-[17px] leading-8 text-umber/68 md:text-[19px]">
+              Terapia e mentoria para mulheres que desejam compreender a própria história, fortalecer a identidade e construir escolhas com mais consciência.
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -54,105 +52,115 @@ export default function HomePage({ className = '' }: Readonly<HomePageProps>) {
             </div>
           </div>
 
-          <div className="reveal relative mx-auto w-full max-w-[470px] lg:justify-self-end">
-            <div className="absolute -left-10 top-14 hidden h-28 w-28 rounded-full border border-caramel/25 lg:block" />
-            <div className="absolute -bottom-8 -right-8 hidden h-40 w-40 rounded-full bg-terracotta/10 blur-2xl lg:block" />
-            <PhotoPlaceholder className="relative z-10" />
-            <div className="absolute -bottom-7 -left-5 z-20 max-w-[230px] rounded-[1.4rem] border border-line bg-canvas/95 p-5 shadow-float backdrop-blur">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-caramel">Essência do trabalho</p>
+          <div className="hero-v2-artwrap motion-scale">
+            <EditorialArt variant="about" label="Espaço reservado para a fotografia principal da Jovina" />
+            <div className="hero-v2-badge">
+              <p className="text-[9px] font-semibold uppercase tracking-[.16em] text-caramel">Essência do trabalho</p>
               <p className="mt-2 font-display text-xl leading-snug text-olive">Compreender. Reconstruir. Escolher.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-canvas py-24">
-        <div className="mx-auto max-w-[1180px] px-5 lg:px-8">
-          <div className="reveal grid items-end gap-10 md:grid-cols-[.8fr_1.2fr]">
-            <div>
-              <p className="eyebrow">VOLTAR PARA SI</p>
-              <h2 className="mt-4 font-display text-[clamp(2.6rem,5vw,4.7rem)] leading-[.98] tracking-[-0.04em] text-olive">
-                Sua história explica muito.
-                <span className="block italic text-caramel">Mas não precisa decidir tudo.</span>
-              </h2>
-            </div>
-            <div className="md:pb-2">
-              <p className="max-w-xl text-base leading-8 text-umber/68">
-                Um espaço de escuta e reflexão para reconhecer padrões, fortalecer a identidade e construir escolhas mais conscientes — sem pressa, fórmulas prontas ou exigência de ser forte o tempo inteiro.
-              </p>
-              <Link to="/sobre" className="text-link mt-6">
-                Conheça a abordagem <ArrowRight size={14} />
-              </Link>
-            </div>
-          </div>
+      <div className="sideways-band" aria-hidden="true">
+        <div className="sideways-track">
+          {[...marqueeItems, ...marqueeItems].map((item, index) => <span key={`${item}-${index}`}>{item}</span>)}
         </div>
-      </section>
+      </div>
 
-      <section className="border-y border-line/70 bg-surface/60 py-24">
-        <div className="mx-auto max-w-[1240px] px-5 lg:px-8">
-          <div className="reveal max-w-2xl">
-            <SectionHeading overline="CAMINHOS DE ACOMPANHAMENTO" title="Um cuidado para diferentes momentos da sua vida." text="Escolha o caminho que mais conversa com o que você está vivendo agora." />
-          </div>
-          <div className="mt-12 grid gap-px overflow-hidden rounded-[1.75rem] border border-line bg-line md:grid-cols-3">
-            {siteData.home.services.map((item, index) => (
-              <div className="reveal bg-canvas" key={item.to}>
-                <ServiceCard item={item} index={index + 1} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="identity-section relative overflow-hidden bg-olive py-24 text-canvas">
-        <div className="identity-grid" aria-hidden="true" />
-        <div className="mx-auto grid max-w-[1240px] gap-14 px-5 lg:grid-cols-[.82fr_1.18fr] lg:px-8">
-          <div className="reveal">
-            <p className="eyebrow !text-caramel">MÉTODO IDENTIDADE</p>
-            <h2 className="mt-5 max-w-md font-display text-[clamp(2.8rem,5vw,5rem)] leading-[.98] tracking-[-0.04em] text-canvas">
-              Três movimentos para voltar ao próprio centro.
+      <section className="motion-stage bg-canvas py-24 md:py-32">
+        <div className="mx-auto grid max-w-[1180px] items-start gap-14 px-5 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
+          <div className="motion-left">
+            <p className="eyebrow">VOLTAR PARA SI</p>
+            <h2 className="mt-5 font-display text-[clamp(3rem,6vw,5.8rem)] leading-[.94] tracking-[-0.05em] text-olive">
+              Sua história explica muito.
+              <span className="block italic text-caramel">Mas não precisa decidir tudo.</span>
             </h2>
           </div>
-          <div className="reveal space-y-3">
-            {siteData.method.steps.map((step) => (
-              <article key={step.number} className="group grid gap-5 border-b border-white/12 py-6 sm:grid-cols-[70px_1fr]">
-                <span className="font-display text-3xl italic text-caramel/90">{step.number}</span>
-                <div>
-                  <h3 className="font-display text-2xl text-canvas">{step.title}</h3>
-                  <p className="mt-2 max-w-xl text-sm leading-7 text-canvas/65">{step.text}</p>
-                </div>
-              </article>
-            ))}
-            <Link to="/sobre" className="mt-8 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] text-canvas">
-              Conhecer o Método Identidade <ArrowRight size={14} />
-            </Link>
+          <div className="motion-right lg:pt-20">
+            <p className="max-w-xl text-base leading-8 text-umber/68 md:text-lg">
+              Um espaço de escuta e reflexão para reconhecer padrões, fortalecer a identidade e construir escolhas mais conscientes — sem fórmulas prontas e sem a exigência de ser forte o tempo inteiro.
+            </p>
+            <Link to="/sobre" className="text-link mt-7">Conhecer a abordagem <ArrowRight size={14} /></Link>
           </div>
         </div>
       </section>
 
-      <section className="bg-canvas py-24">
-        <div className="mx-auto grid max-w-[1180px] items-center gap-12 px-5 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
-          <div className="reveal max-w-md">
-            <p className="eyebrow">SOBRE JOVINA</p>
-            <h2 className="mt-4 font-display text-4xl leading-tight text-olive md:text-5xl">Escuta sensível, presença e direção.</h2>
-            <p className="mt-6 text-base leading-8 text-umber/68">{siteData.about.body[0]}</p>
-            <Link to="/sobre" className="text-link mt-7">
-              Minha trajetória <ArrowRight size={14} />
-            </Link>
+      <section className="bg-surface/60 py-24 md:py-32">
+        <div className="mx-auto max-w-[1240px] px-5 lg:px-8">
+          <div className="motion-rise max-w-3xl">
+            <SectionHeading overline="TRÊS CAMINHOS" title="Nem toda fase pede a mesma forma de cuidado." text="Cada experiência foi pensada para um momento diferente da jornada." />
           </div>
-          <div className="reveal relative">
-            <div className="quote-panel">
-              <span className="font-display text-7xl leading-none text-caramel/35">“</span>
-              <blockquote className="mt-1 font-display text-3xl italic leading-snug text-olive md:text-4xl">
-                {siteData.brand.phrase}
-              </blockquote>
-              <div className="mt-8 h-px w-16 bg-caramel" />
-              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-umber/55">Jovina Diniz</p>
+
+          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+            {siteData.home.services.map((item, index) => (
+              <article key={item.to} className={`offset-card motion-${index === 0 ? 'left' : index === 1 ? 'rise' : 'right'} rounded-[1.7rem] border border-line bg-canvas p-7 shadow-soft md:p-8`}>
+                <span className="font-display text-4xl italic text-caramel/45">{String(index + 1).padStart(2, '0')}</span>
+                <p className="mt-10 text-[9px] font-semibold uppercase tracking-[.17em] text-terracotta">{item.overline}</p>
+                <h3 className="mt-4 font-display text-3xl leading-tight text-olive">{item.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-umber/62">{item.text}</p>
+                <Link to={item.to} className="text-link mt-7">Explorar <ArrowRight size={14} /></Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sticky-story">
+        <div className="mx-auto max-w-[1240px] px-5 lg:px-8">
+          <div className="sticky-story-grid">
+            <div className="sticky-story-copy">
+              <p className="eyebrow !text-caramel">MÉTODO IDENTIDADE</p>
+              <h2 className="mt-5 max-w-md font-display text-[clamp(3rem,6vw,5.6rem)] leading-[.94] tracking-[-0.05em] text-canvas">
+                Três movimentos para voltar ao próprio centro.
+              </h2>
+              <p className="mt-6 max-w-md text-sm leading-7 text-canvas/58">
+                Uma narrativa visual que acompanha o scroll no desktop e se transforma em sequência vertical no mobile.
+              </p>
+              <Link to="/sobre" className="mt-7 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[.1em] text-canvas">
+                Conhecer o método <ArrowRight size={14} />
+              </Link>
+            </div>
+
+            <div>
+              {siteData.method.steps.map((step, index) => (
+                <article className="sticky-story-card motion-fade" key={step.number}>
+                  <div className="sticky-story-card-inner">
+                    <span className="sticky-story-number">{step.number}</span>
+                    <div>
+                      <p className="eyebrow !text-caramel">{['ORIGEM', 'RECONSTRUÇÃO', 'MOVIMENTO'][index]}</p>
+                      <h3 className="mt-4">{step.title}</h3>
+                      <p>{step.text}</p>
+                      <div className="mt-8 max-w-xl">
+                        <EditorialArt variant="identity" label={step.title} className="!min-h-[360px]" />
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <CTASection />
+      <section className="motion-stage bg-canvas py-24 md:py-32">
+        <div className="mx-auto grid max-w-[1180px] items-center gap-14 px-5 lg:grid-cols-[1.05fr_.95fr] lg:px-8">
+          <div className="motion-left">
+            <EditorialArt variant="about" label="Aqui entra uma segunda fotografia autoral da Jovina" />
+          </div>
+          <div className="motion-right">
+            <p className="eyebrow">SOBRE JOVINA</p>
+            <h2 className="mt-5 font-display text-[clamp(2.8rem,5vw,5rem)] leading-[.98] tracking-[-0.045em] text-olive">
+              Escuta sensível,
+              <span className="block italic text-caramel">presença e direção.</span>
+            </h2>
+            <p className="mt-6 max-w-xl text-base leading-8 text-umber/68">{siteData.about.body[0]}</p>
+            <Link to="/sobre" className="text-link mt-7">Conhecer minha trajetória <ArrowRight size={14} /></Link>
+          </div>
+        </div>
+      </section>
+
+      <CTASection title="Talvez seja hora de voltar para você." text="Se algo em você pede mais clareza, acolhimento ou direção, o primeiro passo pode ser uma conversa." />
     </main>
   );
 }
