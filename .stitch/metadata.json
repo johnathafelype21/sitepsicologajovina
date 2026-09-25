@@ -1,0 +1,24 @@
+{
+  "projectId": "projects/6397409268031532647",
+  "title": "Jovina Diniz — Identidade & Site",
+  "phase": "brand-identity",
+  "screens": [],
+  "designSystem": {
+    "status": "prepared_not_uploaded",
+    "source": ".stitch/DESIGN.md",
+    "concept": "Voltar para si",
+    "palette": {
+      "warmIvory": "#F6F1E8",
+      "softPorcelain": "#FBF8F2",
+      "deepUmber": "#2E2A25",
+      "mutedTaupe": "#756D63",
+      "linenBorder": "#DDD3C4",
+      "oliveIdentity": "#66704A",
+      "caramelEarth": "#B07B5A"
+    },
+    "typography": {
+      "display": "Bodoni Moda",
+      "body": "DM Sans"
+    }
+  }
+}
