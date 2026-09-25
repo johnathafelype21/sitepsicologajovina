@@ -20,7 +20,7 @@ export default function CompaniesPage({ className = '' }: Readonly<CompaniesPage
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-umber/65">Experiências para organizações que desejam criar espaços de reflexão, presença, desenvolvimento e fortalecimento de mulheres.</p>
           </div>
-          <div className="motion-scale"><EditorialArt variant="companies" /></div>
+          <div className="motion-scale"><EditorialArt variant="companies" src="/images/jovina/empresas-cultura-presenca.webp" alt="Imagem editorial de conversa, cultura e presença em empresas" priority objectPosition="center 42%" /></div>
         </div>
       </section>
 
@@ -37,7 +37,7 @@ export default function CompaniesPage({ className = '' }: Readonly<CompaniesPage
         <div className="mx-auto grid max-w-[1180px] gap-14 px-5 lg:grid-cols-[.8fr_1.2fr] lg:px-8">
           <div className="motion-left">
             <SectionHeading overline="SOLICITAR PROPOSTA" title="Vamos construir o encontro certo para o seu contexto." text="Envie as informações principais e o WhatsApp será aberto com a mensagem organizada." />
-            <div className="mt-8"><EditorialArt variant="companies" label="Visual institucional com a identidade da Jovina" className="!min-h-[320px]" /></div>
+            <div className="mt-8"><EditorialArt variant="companies" src="/images/jovina/empresas-cultura-presenca.webp" alt="Encontro profissional em conversa sobre cultura e presença" className="!min-h-[320px]" objectPosition="center 40%" /></div>
           </div>
           <div className="motion-right"><ContactForm context="company" /></div>
         </div>
