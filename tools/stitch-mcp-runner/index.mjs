@@ -58,6 +58,57 @@ if (!apiKey) {
 
 const request = JSON.parse(await fs.readFile(requestPath, "utf8"));
 
+if (request.action === "make_design_preview") {
+  try {
+    if (!request.slug) {
+      throw new Error("make_design_preview requires 'slug'.");
+    }
+
+    const imagePath = `.stitch/designs/${request.slug}.png`;
+    const previewPath = `.stitch/designs/${request.slug}-preview.jpg`;
+    const base64Path = `.stitch/designs/${request.slug}-preview.b64.txt`;
+
+    const py = [
+      "from PIL import Image",
+      "import base64, io, sys",
+      "src, jpg, txt = sys.argv[1], sys.argv[2], sys.argv[3]",
+      "im = Image.open(src).convert('RGB')",
+      "w = 640",
+      "h = max(1, round(im.height * w / im.width))",
+      "im = im.resize((w, h), Image.Resampling.LANCZOS)",
+      "im.save(jpg, 'JPEG', quality=58, optimize=True)",
+      "data = open(jpg, 'rb').read()",
+      "open(txt, 'w', encoding='utf-8').write(base64.b64encode(data).decode('ascii'))",
+      "print(len(data))"
+    ].join("; ");
+
+    const p = await runProcess("python3", ["-c", py, imagePath, previewPath, base64Path]);
+    const previewStat = await fs.stat(previewPath);
+    const base64Stat = await fs.stat(base64Path);
+
+    await writeResult({
+      ok: true,
+      request: { action: request.action, slug: request.slug },
+      preview: {
+        previewPath,
+        previewBytes: previewStat.size,
+        base64Path,
+        base64Bytes: base64Stat.size,
+        log: p.stdout.trim()
+      }
+    });
+  } catch (error) {
+    await writeResult({
+      ok: false,
+      request: { action: request.action, slug: request.slug ?? null },
+      error: error instanceof Error ? error.message : String(error)
+    });
+    process.exitCode = 1;
+  }
+
+  process.exit();
+}
+
 if (request.action === "encode_design_image") {
   try {
     if (!request.slug) {
@@ -260,7 +311,7 @@ try {
     });
   } else {
     throw new Error(
-      "Unsupported action. Use 'list_tools', 'call_tool', 'upload_url_to_stitch', 'sync_stitch_screen', or 'encode_design_image'."
+      "Unsupported action. Use 'list_tools', 'call_tool', 'upload_url_to_stitch', 'sync_stitch_screen', 'encode_design_image', or 'make_design_preview'."
     );
   }
 
