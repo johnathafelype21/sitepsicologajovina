@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,6 +31,36 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
     media.addEventListener('change', syncViewport);
     return () => media.removeEventListener('change', syncViewport);
   }, []);
+
+
+  useEffect(() => {
+    if (isMobile) return;
+
+    const lenis = new Lenis({
+      duration: 0.9,
+      smoothWheel: true,
+      wheelMultiplier: 0.92,
+      touchMultiplier: 1,
+    });
+
+    const onLenisScroll = () => {
+      ScrollTrigger.update();
+    };
+
+    const tick = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+
+    lenis.on('scroll', onLenisScroll);
+    gsap.ticker.add(tick);
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      gsap.ticker.remove(tick);
+      lenis.off('scroll', onLenisScroll);
+      lenis.destroy();
+    };
+  }, [isMobile]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -81,8 +112,10 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
 
         lastDesktopSeekAt = timestamp;
 
-        const step = Math.abs(diff) > 0.45 ? diff * 0.82 : diff * 0.64;
-        video.currentTime += step;
+        // O Lenis já suaviza a roda do mouse e entrega um progresso contínuo.
+        // Aqui seguimos o alvo diretamente no ritmo nativo do vídeo, evitando
+        // uma segunda camada de easing que deixava o desktop "borrachudo".
+        video.currentTime = targetTime;
 
         if (Math.abs(targetTime - video.currentTime) > 0.008) {
           rafId = window.requestAnimationFrame(applyTarget);
