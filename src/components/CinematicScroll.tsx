@@ -8,7 +8,7 @@ const FRAME_COUNT = 240;
 const MAX_DECODED_FRAMES = 64;
 const DECODE_RADIUS = 24;
 const PREFETCH_WORKERS = 8;
-const FRAME_ASSET_VERSION = 'manual240-final-v1';
+const FRAME_ASSET_VERSION = 'manual240-final-v2';
 
 function frameUrl(isMobile: boolean, index: number) {
   const folder = isMobile ? 'mobile' : 'desktop';
