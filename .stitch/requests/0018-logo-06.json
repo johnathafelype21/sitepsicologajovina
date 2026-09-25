@@ -1,0 +1,11 @@
+{
+  "action": "call_tool",
+  "tool": "generate_screen_from_text",
+  "arguments": {
+    "projectId": "6397409268031532647",
+    "prompt": "Create one standalone logo proposal screen for the personal brand “Jovina Diniz”.\n\nThis screen must contain ONLY one logo concept for review.\n\n**LOGO DIRECTION:** Premium seal/emblem.\nDevelop a refined emblem built around the initials JD and the name Jovina Diniz. It should work as a sophisticated personal seal for social avatar, printed materials and website use, with clean structure and strong small-size recognition. Include the descriptor “Terapeuta Integrativa & Mentora de Mulheres”.\n\n**PRESENTATION:** One primary emblem, one horizontal name lockup, and one small seal application. Label the screen “Opção 06”.\n\nDo not use generic therapy/wellness symbols and avoid lotus, butterfly, brain, heart, hands, female silhouette, tree, moon phases, mandala, generic leaf, infinity symbol, medical cross.",
+    "designSystem": "assets/450d91dd4aac45b0806ecdbf2ead72e0",
+    "deviceType": "DESKTOP",
+    "modelId": "GEMINI_3_8_FLASH"
+  }
+}

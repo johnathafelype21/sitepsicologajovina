@@ -1,0 +1,11 @@
+{
+  "action": "call_tool",
+  "tool": "generate_screen_from_text",
+  "arguments": {
+    "projectId": "6397409268031532647",
+    "prompt": "Create one standalone logo proposal screen for the personal brand “Jovina Diniz”.\n\nThis screen must contain ONLY one logo concept for review.\n\n**LOGO DIRECTION:** Sophisticated stacked typographic lockup.\nCreate an elegant typographic logo where “Jovina Diniz” has a distinctive hierarchy, spacing and custom detail. Integrate one subtle linear signature element derived from the initials without turning it into an illustration. Include “Terapeuta Integrativa & Mentora de Mulheres” below.\n\n**PRESENTATION:** Show one large stacked lockup and one compact horizontal version. Label it “Opção 07”.\n\nAvoid generic therapy/coaching icons and all banned motifs: lotus, butterfly, brain, heart, hands, female silhouette, tree, moon, mandala, leaf, infinity, medical cross.",
+    "designSystem": "assets/450d91dd4aac45b0806ecdbf2ead72e0",
+    "deviceType": "DESKTOP",
+    "modelId": "GEMINI_3_8_FLASH"
+  }
+}

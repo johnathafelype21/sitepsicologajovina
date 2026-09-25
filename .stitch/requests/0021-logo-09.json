@@ -1,0 +1,11 @@
+{
+  "action": "call_tool",
+  "tool": "generate_screen_from_text",
+  "arguments": {
+    "projectId": "6397409268031532647",
+    "prompt": "Create one standalone logo proposal screen for the personal brand “Jovina Diniz”.\n\nThis screen must contain ONLY one logo concept for review.\n\n**LOGO DIRECTION:** Sculptural intertwined JD.\nCreate a striking, premium JD monogram with elegant interlocking strokes, strong silhouette, refined negative space and high memorability. It should feel bespoke and expressive while remaining professional. Pair with the full name “Jovina Diniz” and the descriptor “Terapeuta Integrativa & Mentora de Mulheres”.\n\n**PRESENTATION:** One large sculptural monogram, one full lockup and one small avatar version. Label the screen “Opção 09”.\n\nAvoid all therapy clichés and banned symbols: lotus, butterfly, brain, heart, hands, female silhouette, tree, moon, mandala, leaf, infinity symbol, medical cross.",
+    "designSystem": "assets/450d91dd4aac45b0806ecdbf2ead72e0",
+    "deviceType": "DESKTOP",
+    "modelId": "GEMINI_3_8_FLASH"
+  }
+}

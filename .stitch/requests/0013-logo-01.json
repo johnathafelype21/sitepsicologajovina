@@ -1,0 +1,11 @@
+{
+  "action": "call_tool",
+  "tool": "generate_screen_from_text",
+  "arguments": {
+    "projectId": "6397409268031532647",
+    "prompt": "Create one standalone logo proposal screen for the personal brand “Jovina Diniz”.\n\nThis screen must contain ONLY one logo concept for review, not a website, not a moodboard, not a complete visual identity presentation.\n\n**LOGO DIRECTION:** Editorial wordmark.\nCreate a distinctive, high-end wordmark for “Jovina Diniz” with custom letter relationships, elegant rhythm, memorable details, and a strong luxury editorial presence. The name itself must be the hero. Add the descriptor “Terapeuta Integrativa & Mentora de Mulheres” as a restrained supporting line.\n\n**PRESENTATION:** Show the primary logo large and centered, plus one small simplified signature/monogram application below. Label the screen clearly “Opção 01”.\n\nAvoid generic therapy symbols and avoid lotus, butterfly, brain, heart outline, hands, female silhouette, tree, moon phases, mandala, generic leaf, infinity symbol, or medical cross.",
+    "designSystem": "assets/450d91dd4aac45b0806ecdbf2ead72e0",
+    "deviceType": "DESKTOP",
+    "modelId": "GEMINI_3_8_FLASH"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "action": "call_tool",
+  "tool": "generate_screen_from_text",
+  "arguments": {
+    "projectId": "6397409268031532647",
+    "prompt": "Create one standalone logo proposal screen for the personal brand “Jovina Diniz”.\n\nThis screen must contain ONLY one logo concept for review.\n\n**LOGO DIRECTION:** Contemporary luxury.\nBuild a memorable modern luxury logo combining a refined wordmark with one small abstract accent mark. The result should feel current, feminine in a mature way, confident and highly polished, suitable for a premium therapist and mentor brand. Include the descriptor “Terapeuta Integrativa & Mentora de Mulheres”.\n\n**PRESENTATION:** One dominant logo, one compact variant, and one icon-scale accent mark. Label the screen “Opção 08”.\n\nNo generic wellness imagery; exclude lotus, butterfly, brain, heart, hands, female silhouette, tree, moon phases, mandala, generic leaf, infinity symbol, medical cross.",
+    "designSystem": "assets/450d91dd4aac45b0806ecdbf2ead72e0",
+    "deviceType": "DESKTOP",
+    "modelId": "GEMINI_3_8_FLASH"
+  }
+}
