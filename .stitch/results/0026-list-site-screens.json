@@ -1,0 +1,82 @@
+{
+  "ok": true,
+  "request": {
+    "action": "call_tool",
+    "tool": "list_screens"
+  },
+  "server": {
+    "version": {
+      "name": "StatelessServer",
+      "version": "scaffolding on HTTPServer2"
+    },
+    "capabilities": {
+      "resources": {
+        "subscribe": false,
+        "listChanged": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    }
+  },
+  "payload": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"screens\":[{\"name\":\"projects/9619358137858501701/screens/2f5846b667334cad85ab76614ae839db\",\"title\":\"Terapia para Mulheres - Jovina Diniz\",\"screenshot\":{\"name\":\"projects/9619358137858501701/screens/2f5846b667334cad85ab76614ae839db/fileEntries/screenshot\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1Wt2DR4IJZ79-dyL0O6xgsQCdgaMe3J_9A7ECWiQJBasDLiL-yCj2qwhBZdWsj-KwrFz-O4XXC6PtNxbB7q3Bn3niVoU17TpUusziU84D49sWV4gpvNXmYLylR9YKch60MxP1AWqJw_GiFnx_AcH1UyI-rv20v22m4nbQPhioKFm_kVgM0AOEq_CpUYx1zE3RdvzAzOnkteOTLuuLkoCx2J5ntrCgLd1NAPqq1wxXJ0zNjnV7cnxjUQQIA\"},\"htmlCode\":{\"name\":\"projects/9619358137858501701/screens/2f5846b667334cad85ab76614ae839db/fileEntries/html\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJxEgxzdGl0Y2hfZmlsZXMaYQosc3RpdGNoX2h0bWxfMDAwNjVjNDRmMjkxMDUxNDA1NzYyYzhiOGUyM2I2YzASCxIHEKi1-cjQEBgBkgEjCgpwcm9qZWN0X2lkEhVCEzk2MTkzNTgxMzc4NTg1MDE3MDE&filename=&opi=89354086\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"10678\",\"deviceType\":\"DESKTOP\"},{\"name\":\"projects/9619358137858501701/screens/fe17daac928d45708375c31b4e114a9a\",\"title\":\"Sobre - Jovina Diniz\",\"screenshot\":{\"name\":\"projects/9619358137858501701/screens/fe17daac928d45708375c31b4e114a9a/fileEntries/screenshot\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1WoGaFQ36ZcMeLJnUrWtsO3-fokOa3OnsyjmWs8yUzceMJQESMhXm73hk0Dhv0A1uoCzJKXlpnl4qkG5uwCyN1j-3oOyWRu-sjETszzgxtoh5GTYmByhuc-IB6ZGPe1AeaMZ5YbHVarU5LfdWtdXxyuOPyaiC_NoWy6kdu2OCYOx9AKw4zyD9F_qltCqET1DU-GjbO-7zC00vaY8p6vOPj8cJ9gv-UbEkbYdEJoZuLp7dSVZHQGQ3HPIpY\"},\"htmlCode\":{\"name\":\"projects/9619358137858501701/screens/fe17daac928d45708375c31b4e114a9a/fileEntries/html\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJxEgxzdGl0Y2hfZmlsZXMaYQosc3RpdGNoX2h0bWxfMDAwNjVjNDRmMDdiZWRlODAzOTJjYTk4NWExY2JjNDYSCxIHEKi1-cjQEBgBkgEjCgpwcm9qZWN0X2lkEhVCEzk2MTkzNTgxMzc4NTg1MDE3MDE&filename=&opi=89354086\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"8884\",\"deviceType\":\"DESKTOP\"},{\"name\":\"projects/9619358137858501701/screens/3350043bc39148a7938f20d33832057f\",\"title\":\"Home - Jovina Diniz\",\"screenshot\":{\"name\":\"projects/9619358137858501701/screens/3350043bc39148a7938f20d33832057f/fileEntries/screenshot\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1U6XjoR8C0i8gaqmvnx7Hrb_wlghwxAGI_S2rphcCoOQ00hxfMCRVkVl8x6rMn1LrLiRqeF_F2yioCUq6189s2mRq7WRUB27qNjTWn0rh63B8zmwKVNbixE1YWa-QgyCJW3dnxVnOz4BuHPA_wCYkiXWOBqrE0g22PFpy-t9_dvRfm-QnOEbej6k2fUYjJW-J_z88odTgFfCKvG9vP_mVSHpCOcJh9Iq3B07pp0d0FbrTZ13Qizd103sSs\"},\"htmlCode\":{\"name\":\"projects/9619358137858501701/screens/3350043bc39148a7938f20d33832057f/fileEntries/html\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJxEgxzdGl0Y2hfZmlsZXMaYQosc3RpdGNoX2h0bWxfMDAwNjVjNDRmMDJhNTk1NzAxYTYzODc3NWYwYWU5NmQSCxIHEKi1-cjQEBgBkgEjCgpwcm9qZWN0X2lkEhVCEzk2MTkzNTgxMzc4NTg1MDE3MDE&filename=&opi=89354086\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"8250\",\"deviceType\":\"DESKTOP\"}]}"
+      }
+    ],
+    "structuredContent": {
+      "screens": [
+        {
+          "deviceType": "DESKTOP",
+          "height": "10678",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJxEgxzdGl0Y2hfZmlsZXMaYQosc3RpdGNoX2h0bWxfMDAwNjVjNDRmMjkxMDUxNDA1NzYyYzhiOGUyM2I2YzASCxIHEKi1-cjQEBgBkgEjCgpwcm9qZWN0X2lkEhVCEzk2MTkzNTgxMzc4NTg1MDE3MDE&filename=&opi=89354086",
+            "mimeType": "text/html",
+            "name": "projects/9619358137858501701/screens/2f5846b667334cad85ab76614ae839db/fileEntries/html"
+          },
+          "name": "projects/9619358137858501701/screens/2f5846b667334cad85ab76614ae839db",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1Wt2DR4IJZ79-dyL0O6xgsQCdgaMe3J_9A7ECWiQJBasDLiL-yCj2qwhBZdWsj-KwrFz-O4XXC6PtNxbB7q3Bn3niVoU17TpUusziU84D49sWV4gpvNXmYLylR9YKch60MxP1AWqJw_GiFnx_AcH1UyI-rv20v22m4nbQPhioKFm_kVgM0AOEq_CpUYx1zE3RdvzAzOnkteOTLuuLkoCx2J5ntrCgLd1NAPqq1wxXJ0zNjnV7cnxjUQQIA",
+            "name": "projects/9619358137858501701/screens/2f5846b667334cad85ab76614ae839db/fileEntries/screenshot"
+          },
+          "title": "Terapia para Mulheres - Jovina Diniz",
+          "width": "2560"
+        },
+        {
+          "deviceType": "DESKTOP",
+          "height": "8884",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJxEgxzdGl0Y2hfZmlsZXMaYQosc3RpdGNoX2h0bWxfMDAwNjVjNDRmMDdiZWRlODAzOTJjYTk4NWExY2JjNDYSCxIHEKi1-cjQEBgBkgEjCgpwcm9qZWN0X2lkEhVCEzk2MTkzNTgxMzc4NTg1MDE3MDE&filename=&opi=89354086",
+            "mimeType": "text/html",
+            "name": "projects/9619358137858501701/screens/fe17daac928d45708375c31b4e114a9a/fileEntries/html"
+          },
+          "name": "projects/9619358137858501701/screens/fe17daac928d45708375c31b4e114a9a",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1WoGaFQ36ZcMeLJnUrWtsO3-fokOa3OnsyjmWs8yUzceMJQESMhXm73hk0Dhv0A1uoCzJKXlpnl4qkG5uwCyN1j-3oOyWRu-sjETszzgxtoh5GTYmByhuc-IB6ZGPe1AeaMZ5YbHVarU5LfdWtdXxyuOPyaiC_NoWy6kdu2OCYOx9AKw4zyD9F_qltCqET1DU-GjbO-7zC00vaY8p6vOPj8cJ9gv-UbEkbYdEJoZuLp7dSVZHQGQ3HPIpY",
+            "name": "projects/9619358137858501701/screens/fe17daac928d45708375c31b4e114a9a/fileEntries/screenshot"
+          },
+          "title": "Sobre - Jovina Diniz",
+          "width": "2560"
+        },
+        {
+          "deviceType": "DESKTOP",
+          "height": "8250",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJxEgxzdGl0Y2hfZmlsZXMaYQosc3RpdGNoX2h0bWxfMDAwNjVjNDRmMDJhNTk1NzAxYTYzODc3NWYwYWU5NmQSCxIHEKi1-cjQEBgBkgEjCgpwcm9qZWN0X2lkEhVCEzk2MTkzNTgxMzc4NTg1MDE3MDE&filename=&opi=89354086",
+            "mimeType": "text/html",
+            "name": "projects/9619358137858501701/screens/3350043bc39148a7938f20d33832057f/fileEntries/html"
+          },
+          "name": "projects/9619358137858501701/screens/3350043bc39148a7938f20d33832057f",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1U6XjoR8C0i8gaqmvnx7Hrb_wlghwxAGI_S2rphcCoOQ00hxfMCRVkVl8x6rMn1LrLiRqeF_F2yioCUq6189s2mRq7WRUB27qNjTWn0rh63B8zmwKVNbixE1YWa-QgyCJW3dnxVnOz4BuHPA_wCYkiXWOBqrE0g22PFpy-t9_dvRfm-QnOEbej6k2fUYjJW-J_z88odTgFfCKvG9vP_mVSHpCOcJh9Iq3B07pp0d0FbrTZ13Qizd103sSs",
+            "name": "projects/9619358137858501701/screens/3350043bc39148a7938f20d33832057f/fileEntries/screenshot"
+          },
+          "title": "Home - Jovina Diniz",
+          "width": "2560"
+        }
+      ]
+    }
+  }
+}
