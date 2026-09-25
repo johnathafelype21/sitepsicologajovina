@@ -1772,7 +1772,7 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
 /* --- Scroll-driven frame sequence (final) --- */
 .cinematic-scroll {
   position: relative;
-  height: 320vh;
+  height:  620vh;
   background: #EDE2D5;
   isolation: isolate;
 }
@@ -1797,7 +1797,7 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
 
 @media (max-width: 767px) {
   .cinematic-scroll {
-    height: 285vh;
+    height:  540vh;
   }
 
   .cinematic-scroll-sticky {
