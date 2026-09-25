@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "request": {
+    "action": "sync_stitch_screen",
+    "slug": "about",
+    "title": "Sobre - Jovina Diniz"
+  },
+  "assets": {
+    "htmlPath": ".stitch/designs/about.html",
+    "htmlBytes": 916304,
+    "screenshotPath": ".stitch/designs/about.png",
+    "screenshotBytes": 2506057
+  },
+  "logs": {
+    "html": "Initiating high-reliability fetch for Stitch HTML...\n✅ Successfully retrieved HTML at: .stitch/designs/about.html\n",
+    "screenshot": "Initiating high-reliability fetch for Stitch HTML...\n✅ Successfully retrieved HTML at: .stitch/designs/about.png\n"
+  }
+}

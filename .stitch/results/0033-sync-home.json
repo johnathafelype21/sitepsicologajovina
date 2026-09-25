@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "request": {
+    "action": "sync_stitch_screen",
+    "slug": "home",
+    "title": "Home - Jovina Diniz"
+  },
+  "assets": {
+    "htmlPath": ".stitch/designs/home.html",
+    "htmlBytes": 916100,
+    "screenshotPath": ".stitch/designs/home.png",
+    "screenshotBytes": 1801619
+  },
+  "logs": {
+    "html": "Initiating high-reliability fetch for Stitch HTML...\n✅ Successfully retrieved HTML at: .stitch/designs/home.html\n",
+    "screenshot": "Initiating high-reliability fetch for Stitch HTML...\n✅ Successfully retrieved HTML at: .stitch/designs/home.png\n"
+  }
+}

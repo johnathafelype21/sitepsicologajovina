@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "request": {
+    "action": "sync_stitch_screen",
+    "slug": "therapy",
+    "title": "Terapia para Mulheres - Jovina Diniz"
+  },
+  "assets": {
+    "htmlPath": ".stitch/designs/therapy.html",
+    "htmlBytes": 916480,
+    "screenshotPath": ".stitch/designs/therapy.png",
+    "screenshotBytes": 2125184
+  },
+  "logs": {
+    "html": "Initiating high-reliability fetch for Stitch HTML...\n✅ Successfully retrieved HTML at: .stitch/designs/therapy.html\n",
+    "screenshot": "Initiating high-reliability fetch for Stitch HTML...\n✅ Successfully retrieved HTML at: .stitch/designs/therapy.png\n"
+  }
+}
