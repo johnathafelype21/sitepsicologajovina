@@ -5,21 +5,25 @@ export interface CinematicScrollProps {
 }
 
 const FRAME_COUNT = 240;
-const NEIGHBOR_RADIUS = 16;
+const MAX_DECODED_FRAMES = 28;
+const DECODE_RADIUS = 10;
+const PREFETCH_WORKERS = 5;
 
 function frameUrl(isMobile: boolean, index: number) {
   const folder = isMobile ? 'mobile' : 'desktop';
   return `/frames/${folder}/frame-${String(index + 1).padStart(3, '0')}.webp`;
 }
 
-type CoverRect = {
-  sourceX: number;
-  sourceY: number;
-  sourceWidth: number;
-  sourceHeight: number;
-};
+function isReady(image: HTMLImageElement | undefined) {
+  return Boolean(image?.complete && image.naturalWidth > 0);
+}
 
-function getCoverRect(image: HTMLImageElement, width: number, height: number): CoverRect {
+function drawCover(
+  context: CanvasRenderingContext2D,
+  image: HTMLImageElement,
+  width: number,
+  height: number,
+) {
   const imageRatio = image.naturalWidth / image.naturalHeight;
   const canvasRatio = width / height;
 
@@ -36,44 +40,30 @@ function getCoverRect(image: HTMLImageElement, width: number, height: number): C
     sourceY = (image.naturalHeight - sourceHeight) / 2;
   }
 
-  return { sourceX, sourceY, sourceWidth, sourceHeight };
-}
-
-function drawImageCover(
-  context: CanvasRenderingContext2D,
-  image: HTMLImageElement,
-  width: number,
-  height: number,
-  alpha = 1,
-) {
-  const rect = getCoverRect(image, width, height);
-
-  context.save();
-  context.globalAlpha = alpha;
+  context.clearRect(0, 0, width, height);
   context.drawImage(
     image,
-    rect.sourceX,
-    rect.sourceY,
-    rect.sourceWidth,
-    rect.sourceHeight,
+    sourceX,
+    sourceY,
+    sourceWidth,
+    sourceHeight,
     0,
     0,
     width,
     height,
   );
-  context.restore();
-}
-
-function isReady(image: HTMLImageElement | undefined) {
-  return Boolean(image?.complete && image.naturalWidth > 0);
 }
 
 export default function CinematicScroll({ className = '' }: Readonly<CinematicScrollProps>) {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imagesRef = useRef<HTMLImageElement[]>([]);
-  const exactFrameRef = useRef(0);
-  const rafRef = useRef<number | null>(null);
+  const frameCacheRef = useRef<Map<number, HTMLImageElement>>(new Map());
+  const loadingRef = useRef<Map<number, Promise<HTMLImageElement | null>>>(new Map());
+  const desiredFrameRef = useRef(0);
+  const renderedFrameRef = useRef(-1);
+  const scrollRafRef = useRef<number | null>(null);
+  const lastScrollYRef = useRef(0);
+
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
   );
@@ -96,150 +86,247 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
     if (!context) return;
 
     let cancelled = false;
-    let backgroundPreloadTimer: number | null = null;
+    const prefetchAbort = new AbortController();
 
-    imagesRef.current = Array.from({ length: FRAME_COUNT }, () => new Image());
+    frameCacheRef.current = new Map();
+    loadingRef.current = new Map();
+    renderedFrameRef.current = -1;
+    lastScrollYRef.current = window.scrollY;
 
-    const loadFrame = (index: number) => {
-      if (index < 0 || index >= FRAME_COUNT) return;
-      const image = imagesRef.current[index];
-      if (!image || image.src) return;
+    const getPixelsPerFrame = () => (isMobile ? 60 : 72);
 
-      image.decoding = 'async';
-      image.onload = async () => {
-        if (cancelled) return;
-
-        try {
-          await image.decode();
-        } catch {
-          // O onload já garante que a imagem pode ser usada mesmo quando decode() não estiver disponível.
-        }
-
-        if (cancelled) return;
-
-        const current = exactFrameRef.current;
-        if (Math.abs(index - current) <= 2 && rafRef.current === null) {
-          rafRef.current = window.requestAnimationFrame(() => {
-            rafRef.current = null;
-            renderExactFrame();
-          });
-        }
-      };
-      image.src = frameUrl(isMobile, index);
-    };
-
-    const loadNeighborhood = (frame: number) => {
-      const center = Math.round(frame);
-
-      // Prioriza exatamente o frame atual e seus vizinhos imediatos.
-      loadFrame(center);
-      loadFrame(center + 1);
-      loadFrame(center - 1);
-
-      for (let distance = 2; distance <= NEIGHBOR_RADIUS; distance += 1) {
-        loadFrame(center + distance);
-        loadFrame(center - distance);
-      }
-    };
-
-    const renderExactFrame = () => {
-      const exact = Math.min(FRAME_COUNT - 1, Math.max(0, exactFrameRef.current));
-      const exactIndex = Math.min(FRAME_COUNT - 1, Math.max(0, Math.round(exact)));
-
-      loadNeighborhood(exact);
-
-      const exactImage = imagesRef.current[exactIndex];
-      if (isReady(exactImage)) {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        drawImageCover(context, exactImage, canvas.width, canvas.height, 1);
-        return;
-      }
-
-      // Mantém o último quadro carregado mais próximo enquanto o quadro exato termina de decodificar.
-      for (let distance = 1; distance <= NEIGHBOR_RADIUS; distance += 1) {
-        const before = imagesRef.current[exactIndex - distance];
-        const after = imagesRef.current[exactIndex + distance];
-
-        if (isReady(before)) {
-          context.clearRect(0, 0, canvas.width, canvas.height);
-          drawImageCover(context, before, canvas.width, canvas.height, 1);
-          return;
-        }
-        if (isReady(after)) {
-          context.clearRect(0, 0, canvas.width, canvas.height);
-          drawImageCover(context, after, canvas.width, canvas.height, 1);
-          return;
-        }
-      }
+    const syncSectionHeight = () => {
+      const travel = (FRAME_COUNT - 1) * getPixelsPerFrame();
+      section.style.height = `${window.innerHeight + travel}px`;
     };
 
     const resizeCanvas = () => {
       const rect = canvas.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const nextWidth = Math.max(1, Math.round(rect.width * dpr));
-      const nextHeight = Math.max(1, Math.round(rect.height * dpr));
+      const width = Math.max(1, Math.round(rect.width * dpr));
+      const height = Math.max(1, Math.round(rect.height * dpr));
 
-      if (canvas.width !== nextWidth || canvas.height !== nextHeight) {
-        canvas.width = nextWidth;
-        canvas.height = nextHeight;
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
+        renderedFrameRef.current = -1;
       }
-
-      renderExactFrame();
     };
 
-    const updateFromScroll = () => {
+    const pruneDecodedFrames = (center: number) => {
+      const cache = frameCacheRef.current;
+      if (cache.size <= MAX_DECODED_FRAMES) return;
+
+      const removable = [...cache.keys()]
+        .filter((index) => index !== renderedFrameRef.current && index !== center)
+        .sort((a, b) => Math.abs(b - center) - Math.abs(a - center));
+
+      while (cache.size > MAX_DECODED_FRAMES && removable.length > 0) {
+        const index = removable.shift();
+        if (index === undefined) break;
+
+        const image = cache.get(index);
+        cache.delete(index);
+
+        if (image) {
+          image.onload = null;
+          image.onerror = null;
+          image.src = '';
+        }
+      }
+    };
+
+    const drawFrame = (index: number) => {
+      const image = frameCacheRef.current.get(index);
+      if (!isReady(image)) return false;
+      if (renderedFrameRef.current === index) return true;
+
+      drawCover(context, image, canvas.width, canvas.height);
+      renderedFrameRef.current = index;
+      return true;
+    };
+
+    const scheduleRender = () => {
+      if (scrollRafRef.current !== null) return;
+
+      scrollRafRef.current = window.requestAnimationFrame(() => {
+        scrollRafRef.current = null;
+        drawFrame(desiredFrameRef.current);
+      });
+    };
+
+    const loadFrame = (index: number): Promise<HTMLImageElement | null> => {
+      if (index < 0 || index >= FRAME_COUNT || cancelled) {
+        return Promise.resolve(null);
+      }
+
+      const cached = frameCacheRef.current.get(index);
+      if (isReady(cached)) {
+        return Promise.resolve(cached);
+      }
+
+      const pending = loadingRef.current.get(index);
+      if (pending) return pending;
+
+      const promise = new Promise<HTMLImageElement | null>((resolve) => {
+        const image = new Image();
+        image.decoding = 'async';
+
+        image.onload = async () => {
+          try {
+            await image.decode();
+          } catch {
+            // onload já garante um frame utilizável em navegadores sem decode().
+          }
+
+          loadingRef.current.delete(index);
+
+          if (cancelled) {
+            image.src = '';
+            resolve(null);
+            return;
+          }
+
+          frameCacheRef.current.set(index, image);
+          pruneDecodedFrames(desiredFrameRef.current);
+
+          if (index === desiredFrameRef.current) {
+            scheduleRender();
+          }
+
+          resolve(image);
+        };
+
+        image.onerror = () => {
+          loadingRef.current.delete(index);
+          resolve(null);
+        };
+
+        image.src = frameUrl(isMobile, index);
+      });
+
+      loadingRef.current.set(index, promise);
+      return promise;
+    };
+
+    const warmDecodeWindow = (center: number, direction: number) => {
+      void loadFrame(center);
+
+      for (let distance = 1; distance <= DECODE_RADIUS; distance += 1) {
+        const preferred = center + distance * direction;
+        const opposite = center - distance * direction;
+        void loadFrame(preferred);
+        void loadFrame(opposite);
+      }
+    };
+
+    const syncFromScroll = () => {
       const rect = section.getBoundingClientRect();
       const travel = Math.max(section.offsetHeight - window.innerHeight, 1);
       const progress = Math.min(1, Math.max(0, -rect.top / travel));
+      const exactFrame = progress * (FRAME_COUNT - 1);
+      const frameIndex = Math.min(
+        FRAME_COUNT - 1,
+        Math.max(0, Math.round(exactFrame)),
+      );
 
-      // 1:1 com a posição real do scroll: sem easing, sem inércia, sem atraso.
-      exactFrameRef.current = progress * (FRAME_COUNT - 1);
-      loadNeighborhood(exactFrameRef.current);
+      const currentScrollY = window.scrollY;
+      const direction = currentScrollY >= lastScrollYRef.current ? 1 : -1;
+      lastScrollYRef.current = currentScrollY;
 
-      if (rafRef.current === null) {
-        rafRef.current = window.requestAnimationFrame(() => {
-          rafRef.current = null;
-          renderExactFrame();
-        });
+      desiredFrameRef.current = frameIndex;
+      warmDecodeWindow(frameIndex, direction);
+
+      if (!drawFrame(frameIndex)) {
+        // Se o quadro exato ainda está decodificando, mantém o quadro anterior
+        // na tela. Quando o arquivo terminar de decodificar, scheduleRender()
+        // coloca exatamente o frame solicitado, sem pular para um vizinho.
+        scheduleRender();
       }
     };
 
-    // Carrega rapidamente o início da sequência.
-    for (let index = 0; index < 32; index += 1) {
-      loadFrame(index);
+    const handleScroll = () => {
+      if (scrollRafRef.current !== null) return;
+
+      scrollRafRef.current = window.requestAnimationFrame(() => {
+        scrollRafRef.current = null;
+        syncFromScroll();
+      });
+    };
+
+    const handleResize = () => {
+      syncSectionHeight();
+      resizeCanvas();
+      syncFromScroll();
+    };
+
+    // Pré-carrega os bytes comprimidos dos 240 quadros com concorrência limitada.
+    // Isso aquece o cache HTTP sem manter 240 imagens gigantes decodificadas na RAM.
+    let prefetchCursor = 0;
+    const prefetchWorker = async () => {
+      while (!cancelled && prefetchCursor < FRAME_COUNT) {
+        const index = prefetchCursor;
+        prefetchCursor += 1;
+
+        try {
+          const response = await fetch(frameUrl(isMobile, index), {
+            cache: 'force-cache',
+            signal: prefetchAbort.signal,
+          });
+
+          if (response.ok) {
+            await response.arrayBuffer();
+          }
+        } catch {
+          if (prefetchAbort.signal.aborted) return;
+        }
+      }
+    };
+
+    syncSectionHeight();
+    resizeCanvas();
+
+    // Primeiro quadro é prioridade absoluta.
+    void loadFrame(0).then(() => {
+      if (!cancelled) {
+        syncFromScroll();
+      }
+    });
+
+    // Deixa uma janela inicial pronta antes do usuário chegar à seção.
+    for (let index = 1; index <= DECODE_RADIUS * 2; index += 1) {
+      void loadFrame(index);
     }
 
-    // Faz cache progressivo de TODOS os 240 frames do dispositivo atual.
-    let nextBackgroundFrame = 32;
-    const preloadAllFrames = () => {
-      if (cancelled) return;
+    for (let worker = 0; worker < PREFETCH_WORKERS; worker += 1) {
+      void prefetchWorker();
+    }
 
-      const batchEnd = Math.min(nextBackgroundFrame + 16, FRAME_COUNT);
-      for (; nextBackgroundFrame < batchEnd; nextBackgroundFrame += 1) {
-        loadFrame(nextBackgroundFrame);
-      }
+    syncFromScroll();
 
-      if (nextBackgroundFrame < FRAME_COUNT) {
-        backgroundPreloadTimer = window.setTimeout(preloadAllFrames, 60);
-      }
-    };
-
-    backgroundPreloadTimer = window.setTimeout(preloadAllFrames, 80);
-
-    resizeCanvas();
-    updateFromScroll();
-
-    window.addEventListener('scroll', updateFromScroll, { passive: true });
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize);
 
     return () => {
       cancelled = true;
-      if (backgroundPreloadTimer !== null) window.clearTimeout(backgroundPreloadTimer);
-      if (rafRef.current !== null) window.cancelAnimationFrame(rafRef.current);
-      rafRef.current = null;
-      window.removeEventListener('scroll', updateFromScroll);
-      window.removeEventListener('resize', resizeCanvas);
-      imagesRef.current = [];
+      prefetchAbort.abort();
+
+      if (scrollRafRef.current !== null) {
+        window.cancelAnimationFrame(scrollRafRef.current);
+      }
+
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+
+      frameCacheRef.current.forEach((image) => {
+        image.onload = null;
+        image.onerror = null;
+        image.src = '';
+      });
+
+      frameCacheRef.current.clear();
+      loadingRef.current.clear();
+      section.style.removeProperty('height');
     };
   }, [isMobile]);
 
