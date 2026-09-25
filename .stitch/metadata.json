@@ -1,24 +1,32 @@
 {
-  "projectId": "projects/6397409268031532647",
-  "title": "Jovina Diniz — Identidade & Site",
-  "phase": "brand-identity",
-  "screens": [],
-  "designSystem": {
-    "status": "prepared_not_uploaded",
-    "source": ".stitch/DESIGN.md",
-    "concept": "Voltar para si",
-    "palette": {
-      "warmIvory": "#F6F1E8",
-      "softPorcelain": "#FBF8F2",
-      "deepUmber": "#2E2A25",
-      "mutedTaupe": "#756D63",
-      "linenBorder": "#DDD3C4",
-      "oliveIdentity": "#66704A",
-      "caramelEarth": "#B07B5A"
+  "projectId": "projects/9619358137858501701",
+  "title": "Jovina Diniz Website Design",
+  "deviceType": "DESKTOP",
+  "lastSyncTime": "2026-09-25T02:05:00Z",
+  "screens": {
+    "home": {
+      "id": "3350043bc39148a7938f20d33832057f",
+      "label": "Home - Jovina Diniz",
+      "sourceScreen": "projects/9619358137858501701/screens/3350043bc39148a7938f20d33832057f",
+      "width": 2560,
+      "height": 8250,
+      "canvasPosition": { "x": 3712 }
     },
-    "typography": {
-      "display": "Bodoni Moda",
-      "body": "DM Sans"
+    "about": {
+      "id": "fe17daac928d45708375c31b4e114a9a",
+      "label": "Sobre - Jovina Diniz",
+      "sourceScreen": "projects/9619358137858501701/screens/fe17daac928d45708375c31b4e114a9a",
+      "width": 2560,
+      "height": 8884,
+      "canvasPosition": { "x": 1024 }
+    },
+    "therapy": {
+      "id": "2f5846b667334cad85ab76614ae839db",
+      "label": "Terapia para Mulheres - Jovina Diniz",
+      "sourceScreen": "projects/9619358137858501701/screens/2f5846b667334cad85ab76614ae839db",
+      "width": 2560,
+      "height": 10678,
+      "canvasPosition": { "x": 2368 }
     }
   }
 }
