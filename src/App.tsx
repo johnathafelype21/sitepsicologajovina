@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import ScrollProgress from './components/ScrollProgress';
 import WhatsAppFloating from './components/WhatsAppFloating';
 import AboutPage from './pages/AboutPage';
 import CompaniesPage from './pages/CompaniesPage';
@@ -26,8 +27,9 @@ function ScrollToTop() {
 
 export default function App({ className = '' }: Readonly<AppProps>) {
   return (
-    <div className={`min-h-screen bg-canvas font-body text-umber dark:bg-dark-canvas dark:text-dark-text ${className}`}>
+    <div className={`min-h-screen bg-canvas font-body text-umber ${className}`}>
       <ScrollToTop />
+      <ScrollProgress />
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
