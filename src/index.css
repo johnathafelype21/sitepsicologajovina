@@ -496,3 +496,50 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
     animation: none !important;
   }
 }
+
+
+/* Reliable scroll motion fallback (IntersectionObserver) */
+.motion-left,
+.motion-right,
+.motion-rise,
+.motion-scale,
+.motion-fade {
+  opacity: 0;
+  transition:
+    opacity 780ms cubic-bezier(.22,.61,.36,1),
+    transform 900ms cubic-bezier(.22,.61,.36,1);
+}
+
+.motion-left { transform: translate3d(-64px, 0, 0); }
+.motion-right { transform: translate3d(64px, 0, 0); }
+.motion-rise { transform: translate3d(0, 58px, 0); }
+.motion-scale { transform: scale(.92); }
+.motion-fade { transform: translate3d(0, 20px, 0); }
+
+.motion-left.motion-visible,
+.motion-right.motion-visible,
+.motion-rise.motion-visible,
+.motion-scale.motion-visible,
+.motion-fade.motion-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 767px) {
+  .motion-left { transform: translate3d(-28px, 0, 0); }
+  .motion-right { transform: translate3d(28px, 0, 0); }
+  .motion-rise { transform: translate3d(0, 34px, 0); }
+  .motion-scale { transform: scale(.96); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-left,
+  .motion-right,
+  .motion-rise,
+  .motion-scale,
+  .motion-fade {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
