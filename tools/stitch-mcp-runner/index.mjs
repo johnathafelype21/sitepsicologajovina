@@ -58,6 +58,38 @@ if (!apiKey) {
 
 const request = JSON.parse(await fs.readFile(requestPath, "utf8"));
 
+if (request.action === "encode_design_image") {
+  try {
+    if (!request.slug) {
+      throw new Error("encode_design_image requires 'slug'.");
+    }
+
+    const imagePath = `.stitch/designs/${request.slug}.png`;
+    const outputPath = `.stitch/designs/${request.slug}.png.b64`;
+    const bytes = await fs.readFile(imagePath);
+    await fs.writeFile(outputPath, bytes.toString("base64"), "utf8");
+
+    await writeResult({
+      ok: true,
+      request: { action: request.action, slug: request.slug },
+      preview: {
+        imagePath,
+        outputPath,
+        bytes: bytes.length
+      }
+    });
+  } catch (error) {
+    await writeResult({
+      ok: false,
+      request: { action: request.action, slug: request.slug ?? null },
+      error: error instanceof Error ? error.message : String(error)
+    });
+    process.exitCode = 1;
+  }
+
+  process.exit();
+}
+
 if (request.action === "sync_stitch_screen") {
   try {
     const required = ["slug", "htmlUrl", "screenshotUrl", "width"];
@@ -228,7 +260,7 @@ try {
     });
   } else {
     throw new Error(
-      "Unsupported action. Use 'list_tools', 'call_tool', 'upload_url_to_stitch', or 'sync_stitch_screen'."
+      "Unsupported action. Use 'list_tools', 'call_tool', 'upload_url_to_stitch', 'sync_stitch_screen', or 'encode_design_image'."
     );
   }
 
