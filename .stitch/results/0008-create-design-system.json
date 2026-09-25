@@ -1,0 +1,33 @@
+{
+  "ok": true,
+  "request": {
+    "action": "call_tool",
+    "tool": "create_design_system_from_design_md"
+  },
+  "server": {
+    "version": {
+      "name": "StatelessServer",
+      "version": "scaffolding on HTTPServer2"
+    },
+    "capabilities": {
+      "resources": {
+        "subscribe": false,
+        "listChanged": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    }
+  },
+  "payload": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"assetId\":\"450d91dd4aac45b0806ecdbf2ead72e0\"}"
+      }
+    ],
+    "structuredContent": {
+      "assetId": "450d91dd4aac45b0806ecdbf2ead72e0"
+    }
+  }
+}
