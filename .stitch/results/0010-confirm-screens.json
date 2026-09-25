@@ -1,0 +1,46 @@
+{
+  "ok": true,
+  "request": {
+    "action": "call_tool",
+    "tool": "list_screens"
+  },
+  "server": {
+    "version": {
+      "name": "StatelessServer",
+      "version": "scaffolding on HTTPServer2"
+    },
+    "capabilities": {
+      "resources": {
+        "subscribe": false,
+        "listChanged": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    }
+  },
+  "payload": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"screens\":[{\"name\":\"projects/6397409268031532647/screens/11458765886093725855\",\"title\":\"DESIGN.md\",\"screenshot\":{},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/11458765886093727386\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBKNARIhYXBwX2NvbXBhbmlvbl91c2VyX3VwbG9hZGVkX2ZpbGVzGmgKM3VzZXJfdXBsb2FkZWRfaHRtbF8wMDA2NWM0NDFjMzkxMjI1MDUzYjc1MWM3NzFhMTRlMxILEgcQqLX5yNAQGAGSASMKCnByb2plY3RfaWQSFUITNjM5NzQwOTI2ODAzMTUzMjY0Nw&filename=&opi=96797242\",\"mimeType\":\"text/markdown\"},\"width\":\"780\",\"height\":\"1768\"}]}"
+      }
+    ],
+    "structuredContent": {
+      "screens": [
+        {
+          "height": "1768",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBKNARIhYXBwX2NvbXBhbmlvbl91c2VyX3VwbG9hZGVkX2ZpbGVzGmgKM3VzZXJfdXBsb2FkZWRfaHRtbF8wMDA2NWM0NDFjMzkxMjI1MDUzYjc1MWM3NzFhMTRlMxILEgcQqLX5yNAQGAGSASMKCnByb2plY3RfaWQSFUITNjM5NzQwOTI2ODAzMTUzMjY0Nw&filename=&opi=96797242",
+            "mimeType": "text/markdown",
+            "name": "projects/6397409268031532647/files/11458765886093727386"
+          },
+          "name": "projects/6397409268031532647/screens/11458765886093725855",
+          "screenshot": {},
+          "title": "DESIGN.md",
+          "width": "780"
+        }
+      ]
+    }
+  }
+}
