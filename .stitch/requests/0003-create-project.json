@@ -1,0 +1,7 @@
+{
+  "action": "call_tool",
+  "tool": "create_project",
+  "arguments": {
+    "title": "Jovina Diniz — Identidade & Site"
+  }
+}
