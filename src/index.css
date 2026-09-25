@@ -1382,3 +1382,171 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
     transform: none;
   }
 }
+
+
+/* --- Therapy bento layout fix: prevent text overlap and rebalance cards --- */
+.therapy-bento-v3 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: minmax(160px, auto);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.therapy-bento-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.65rem;
+  border: 1px solid #E2DACD;
+  padding: 1.4rem;
+  background: #F8F4EE;
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+}
+
+.therapy-bento-item:hover {
+  transform: translateY(-6px);
+  border-color: rgba(192, 138, 78, .5);
+  box-shadow: 0 24px 50px -34px rgba(61, 44, 36, .34);
+}
+
+.therapy-bento-1 { grid-column: span 5; grid-row: span 2; min-height: 300px; background: linear-gradient(145deg, #F0E7DD, #FBF7F2); }
+.therapy-bento-2 { grid-column: span 3; grid-row: span 1; min-height: 180px; }
+.therapy-bento-3 { grid-column: span 4; grid-row: span 2; min-height: 300px; }
+.therapy-bento-4 { grid-column: 6 / span 3; grid-row: 2 / span 2; min-height: 300px; background: #2D3B2D; color: #FCFAF7; }
+.therapy-bento-5 { grid-column: span 4; grid-row: span 2; min-height: 300px; background: #EAD7C6; }
+.therapy-bento-6 { grid-column: span 4; grid-row: span 1; min-height: 180px; }
+.therapy-bento-7 { grid-column: span 4; grid-row: span 2; min-height: 300px; }
+.therapy-bento-8 { grid-column: span 4; grid-row: span 2; min-height: 300px; background: linear-gradient(150deg, #F7F4EE, #EDE4D9); }
+
+.therapy-bento-number {
+  position: relative;
+  z-index: 2;
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-size: 2rem;
+  color: rgba(192, 138, 78, .7);
+}
+
+.therapy-bento-item h3 {
+  position: relative;
+  z-index: 2;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  margin-top: auto;
+  max-width: calc(100% - 52px);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2rem, 2.3vw, 3.2rem);
+  line-height: .95;
+  letter-spacing: -.03em;
+  color: #2D3B2D;
+  text-wrap: balance;
+}
+
+.therapy-bento-2 h3,
+.therapy-bento-6 h3 {
+  max-width: 100%;
+  font-size: clamp(1.35rem, 1.5vw, 2rem);
+  line-height: 1.02;
+}
+
+.therapy-bento-4 h3 {
+  color: #FCFAF7;
+}
+
+.therapy-bento-item p {
+  position: relative;
+  z-index: 2;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  margin-top: .7rem;
+  max-width: 100%;
+  font-size: .88rem;
+  line-height: 1.55;
+  color: rgba(61, 44, 36, .62);
+}
+
+.therapy-bento-4 p {
+  color: rgba(252, 250, 247, .72);
+}
+
+.therapy-bento-symbol {
+  position: absolute;
+  width: 120px;
+  aspect-ratio: 1;
+  right: -22px;
+  top: -22px;
+  border: 1px solid rgba(192, 138, 78, .18);
+  border-radius: 50%;
+  transition: transform 450ms ease;
+}
+
+.therapy-bento-symbol i,
+.therapy-bento-symbol b {
+  position: absolute;
+  inset: 24%;
+  border: 1px solid rgba(192, 138, 78, .22);
+  border-radius: 46% 54% 48% 52%;
+  content: "";
+}
+
+.therapy-bento-symbol b {
+  inset: 42%;
+  background: rgba(192, 138, 78, .13);
+}
+
+.therapy-bento-item:hover .therapy-bento-symbol {
+  transform: rotate(18deg) scale(1.08);
+}
+
+@media (max-width: 1023px) {
+  .therapy-bento-v3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: auto;
+  }
+
+  .therapy-bento-item,
+  .therapy-bento-1,
+  .therapy-bento-2,
+  .therapy-bento-3,
+  .therapy-bento-4,
+  .therapy-bento-5,
+  .therapy-bento-6,
+  .therapy-bento-7,
+  .therapy-bento-8 {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 240px;
+  }
+
+  .therapy-bento-item h3 {
+    max-width: 100%;
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  }
+
+  .therapy-bento-2 h3,
+  .therapy-bento-6 h3 {
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .therapy-bento-v3 {
+    grid-template-columns: 1fr;
+  }
+
+  .therapy-bento-item {
+    min-height: 220px;
+  }
+
+  .therapy-bento-item h3,
+  .therapy-bento-2 h3,
+  .therapy-bento-6 h3 {
+    max-width: 100%;
+    font-size: clamp(1.8rem, 7vw, 2.4rem);
+  }
+}
