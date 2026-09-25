@@ -1,0 +1,64 @@
+{
+  "ok": true,
+  "request": {
+    "action": "call_tool",
+    "tool": "get_project"
+  },
+  "server": {
+    "version": {
+      "name": "StatelessServer",
+      "version": "scaffolding on HTTPServer2"
+    },
+    "capabilities": {
+      "resources": {
+        "subscribe": false,
+        "listChanged": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    }
+  },
+  "payload": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"name\":\"projects/6397409268031532647\",\"title\":\"Jovina Diniz — Identidade & Site\",\"visibility\":\"PRIVATE\",\"createTime\":\"2026-09-25T00:46:00.134669Z\",\"updateTime\":\"2026-09-25T00:53:33.167516Z\",\"projectType\":\"PROJECT_DESIGN\",\"thumbnailScreenshot\":{\"name\":\"projects/6397409268031532647/files/8df0aac149c14f67b752ca22f239dc38\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1WuSd-r25fxL-RbkWtRv46IXnKra6L6Od8MVVxGfXRX26lN1QABXzpeo3xqv84E-EmyPSxYvfxn4oKiHkxzNRYgzSvXO1TABr1bKslYhhNBFOI7Wd1ZlXsicmRs7qAh3vzsXAoQWNV7VphachaBxKagc-mbKa6qA_s2f9Zu-jlOmgYMe2X4A93TUbOEwlDassLuiotOMiDM6LSYRWhWnREBGGLk0zfrrcWa0ERzYYQ2WGeiHYmdAVbk-A\"},\"origin\":\"STITCH\",\"deviceType\":\"DESKTOP\",\"designTheme\":{},\"screenInstances\":[{\"id\":\"11458765886093725855\",\"sourceScreen\":\"projects/6397409268031532647/screens/11458765886093725855\",\"width\":390,\"height\":884},{\"id\":\"assets_450d91dd4aac45b0806ecdbf2ead72e0\",\"y\":1140,\"width\":960,\"height\":540,\"sourceAsset\":\"assets/450d91dd4aac45b0806ecdbf2ead72e0\",\"type\":\"DESIGN_SYSTEM_INSTANCE\"}],\"metadata\":{\"userRole\":\"OWNER\"}}"
+      }
+    ],
+    "structuredContent": {
+      "createTime": "2026-09-25T00:46:00.134669Z",
+      "designTheme": {},
+      "deviceType": "DESKTOP",
+      "metadata": {
+        "userRole": "OWNER"
+      },
+      "name": "projects/6397409268031532647",
+      "origin": "STITCH",
+      "projectType": "PROJECT_DESIGN",
+      "screenInstances": [
+        {
+          "height": 884,
+          "id": "11458765886093725855",
+          "sourceScreen": "projects/6397409268031532647/screens/11458765886093725855",
+          "width": 390
+        },
+        {
+          "height": 540,
+          "id": "assets_450d91dd4aac45b0806ecdbf2ead72e0",
+          "sourceAsset": "assets/450d91dd4aac45b0806ecdbf2ead72e0",
+          "type": "DESIGN_SYSTEM_INSTANCE",
+          "width": 960,
+          "y": 1140
+        }
+      ],
+      "thumbnailScreenshot": {
+        "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1WuSd-r25fxL-RbkWtRv46IXnKra6L6Od8MVVxGfXRX26lN1QABXzpeo3xqv84E-EmyPSxYvfxn4oKiHkxzNRYgzSvXO1TABr1bKslYhhNBFOI7Wd1ZlXsicmRs7qAh3vzsXAoQWNV7VphachaBxKagc-mbKa6qA_s2f9Zu-jlOmgYMe2X4A93TUbOEwlDassLuiotOMiDM6LSYRWhWnREBGGLk0zfrrcWa0ERzYYQ2WGeiHYmdAVbk-A",
+        "name": "projects/6397409268031532647/files/8df0aac149c14f67b752ca22f239dc38"
+      },
+      "title": "Jovina Diniz — Identidade & Site",
+      "updateTime": "2026-09-25T00:53:33.167516Z",
+      "visibility": "PRIVATE"
+    }
+  }
+}
