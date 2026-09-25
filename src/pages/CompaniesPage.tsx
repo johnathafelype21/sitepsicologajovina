@@ -1,5 +1,6 @@
 import ContactForm from '../components/ContactForm';
 import EditorialArt from '../components/EditorialArt';
+import ImmersiveCard from '../components/ImmersiveCard';
 import SectionHeading from '../components/SectionHeading';
 
 export interface CompaniesPageProps { readonly className?: string; }
@@ -26,12 +27,15 @@ export default function CompaniesPage({ className = '' }: Readonly<CompaniesPage
       <section className="bg-canvas py-24 md:py-32">
         <div className="mx-auto max-w-[1180px] px-5 lg:px-8">
           <SectionHeading overline="TEMAS POSSÍVEIS" title="Conteúdo com profundidade e linguagem acessível." text="Cada encontro pode ser adaptado ao público, ao momento da organização e ao objetivo do evento." />
-          <div className="mt-14 grid gap-px overflow-hidden rounded-[1.8rem] border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+          <div className="immersive-card-grid immersive-card-grid-companies mt-14">
             {topics.map((topic, index) => (
-              <div key={topic} className="motion-rise min-h-[220px] bg-canvas p-7 md:p-8">
-                <span className="font-display text-3xl italic text-caramel/45">0{index + 1}</span>
-                <h3 className="mt-8 font-display text-2xl text-olive">{topic}</h3>
-              </div>
+              <ImmersiveCard
+                key={topic}
+                index={index + 1}
+                title={topic}
+                variant="company"
+                motion={index % 3 === 0 ? 'left' : index % 3 === 1 ? 'rise' : 'right'}
+              />
             ))}
           </div>
         </div>
