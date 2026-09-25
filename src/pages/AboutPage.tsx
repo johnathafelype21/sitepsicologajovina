@@ -42,7 +42,7 @@ export default function AboutPage({ className = '' }: Readonly<AboutPageProps>) 
 
       <section className="motion-stage bg-surface/70 py-24 md:py-32">
         <div className="mx-auto grid max-w-[1180px] items-center gap-14 px-5 lg:grid-cols-[1.05fr_.95fr] lg:px-8">
-          <div className="motion-left"><EditorialArt variant="identity" label="Uma linguagem visual para o Método Identidade" /></div>
+          <div className="motion-left"><EditorialArt variant="identity" src="/images/jovina/metodo-linguagem-visual.webp" alt="Linguagem visual conceitual do Método Identidade" /></div>
           <div className="motion-right">
             <SectionHeading overline="MÉTODO IDENTIDADE" title="Compreender a história. Reconstruir a identidade. Escolher a direção." text={siteData.method.intro} />
             <div className="mt-9 space-y-5">
