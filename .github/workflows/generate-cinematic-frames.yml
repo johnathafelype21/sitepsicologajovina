@@ -1,0 +1,73 @@
+name: Generate cinematic scroll frames
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/generate-cinematic-frames.yml"
+      - "public/videos/desktop/VIDEO DESKTOP.mp4"
+      - "public/videos/mobile/VIDEO MOBILE.mp4"
+
+permissions:
+  contents: write
+
+jobs:
+  generate-frames:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Generate high-quality desktop frames
+        run: |
+          rm -rf public/frames/desktop
+          mkdir -p public/frames/desktop
+          ffmpeg -hide_banner -loglevel error \
+            -i "public/videos/desktop/VIDEO DESKTOP.mp4" \
+            -vf "fps=12" \
+            -c:v libwebp -quality 90 -compression_level 6 \
+            "public/frames/desktop/frame-%03d.webp"
+
+      - name: Generate high-quality mobile frames
+        run: |
+          rm -rf public/frames/mobile
+          mkdir -p public/frames/mobile
+          ffmpeg -hide_banner -loglevel error \
+            -i "public/videos/mobile/VIDEO MOBILE.mp4" \
+            -vf "fps=12" \
+            -c:v libwebp -quality 90 -compression_level 6 \
+            "public/frames/mobile/frame-%03d.webp"
+
+      - name: Validate frame counts
+        run: |
+          DESKTOP_COUNT=$(find public/frames/desktop -name 'frame-*.webp' | wc -l)
+          MOBILE_COUNT=$(find public/frames/mobile -name 'frame-*.webp' | wc -l)
+
+          echo "Desktop frames: $DESKTOP_COUNT"
+          echo "Mobile frames: $MOBILE_COUNT"
+
+          test "$DESKTOP_COUNT" -eq 120
+          test "$MOBILE_COUNT" -eq 120
+
+      - name: Commit generated frames
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/frames/desktop public/frames/mobile
+
+          if git diff --cached --quiet; then
+            echo "Frames are already up to date."
+            exit 0
+          fi
+
+          git commit -m "assets: generate cinematic scroll frame sequences"
+          git push origin main
