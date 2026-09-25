@@ -1,3 +1,5 @@
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import CTASection from '../components/CTASection';
 import PhotoPlaceholder from '../components/PhotoPlaceholder';
 import SectionHeading from '../components/SectionHeading';
@@ -13,74 +15,45 @@ export default function AboutPage({ className = '' }: Readonly<AboutPageProps>) 
 
   return (
     <main className={className}>
-      <section className="bg-canvas-soft py-16 text-center dark:bg-dark-canvas">
-        <div className="mx-auto max-w-4xl px-5">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-caramel">TRAJETÓRIA, PROPÓSITO & FILOSOFIA</p>
-          <h1 className="mt-4 font-display text-5xl text-olive dark:text-dark-text">Sobre Jovina Diniz</h1>
-          <p className="mt-4 font-display italic text-umber/60 dark:text-dark-muted">“{siteData.brand.phrase}”</p>
+      <section className="hero-shell border-b border-line/70 py-20">
+        <div className="mx-auto max-w-[1180px] px-5 lg:px-8">
+          <p className="eyebrow">TRAJETÓRIA · PROPÓSITO · PRESENÇA</p>
+          <h1 className="mt-5 max-w-4xl font-display text-[clamp(3.5rem,8vw,7rem)] leading-[.92] tracking-[-0.055em] text-olive">
+            Sobre Jovina
+            <span className="block italic text-caramel">e o caminho de volta para si.</span>
+          </h1>
         </div>
       </section>
 
-      <section className="bg-canvas py-20 dark:bg-dark-canvas">
-        <div className="mx-auto grid max-w-[1240px] items-center gap-12 px-5 lg:grid-cols-[.7fr_1.3fr] lg:px-8">
+      <section className="bg-canvas py-24">
+        <div className="mx-auto grid max-w-[1180px] items-center gap-14 px-5 lg:grid-cols-[.75fr_1.25fr] lg:px-8">
           <div className="reveal"><PhotoPlaceholder /></div>
           <div className="reveal">
-            <SectionHeading overline="ACOLHIMENTO & PRESENÇA" title={siteData.about.title} />
-            <div className="mt-6 space-y-5">
-              {siteData.about.body.map((p) => <p key={p} className="text-base leading-7 text-umber/72 dark:text-dark-muted">{p}</p>)}
+            <SectionHeading overline="ACOLHIMENTO & ESCUTA" title={siteData.about.title} />
+            <div className="mt-8 space-y-5">
+              {siteData.about.body.map((p) => <p key={p} className="max-w-2xl text-base leading-8 text-umber/68">{p}</p>)}
             </div>
-            <div className="mt-8 rounded-lg border border-line bg-surface p-5 dark:border-white/10 dark:bg-dark-surface">
-              <p className="text-sm leading-6 text-umber/72 dark:text-dark-muted">
-                <strong className="text-olive dark:text-dark-text">Informações profissionais:</strong> espaço reservado para formações, certificações e demais credenciais que serão inseridas somente após confirmação da profissional.
-              </p>
-            </div>
+            <Link to="/contato" className="text-link mt-8">Conversar comigo <ArrowRight size={14} /></Link>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#FBE3D8] py-20 dark:bg-dark-surface">
-        <div className="mx-auto max-w-[1240px] px-5 lg:px-8">
-          <SectionHeading overline="METODOLOGIA" title={siteData.method.title} text={siteData.method.intro} />
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
+      <section className="bg-surface/70 py-24">
+        <div className="mx-auto max-w-[1180px] px-5 lg:px-8">
+          <SectionHeading overline="MÉTODO IDENTIDADE" title="Compreender a história. Reconstruir a identidade. Escolher a direção." text={siteData.method.intro} />
+          <div className="mt-12 grid gap-px overflow-hidden rounded-[1.75rem] border border-line bg-line md:grid-cols-3">
             {siteData.method.steps.map((step) => (
-              <article key={step.number} className="reveal rounded-xl border border-line bg-canvas p-7 shadow-soft dark:border-white/10 dark:bg-dark-canvas">
-                <span className="font-display text-4xl text-caramel/35">{step.number}</span>
-                <h3 className="mt-6 font-display text-2xl text-olive dark:text-dark-text">{step.title}</h3>
-                <p className="mt-4 text-sm leading-6 text-umber/70 dark:text-dark-muted">{step.text}</p>
+              <article key={step.number} className="reveal min-h-[300px] bg-canvas p-8">
+                <span className="font-display text-4xl italic text-caramel/55">{step.number}</span>
+                <h3 className="mt-10 font-display text-3xl text-olive">{step.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-umber/62">{step.text}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-canvas py-20 dark:bg-dark-canvas">
-        <div className="mx-auto max-w-[1240px] px-5 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[1.15fr_.85fr]">
-            <div className="reveal">
-              <SectionHeading overline="A PRÁTICA NAS SESSÕES" title="Integração entre mente, corpo e emoções no dia a dia" text="Uma escuta que considera história, emoções, vínculos e os sinais do corpo sem reduzir a experiência a uma única dimensão." />
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                {['Regulação somática', 'Elaboração emocional', 'Clareza cognitiva', 'Integração prática'].map((item) => (
-                  <div key={item} className="rounded-lg border border-line bg-surface p-5 dark:border-white/10 dark:bg-dark-surface">
-                    <h3 className="font-display text-xl text-olive dark:text-dark-text">{item}</h3>
-                    <p className="mt-2 text-sm leading-6 text-umber/65 dark:text-dark-muted">Parte de um processo de percepção, compreensão e construção de escolhas mais conscientes.</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <aside className="reveal rounded-xl bg-olive p-8 text-canvas shadow-soft dark:bg-dark-surface">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-caramel">RITMO & PRESENÇA</p>
-              <blockquote className="mt-5 font-display text-3xl italic leading-tight">“Quando a mente compreende, o corpo encontra novas formas de responder.”</blockquote>
-              <div className="mt-8 space-y-3 border-t border-white/15 pt-6 text-sm text-canvas/75">
-                <p>Online e presencial</p>
-                <p>Sessões online de aproximadamente 50 minutos</p>
-                <p>Frequência combinada conforme o processo</p>
-              </div>
-            </aside>
-          </div>
-        </div>
-      </section>
-
-      <CTASection title="Deseja iniciar sua jornada de retorno a si mesma?" text="Entre em contato para entender o formato de acompanhamento que melhor conversa com o seu momento atual." />
+      <CTASection title="Você não precisa ter todas as respostas para começar." text="O primeiro contato pode ser apenas uma conversa para entender se esse espaço faz sentido para o seu momento." />
     </main>
   );
 }
