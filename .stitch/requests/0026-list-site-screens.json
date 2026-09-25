@@ -1,0 +1,7 @@
+{
+  "action": "call_tool",
+  "tool": "list_screens",
+  "arguments": {
+    "projectId": "9619358137858501701"
+  }
+}
