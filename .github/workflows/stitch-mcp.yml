@@ -1,0 +1,81 @@
+name: Stitch MCP
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".stitch/requests/**/*.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stitch-mcp-main
+  cancel-in-progress: false
+
+jobs:
+  run-stitch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install MCP client
+        run: npm install --prefix tools/stitch-mcp-runner --no-audit --no-fund
+
+      - name: Execute pending Stitch requests
+        id: stitch
+        env:
+          STITCH_API_KEY: ${{ secrets.STITCH_API_KEY }}
+          STITCH_MCP_URL: https://stitch.googleapis.com/mcp
+        shell: bash
+        run: |
+          mkdir -p .stitch/results
+          failed=0
+
+          shopt -s nullglob
+          for request in .stitch/requests/*.json; do
+            filename="$(basename "$request")"
+            result=".stitch/results/$filename"
+
+            if [[ -f "$result" ]]; then
+              echo "Skipping $request because $result already exists."
+              continue
+            fi
+
+            echo "Processing $request"
+            if ! node tools/stitch-mcp-runner/index.mjs "$request" "$result"; then
+              failed=1
+            fi
+          done
+
+          echo "failed=$failed" >> "$GITHUB_OUTPUT"
+
+      - name: Save Stitch results
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .stitch/results
+
+          if git diff --cached --quiet; then
+            echo "No new Stitch results."
+          else
+            git commit -m "chore: save Stitch MCP results"
+            git push
+          fi
+
+      - name: Fail when an MCP request failed
+        if: steps.stitch.outputs.failed == '1'
+        run: |
+          echo "At least one Stitch MCP request failed. The error response was still committed under .stitch/results/."
+          exit 1
