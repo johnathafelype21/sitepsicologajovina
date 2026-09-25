@@ -8,10 +8,11 @@ const FRAME_COUNT = 240;
 const MAX_DECODED_FRAMES = 28;
 const DECODE_RADIUS = 10;
 const PREFETCH_WORKERS = 5;
+const FRAME_ASSET_VERSION = 'full240-v2';
 
 function frameUrl(isMobile: boolean, index: number) {
   const folder = isMobile ? 'mobile' : 'desktop';
-  return `/frames/${folder}/frame-${String(index + 1).padStart(3, '0')}.webp`;
+  return `/frames/${folder}/frame-${String(index + 1).padStart(3, '0')}.webp?v=${FRAME_ASSET_VERSION}`;
 }
 
 function isReady(image: HTMLImageElement | undefined) {
