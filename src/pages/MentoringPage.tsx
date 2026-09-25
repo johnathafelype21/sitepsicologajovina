@@ -27,7 +27,7 @@ export default function MentoringPage({ className = '' }: Readonly<MentoringPage
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-umber/65">Um processo mais direcionado para identidade, decisões, reposicionamento e construção de movimento.</p>
           </div>
-          <div className="motion-scale"><EditorialArt variant="mentoring" /></div>
+          <div className="motion-scale"><EditorialArt variant="mentoring" src="/images/jovina/mentoria-novos-ciclos.webp" alt="Imagem editorial sobre clareza para atravessar novos ciclos" priority objectPosition="center 46%" /></div>
         </div>
       </section>
 
@@ -42,7 +42,7 @@ export default function MentoringPage({ className = '' }: Readonly<MentoringPage
 
       <section className="bg-olive py-24 text-canvas md:py-32">
         <div className="mx-auto grid max-w-[1180px] items-center gap-14 px-5 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
-          <div className="motion-left"><EditorialArt variant="mentoring" label="Clareza não é pressa. É reconhecer direção." /></div>
+          <div className="motion-left"><EditorialArt variant="mentoring" src="/images/jovina/mentoria-clareza-direcao.webp" alt="Imagem editorial sobre reconhecer direção com clareza" objectPosition="center 46%" /></div>
           <div className="motion-right">
             <SectionHeading overline="IMPORTANTE" title="Mentoria e terapia não são a mesma coisa." light />
             <p className="mt-7 text-base leading-8 text-canvas/65">A mentoria é mais direcionada a clareza, identidade, escolhas e desenvolvimento. A terapia é um espaço de elaboração emocional e compreensão de padrões, relações e experiências.</p>
