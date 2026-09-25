@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "request": {
+    "action": "call_tool",
+    "tool": "upload_design_md"
+  },
+  "server": {
+    "version": {
+      "name": "StatelessServer",
+      "version": "scaffolding on HTTPServer2"
+    },
+    "capabilities": {
+      "resources": {
+        "subscribe": false,
+        "listChanged": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    }
+  },
+  "payload": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"id\":\"11458765886093725855\",\"sourceScreen\":\"projects/6397409268031532647/screens/11458765886093725855\",\"width\":390,\"height\":884}"
+      }
+    ],
+    "structuredContent": {
+      "height": 884,
+      "id": "11458765886093725855",
+      "sourceScreen": "projects/6397409268031532647/screens/11458765886093725855",
+      "width": 390
+    }
+  }
+}
