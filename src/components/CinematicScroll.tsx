@@ -144,16 +144,23 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
       if (!image || image.src) return;
 
       image.decoding = 'async';
-      image.src = frameUrl(isMobile, index);
+      image.onload = () => {
+        if (cancelled) return;
 
-      if (index === 0) {
-        image.onload = () => {
-          if (cancelled) return;
+        if (index === 0) {
           resizeCanvas();
           drawFrame(0);
           updateFromScroll();
-        };
-      }
+          return;
+        }
+
+        const wanted = Math.round(targetFrameRef.current);
+        if (Math.abs(index - wanted) <= 2) {
+          drawFrame(wanted);
+          requestAnimation();
+        }
+      };
+      image.src = frameUrl(isMobile, index);
     };
 
     loadFrame(0);
