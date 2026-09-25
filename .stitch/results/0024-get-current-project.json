@@ -1,0 +1,233 @@
+{
+  "ok": true,
+  "request": {
+    "action": "call_tool",
+    "tool": "get_project"
+  },
+  "server": {
+    "version": {
+      "name": "StatelessServer",
+      "version": "scaffolding on HTTPServer2"
+    },
+    "capabilities": {
+      "resources": {
+        "subscribe": false,
+        "listChanged": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    }
+  },
+  "payload": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"name\":\"projects/6397409268031532647\",\"title\":\"Jovina Diniz — Identidade & Site\",\"visibility\":\"PRIVATE\",\"createTime\":\"2026-09-25T00:46:00.134669Z\",\"updateTime\":\"2026-09-25T01:15:57.557373Z\",\"projectType\":\"PROJECT_DESIGN\",\"thumbnailScreenshot\":{\"name\":\"projects/6397409268031532647/files/8df0aac149c14f67b752ca22f239dc38\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1WuSd-r25fxL-RbkWtRv46IXnKra6L6Od8MVVxGfXRX26lN1QABXzpeo3xqv84E-EmyPSxYvfxn4oKiHkxzNRYgzSvXO1TABr1bKslYhhNBFOI7Wd1ZlXsicmRs7qAh3vzsXAoQWNV7VphachaBxKagc-mbKa6qA_s2f9Zu-jlOmgYMe2X4A93TUbOEwlDassLuiotOMiDM6LSYRWhWnREBGGLk0zfrrcWa0ERzYYQ2WGeiHYmdAVbk-A\"},\"origin\":\"STITCH\",\"deviceType\":\"DESKTOP\",\"designTheme\":{},\"screenInstances\":[{\"id\":\"02cf9a644499450e952a5e3b04ce403d\",\"sourceScreen\":\"projects/6397409268031532647/screens/02cf9a644499450e952a5e3b04ce403d\",\"y\":8292,\"width\":512,\"height\":162},{\"id\":\"11458765886093725855\",\"sourceScreen\":\"projects/6397409268031532647/screens/11458765886093725855\",\"x\":485,\"y\":26,\"width\":390,\"height\":884},{\"id\":\"1d5469c68e3b4fe2a61116861249f7fa\",\"sourceScreen\":\"projects/6397409268031532647/screens/1d5469c68e3b4fe2a61116861249f7fa\",\"y\":17181,\"width\":512,\"height\":504},{\"id\":\"2807605f7fd84a74996f94231c2d2dc9\",\"sourceScreen\":\"projects/6397409268031532647/screens/2807605f7fd84a74996f94231c2d2dc9\",\"x\":164,\"y\":14543,\"width\":100,\"height\":22},{\"id\":\"28a34198672b47629a47ebf42f4fd2ae\",\"sourceScreen\":\"projects/6397409268031532647/screens/28a34198672b47629a47ebf42f4fd2ae\",\"y\":7012,\"width\":1280,\"height\":909},{\"id\":\"2cb4ce48ab4843e280683695ad51d461\",\"sourceScreen\":\"projects/6397409268031532647/screens/2cb4ce48ab4843e280683695ad51d461\",\"x\":328,\"y\":12123,\"width\":1280,\"height\":894},{\"id\":\"2ec5a9f4a3e348aea28901033e28abcf\",\"sourceScreen\":\"projects/6397409268031532647/screens/2ec5a9f4a3e348aea28901033e28abcf\",\"x\":576,\"y\":17181,\"width\":100,\"height\":92},{\"id\":\"31ef9720ab7f476dac392c4cf6ecb021\",\"sourceScreen\":\"projects/6397409268031532647/screens/31ef9720ab7f476dac392c4cf6ecb021\",\"x\":328,\"y\":14543,\"width\":1280,\"height\":1102},{\"id\":\"3f4e10ba7b244fea85f3b96e2b66f59a\",\"sourceScreen\":\"projects/6397409268031532647/screens/3f4e10ba7b244fea85f3b96e2b66f59a\",\"y\":13403,\"width\":512,\"height\":504},{\"id\":\"449761468f7249a5854a732f8aed1855\",\"sourceScreen\":\"projects/6397409268031532647/screens/449761468f7249a5854a732f8aed1855\",\"x\":740,\"y\":13403,\"width\":1280,\"height\":884},{\"id\":\"5e255f33163747698d946248b70a9bce\",\"sourceScreen\":\"projects/6397409268031532647/screens/5e255f33163747698d946248b70a9bce\",\"y\":9572,\"width\":1280,\"height\":1060},{\"id\":\"5fcfec58ebf447b39897bb1633eded3e\",\"sourceScreen\":\"projects/6397409268031532647/screens/5fcfec58ebf447b39897bb1633eded3e\",\"y\":1936,\"width\":1280,\"height\":4820},{\"id\":\"617e8aeaae114a0fbf0b166953883246\",\"sourceScreen\":\"projects/6397409268031532647/screens/617e8aeaae114a0fbf0b166953883246\",\"y\":14543,\"width\":100,\"height\":58},{\"id\":\"6ae800a4c4d943d0ab4c9f52e2ed9ebc\",\"sourceScreen\":\"projects/6397409268031532647/screens/6ae800a4c4d943d0ab4c9f52e2ed9ebc\",\"x\":576,\"y\":13403,\"width\":100,\"height\":92},{\"id\":\"6c81029d6a364e1981105a78dd0e7dcb\",\"sourceScreen\":\"projects/6397409268031532647/screens/6c81029d6a364e1981105a78dd0e7dcb\",\"y\":15901,\"width\":512,\"height\":261},{\"id\":\"7c3ffecc971248aea04563c683f8a8a5\",\"sourceScreen\":\"projects/6397409268031532647/screens/7c3ffecc971248aea04563c683f8a8a5\",\"x\":164,\"y\":12123,\"width\":100,\"height\":92},{\"id\":\"85a707e53cb34844a1eb33c7470885a5\",\"sourceScreen\":\"projects/6397409268031532647/screens/85a707e53cb34844a1eb33c7470885a5\",\"y\":12123,\"width\":100,\"height\":92},{\"id\":\"8963930988555114179\",\"sourceScreen\":\"projects/6397409268031532647/screens/8963930988555114179\",\"x\":1865,\"y\":26,\"width\":1280,\"height\":4820},{\"id\":\"90baa91f24f24ba39493902df1d365a6\",\"sourceScreen\":\"projects/6397409268031532647/screens/90baa91f24f24ba39493902df1d365a6\",\"x\":740,\"y\":15901,\"width\":1280,\"height\":899},{\"id\":\"assets_450d91dd4aac45b0806ecdbf2ead72e0\",\"x\":485,\"y\":1166,\"width\":960,\"height\":540,\"sourceAsset\":\"assets/450d91dd4aac45b0806ecdbf2ead72e0\",\"type\":\"DESIGN_SYSTEM_INSTANCE\"},{\"id\":\"b61c041225c74a6692c3e09c89e2688c\",\"sourceScreen\":\"projects/6397409268031532647/screens/b61c041225c74a6692c3e09c89e2688c\",\"x\":740,\"y\":17181,\"width\":1280,\"height\":974},{\"id\":\"b9d01163b6534f388cde54e237baf37c\",\"sourceScreen\":\"projects/6397409268031532647/screens/b9d01163b6534f388cde54e237baf37c\",\"x\":576,\"y\":15901,\"width\":100,\"height\":92},{\"id\":\"cc9680e732ca4b659f206bfe44019ccc\",\"sourceScreen\":\"projects/6397409268031532647/screens/cc9680e732ca4b659f206bfe44019ccc\",\"y\":10888,\"width\":1280,\"height\":979},{\"id\":\"f94a5bdb4ed64e02b2c3a7a2955c0df5\",\"sourceScreen\":\"projects/6397409268031532647/screens/f94a5bdb4ed64e02b2c3a7a2955c0df5\",\"x\":576,\"y\":8292,\"width\":1280,\"height\":870}],\"metadata\":{\"userRole\":\"OWNER\"}}"
+      }
+    ],
+    "structuredContent": {
+      "createTime": "2026-09-25T00:46:00.134669Z",
+      "designTheme": {},
+      "deviceType": "DESKTOP",
+      "metadata": {
+        "userRole": "OWNER"
+      },
+      "name": "projects/6397409268031532647",
+      "origin": "STITCH",
+      "projectType": "PROJECT_DESIGN",
+      "screenInstances": [
+        {
+          "height": 162,
+          "id": "02cf9a644499450e952a5e3b04ce403d",
+          "sourceScreen": "projects/6397409268031532647/screens/02cf9a644499450e952a5e3b04ce403d",
+          "width": 512,
+          "y": 8292
+        },
+        {
+          "height": 884,
+          "id": "11458765886093725855",
+          "sourceScreen": "projects/6397409268031532647/screens/11458765886093725855",
+          "width": 390,
+          "x": 485,
+          "y": 26
+        },
+        {
+          "height": 504,
+          "id": "1d5469c68e3b4fe2a61116861249f7fa",
+          "sourceScreen": "projects/6397409268031532647/screens/1d5469c68e3b4fe2a61116861249f7fa",
+          "width": 512,
+          "y": 17181
+        },
+        {
+          "height": 22,
+          "id": "2807605f7fd84a74996f94231c2d2dc9",
+          "sourceScreen": "projects/6397409268031532647/screens/2807605f7fd84a74996f94231c2d2dc9",
+          "width": 100,
+          "x": 164,
+          "y": 14543
+        },
+        {
+          "height": 909,
+          "id": "28a34198672b47629a47ebf42f4fd2ae",
+          "sourceScreen": "projects/6397409268031532647/screens/28a34198672b47629a47ebf42f4fd2ae",
+          "width": 1280,
+          "y": 7012
+        },
+        {
+          "height": 894,
+          "id": "2cb4ce48ab4843e280683695ad51d461",
+          "sourceScreen": "projects/6397409268031532647/screens/2cb4ce48ab4843e280683695ad51d461",
+          "width": 1280,
+          "x": 328,
+          "y": 12123
+        },
+        {
+          "height": 92,
+          "id": "2ec5a9f4a3e348aea28901033e28abcf",
+          "sourceScreen": "projects/6397409268031532647/screens/2ec5a9f4a3e348aea28901033e28abcf",
+          "width": 100,
+          "x": 576,
+          "y": 17181
+        },
+        {
+          "height": 1102,
+          "id": "31ef9720ab7f476dac392c4cf6ecb021",
+          "sourceScreen": "projects/6397409268031532647/screens/31ef9720ab7f476dac392c4cf6ecb021",
+          "width": 1280,
+          "x": 328,
+          "y": 14543
+        },
+        {
+          "height": 504,
+          "id": "3f4e10ba7b244fea85f3b96e2b66f59a",
+          "sourceScreen": "projects/6397409268031532647/screens/3f4e10ba7b244fea85f3b96e2b66f59a",
+          "width": 512,
+          "y": 13403
+        },
+        {
+          "height": 884,
+          "id": "449761468f7249a5854a732f8aed1855",
+          "sourceScreen": "projects/6397409268031532647/screens/449761468f7249a5854a732f8aed1855",
+          "width": 1280,
+          "x": 740,
+          "y": 13403
+        },
+        {
+          "height": 1060,
+          "id": "5e255f33163747698d946248b70a9bce",
+          "sourceScreen": "projects/6397409268031532647/screens/5e255f33163747698d946248b70a9bce",
+          "width": 1280,
+          "y": 9572
+        },
+        {
+          "height": 4820,
+          "id": "5fcfec58ebf447b39897bb1633eded3e",
+          "sourceScreen": "projects/6397409268031532647/screens/5fcfec58ebf447b39897bb1633eded3e",
+          "width": 1280,
+          "y": 1936
+        },
+        {
+          "height": 58,
+          "id": "617e8aeaae114a0fbf0b166953883246",
+          "sourceScreen": "projects/6397409268031532647/screens/617e8aeaae114a0fbf0b166953883246",
+          "width": 100,
+          "y": 14543
+        },
+        {
+          "height": 92,
+          "id": "6ae800a4c4d943d0ab4c9f52e2ed9ebc",
+          "sourceScreen": "projects/6397409268031532647/screens/6ae800a4c4d943d0ab4c9f52e2ed9ebc",
+          "width": 100,
+          "x": 576,
+          "y": 13403
+        },
+        {
+          "height": 261,
+          "id": "6c81029d6a364e1981105a78dd0e7dcb",
+          "sourceScreen": "projects/6397409268031532647/screens/6c81029d6a364e1981105a78dd0e7dcb",
+          "width": 512,
+          "y": 15901
+        },
+        {
+          "height": 92,
+          "id": "7c3ffecc971248aea04563c683f8a8a5",
+          "sourceScreen": "projects/6397409268031532647/screens/7c3ffecc971248aea04563c683f8a8a5",
+          "width": 100,
+          "x": 164,
+          "y": 12123
+        },
+        {
+          "height": 92,
+          "id": "85a707e53cb34844a1eb33c7470885a5",
+          "sourceScreen": "projects/6397409268031532647/screens/85a707e53cb34844a1eb33c7470885a5",
+          "width": 100,
+          "y": 12123
+        },
+        {
+          "height": 4820,
+          "id": "8963930988555114179",
+          "sourceScreen": "projects/6397409268031532647/screens/8963930988555114179",
+          "width": 1280,
+          "x": 1865,
+          "y": 26
+        },
+        {
+          "height": 899,
+          "id": "90baa91f24f24ba39493902df1d365a6",
+          "sourceScreen": "projects/6397409268031532647/screens/90baa91f24f24ba39493902df1d365a6",
+          "width": 1280,
+          "x": 740,
+          "y": 15901
+        },
+        {
+          "height": 540,
+          "id": "assets_450d91dd4aac45b0806ecdbf2ead72e0",
+          "sourceAsset": "assets/450d91dd4aac45b0806ecdbf2ead72e0",
+          "type": "DESIGN_SYSTEM_INSTANCE",
+          "width": 960,
+          "x": 485,
+          "y": 1166
+        },
+        {
+          "height": 974,
+          "id": "b61c041225c74a6692c3e09c89e2688c",
+          "sourceScreen": "projects/6397409268031532647/screens/b61c041225c74a6692c3e09c89e2688c",
+          "width": 1280,
+          "x": 740,
+          "y": 17181
+        },
+        {
+          "height": 92,
+          "id": "b9d01163b6534f388cde54e237baf37c",
+          "sourceScreen": "projects/6397409268031532647/screens/b9d01163b6534f388cde54e237baf37c",
+          "width": 100,
+          "x": 576,
+          "y": 15901
+        },
+        {
+          "height": 979,
+          "id": "cc9680e732ca4b659f206bfe44019ccc",
+          "sourceScreen": "projects/6397409268031532647/screens/cc9680e732ca4b659f206bfe44019ccc",
+          "width": 1280,
+          "y": 10888
+        },
+        {
+          "height": 870,
+          "id": "f94a5bdb4ed64e02b2c3a7a2955c0df5",
+          "sourceScreen": "projects/6397409268031532647/screens/f94a5bdb4ed64e02b2c3a7a2955c0df5",
+          "width": 1280,
+          "x": 576,
+          "y": 8292
+        }
+      ],
+      "thumbnailScreenshot": {
+        "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1WuSd-r25fxL-RbkWtRv46IXnKra6L6Od8MVVxGfXRX26lN1QABXzpeo3xqv84E-EmyPSxYvfxn4oKiHkxzNRYgzSvXO1TABr1bKslYhhNBFOI7Wd1ZlXsicmRs7qAh3vzsXAoQWNV7VphachaBxKagc-mbKa6qA_s2f9Zu-jlOmgYMe2X4A93TUbOEwlDassLuiotOMiDM6LSYRWhWnREBGGLk0zfrrcWa0ERzYYQ2WGeiHYmdAVbk-A",
+        "name": "projects/6397409268031532647/files/8df0aac149c14f67b752ca22f239dc38"
+      },
+      "title": "Jovina Diniz — Identidade & Site",
+      "updateTime": "2026-09-25T01:15:57.557373Z",
+      "visibility": "PRIVATE"
+    }
+  }
+}

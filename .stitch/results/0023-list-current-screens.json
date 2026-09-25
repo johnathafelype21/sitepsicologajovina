@@ -1,0 +1,386 @@
+{
+  "ok": true,
+  "request": {
+    "action": "call_tool",
+    "tool": "list_screens"
+  },
+  "server": {
+    "version": {
+      "name": "StatelessServer",
+      "version": "scaffolding on HTTPServer2"
+    },
+    "capabilities": {
+      "resources": {
+        "subscribe": false,
+        "listChanged": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    }
+  },
+  "payload": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"screens\":[{\"name\":\"projects/6397409268031532647/screens/5fcfec58ebf447b39897bb1633eded3e\",\"title\":\"Jovina Diniz — Brand Identity Presentation Board\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/8df0aac149c14f67b752ca22f239dc38\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1WuSd-r25fxL-RbkWtRv46IXnKra6L6Od8MVVxGfXRX26lN1QABXzpeo3xqv84E-EmyPSxYvfxn4oKiHkxzNRYgzSvXO1TABr1bKslYhhNBFOI7Wd1ZlXsicmRs7qAh3vzsXAoQWNV7VphachaBxKagc-mbKa6qA_s2f9Zu-jlOmgYMe2X4A93TUbOEwlDassLuiotOMiDM6LSYRWhWnREBGGLk0zfrrcWa0ERzYYQ2WGeiHYmdAVbk-A\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/ef5b2e6a6701480db3847e94cff55f56\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2Y0OTc1Yzc0YzYwYjRiNzdiYmNmOWY5MjQ3ODYxMTE4EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"9796\",\"deviceType\":\"DESKTOP\"},{\"name\":\"projects/6397409268031532647/screens/f94a5bdb4ed64e02b2c3a7a2955c0df5\",\"title\":\"Opção 02 — Assinatura Autoral\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/490031b1900348a1970c6faa6d965ae0\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1W9NU9aEGJk5HCn_CveYdrGjnGzegwmJEBYh9vPYodE94AYASPg41OPp0LmWaBNCav9EV03M2Lqs6Urey92FXbnS0KxfKmm4RpZ0izswEvltiHDFeUW_-YE3AhHEgXZNtycy1YVl4NVaRYIG5inwT8RH0Py2ymfm_Af6Bbn1cU65pb5SO-cNEMuWhYlYG87GYjssAd8baSHoJxpCisoh4jUeFp0hYbj_6C7Kmyk1YPSSO6LC2fi3SutL5k\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/34e5bfe9b10e48059f18a6613a1a0331\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2QyNDA3N2RjYzdhYjQ4ZGZhZWY3MjA2NWM4Yzg4ZjQyEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"2048\",\"deviceType\":\"DESKTOP\"},{\"name\":\"projects/6397409268031532647/screens/28a34198672b47629a47ebf42f4fd2ae\",\"title\":\"Opção 01 — Wordmark Editorial\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/f57e5141dcc94ab489cb288d1ac529c9\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1WATVgb9tNTXGJyDcmytsKlSdQ29jeSFvhpNXH-ffDDEDx9FJXiLdPYCJpKvEax8wZyRiuHZ6udY1iUPBGUcG7TOq56aq2k9D4REexltd18bDKgwmfbLljCyqPBBNoZrTiQloqXRtDO706MKO1dxYjHJewNryUkxbRuzdnxAlLvioCk-kyexMey-Y0Zbu7HLNt8Kqe2wZ3nBoAsj9DciaXRf-GYDUUAAkUBhv9wbL9JVeCMoMzq6L3WPZ8\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/8ac713ed7d2d455699f1b2fd108ab15d\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzlkZDc4NGQwOGFlNzRlNDJiYTdlYmE3OGMwMzJkM2Q1EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"2048\",\"deviceType\":\"DESKTOP\"},{\"name\":\"projects/6397409268031532647/screens/90baa91f24f24ba39493902df1d365a6\",\"title\":\"Opção 08 — Contemporary Luxury\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/5c32a73ec322482c8d0363e8b5eff6b6\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1UZgioGJy2xxF0idD3kywaMZjuGoKsZxn1h7_H8AkJOBtSOnerWFaqQr7oHMXMARndjc9P3N-svqW0YDw-ZdqWz8t81iywLYwK2UBzwGUH16kVkNS0h0pTi8UAhZLyt5uo6sZNTZjFWDEe-k8WB67HkASOc9uQ8E9iNz6xP_nXQevQr9yzsr7kS1TpbAXu5EsXWL2x-yeVdsksS-aApoz5FpaKobwetme1xMBDzdTXVveeI6XllKB67IAc\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/12b5e8e573594e3b98c1699446fdc91b\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzI1NDNiYjUyM2ZiMTQ0ZmU4ZWQ3NTkwMjJmOTJlOGQ4EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"2048\",\"deviceType\":\"DESKTOP\"},{\"name\":\"projects/6397409268031532647/screens/617e8aeaae114a0fbf0b166953883246\",\"title\":\"Opção 07 — Lockup Tipográfico Empilhado Primário\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/290e7bfe06a14b809ac1d6ac37ca1572\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1XBcTw0OcjEfYfD3G9slaTBG9MAuRxN0o5fjwyeBRmWGD4Ar1R675wPH7n3j2GID5d7SkZ18w_4xywcjA3DhXpP1-cy9qAXayVVAt0dbSUVFjPJBNSByrBATqblcyEIfFNdHDepXXt93SPvmTlecuMkH9GX-yNXLjr9XvpF4WgwwWDrIH3KGIwzH0eBc9WVpS66Iy5aiX2IT03hRp5SxxLIf5t0dyAVeukUtGgStB4A3s2oGK3RgVkGKRM\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/7b6e21f00e8741e1b58e044f607dba79\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzVmZTU3YmMxMGM0NjRmMTY5YWNmODlkMWRhM2Y1MTk1EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"image/svg+xml\"},\"width\":\"100\",\"height\":\"100\"},{\"name\":\"projects/6397409268031532647/screens/2807605f7fd84a74996f94231c2d2dc9\",\"title\":\"Opção 07 — Versão Horizontal Compacta\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/0bbdf52338f246bf9234422f06b7fb36\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1U0CJSX20guQuAEpB2DE0CMhZrE3Nfhh1EarUjKhojPBRQ8euY0AuBEN6FOh6mK8FNOuqhLJ9mfoUsplPtQkkPG0SxfkvRYZvsI8BGdol1go8xCE8ExYkd-cwtDr5wiaD0g9InUY-BxvBJMsxecOiWcfZanbndFqfL9YPHxZZ_VYEmXYxCF0shSRSIdPWmJBA0UMk6hBWnDdBFfy7qyYeoM7nsRgssrFSzYMngKPoEw9y8yCHPQiyj3Kko\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/a5cb433a47e2474b8f6da1e3a3a7fa04\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2EzNjFhOTM1ZjgyYjQxOTlhNmI5M2FhNjM4Mjc4MzQ5EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"image/svg+xml\"},\"width\":\"100\",\"height\":\"100\"},{\"name\":\"projects/6397409268031532647/screens/6ae800a4c4d943d0ab4c9f52e2ed9ebc\",\"title\":\"Selo Reduzido JD 32-48px\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/4f6891bc45ce405982531c590bddcd27\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1Vf2qA6pPECussWFo7m5latRNz-jjUVDFON9Rl8qBp3MWqPyq3Ieoi2c3LOBRLvbyemyaESFJG1X0bqEPmaIKGnSpw_eVn3zTIh1CMvhqXcc7AgXR_D7-xvtf58duBoUwFEj-LdToMBmzG_8SGjg8j4kLt123rxZHk2wSJDqq8j8GjeHBBfzmZ9haBl_ve9GnUNj8tXfCpQFF4FeGOA0lDQjhLFOnRCukFVuCeyAHF_IQswL9aSQdcoVeg\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/2b6b157280534b8496023cfe5285cb77\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2E1YWMzNmNkMmI5MDQ2NjZhYjVmZTEzNmFlZDliMDQ1EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"image/svg+xml\"},\"width\":\"100\",\"height\":\"100\"},{\"name\":\"projects/6397409268031532647/screens/449761468f7249a5854a732f8aed1855\",\"title\":\"Opção 06 — Selo e Emblema Premium JD\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/45b7bc9843f64d25a11d3db89195b389\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1WKO-aTINFoJFZ3Pc4zVkyiuY6G_lKwk-4I7sFYSW8DM8jopKw0VSLRotHVMqIteEYwJawbFRCxKKN44OdeYWmYiImKFvomGhCBIkhT1vFgxzAoODv2B-l6e9kYW0tS4cUEWnC-3sLr9IPgaGgo4BJgQcr2nrd_u99d2-ZlGP766uKlS_KKSq5PGeoc4XrR0q4GC1nu04ZfxMkQ0y9O-r0VyO7l9M5dfbf6KgE-gmiopqWLW11uZUMtVdk\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/96cd95d010dd4121aec7d6105368191a\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2JhZWY1N2RhNzI4ZTQwMDE5ZDRhM2E2NjVkYzZkYzUwEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"2048\",\"deviceType\":\"DESKTOP\"},{\"name\":\"projects/6397409268031532647/screens/b9d01163b6534f388cde54e237baf37c\",\"title\":\"Contemporary Luxury Icon Mark\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/578b090879684bf782ec1d685403a462\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1UY5SRMMOePNzRvAF3zZYU6u-IGqhO1TYssJrxPp60jCr5Cvse7NB0hukDI55xxRVdp-rVnL9ekj5hY6AHevdDvgHRyF4vnxV2P-wgNacrUzAuiU-G51Djhz0TmgYwIcqv2RY8P2IMT9xiY6jJS3q5urcxHcQa-JfsNuEniwmgjOvAg1QDpjkDJCwlHKWhTwgJGkAkBAgiLkcfw9yFknBQAlejzUlpnwV5x_eKJbDC3xdG3_A6PcF_cYYI\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/825b4fb909c64799ad2ced8fe8aa95d9\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2UxZTNlODhmM2FiODRkMzliZWU3YzQxYTNjMGNkNWU1EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"image/svg+xml\"},\"width\":\"100\",\"height\":\"100\"},{\"name\":\"projects/6397409268031532647/screens/8963930988555114179\",\"title\":\"Jovina Diniz — Proposta de Identidade Visual\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/8963930988555114774\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1XjpEgyB4Aeju9Ntqm_H5B1rnOsCVxsCaR42qWv0N8BJT9n6UW4JBcfFkiPcKAKDzU6t2XksaUhwEVw4kUBib_vGUOIbYhXBlFNIZo1JU_AxWNKowbvpy6zzR3AUoRvQh3TJq32W5dYv-g95mc3kzb9LgfYsyaraWRxAXyUZbg-8CU24utbpHo6t5VESigU5rgZx-HjzK3pCiLtUD447W8zHf_HbGNOROVoekOeXxPZgRHv5bQpBAiGZcJIbqXYwnLDKcDFAnCpqQ\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/8963930988555115369\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBKNARIhYXBwX2NvbXBhbmlvbl91c2VyX3VwbG9hZGVkX2ZpbGVzGmgKM3VzZXJfdXBsb2FkZWRfaHRtbF8wMDA2NWM0NDMwNTRjMjRmMDVjMmZmYTkxNjA3YmEzNhILEgcQqLX5yNAQGAGSASMKCnByb2plY3RfaWQSFUITNjM5NzQwOTI2ODAzMTUzMjY0Nw&filename=&opi=96797242\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"9796\"},{\"name\":\"projects/6397409268031532647/screens/11458765886093725855\",\"title\":\"DESIGN.md\",\"screenshot\":{},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/11458765886093727386\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBKNARIhYXBwX2NvbXBhbmlvbl91c2VyX3VwbG9hZGVkX2ZpbGVzGmgKM3VzZXJfdXBsb2FkZWRfaHRtbF8wMDA2NWM0NDFjMzkxMjI1MDUzYjc1MWM3NzFhMTRlMxILEgcQqLX5yNAQGAGSASMKCnByb2plY3RfaWQSFUITNjM5NzQwOTI2ODAzMTUzMjY0Nw&filename=&opi=96797242\",\"mimeType\":\"text/markdown\"},\"width\":\"780\",\"height\":\"1768\"},{\"name\":\"projects/6397409268031532647/screens/1d5469c68e3b4fe2a61116861249f7fa\",\"title\":\"Monograma Escultural JD\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/b227f977ca754031a57a00cf34a0c8c2\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1XEXdQNjj1RTS67uIF6Rq-AuENvrOk8MwsIPRByijKDMTmTXlpNEgZzM3n-eP9HMouNIyip5zghrne5G-hiztJK6b7HvDfZbFmC-T-dFHw6EaAp9l5Z6zKhwCU5zDUb7ZNCovTt4hfhhdnR7uSmdjE31FVkP0PCg02rz_rpYiqbUQ85o6-r9Sx5PLB3oZUUQPI4R3rGQlnXU1dSx22BhXBI0yFi5EiJIVSQxOZH_XzL_E2SavbqM1isYZ8\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/12c188d421c14e23b13ca745336c862c\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzdlMGZmMGRkZjkyZTRiMDliZmEwZmIyMzM4NDRjOGUxEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"image/svg+xml\"},\"width\":\"600\",\"height\":\"600\"},{\"name\":\"projects/6397409268031532647/screens/31ef9720ab7f476dac392c4cf6ecb021\",\"title\":\"Opção 07 — Lockup Tipográfico Empilhado\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/c4f1bf1bf5c24e419ac5be6c32f43eb7\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1XY-2ElCFvdPykdz_GRHgaY8IshTKN-W4VvCfJykegRZsffakALnhNYX0QgzWsV0vfVb0iLZ-M35bjUerRiNY-3fDrNhN-DZVuwKMbn4HUSK3e23Y46kAnGb5vnrmQeWrrfwZLEyZq5GqezudVIey1Ppj-gtH0kxoyonuMCUyMWla5iMzTvdnOesmspQnkY_vjeRdSlyESNOw1UNbWjTwmfv2e0RK0xQ5oNZMOtJij7u8ij6K1FCYePjU8\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/938046d07e124590a81629eaf582149a\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2RhZDAyNWQ0MTA2ODQ2MGZhNzgzZWRiMWUyZWFhMGRkEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"2268\",\"deviceType\":\"DESKTOP\"},{\"name\":\"projects/6397409268031532647/screens/3f4e10ba7b244fea85f3b96e2b66f59a\",\"title\":\"Emblema Selo Premium JD — Jovina Diniz\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/fb13c6aa764840e6a06ce252c4383846\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1V68GDlel06oxabB76fe4LRv0-VS5P8Y-tosaEJhT9PC8r3i42tsOX0MyH6IaCMoC7uWAa0XSSIXIIugPnpq_k4g2DKqfxZg8wfXan3sOuIS2P64IEfgnofCJv53NyyYVsjcHpD70z1Ls0ZlEE-trk7Q_JEIH04xhC5qJYSb3GzpUaOHt7EELp4tfA21LhHFCMjDd-UFa4ea8y_RYv6UVlqHs2lR21nW8Z79ElMHwndaxLnMkGKfgH9Gp0\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/a21a116a2880420b8323eed9af26bc09\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzA4MzIyMDFmYjcwMzRkZTY5MmE2ZTUzMzEzNmQ2MmY2EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"image/svg+xml\"},\"width\":\"600\",\"height\":\"600\"},{\"name\":\"projects/6397409268031532647/screens/5e255f33163747698d946248b70a9bce\",\"title\":\"Opção 03 — Monograma Geométrico JD\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/87bee33350c64e6997975b9dbc4321a7\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1U1u4uecx5lO-_nrIv9DxDNiihC2P2HTMloZAiOgzlhzM9FcPBmLT_f2JP0Df3R5PpF2Kb_Uiy2cBrIP3vHzR1zkeqtDfPVGpuKgeXS33LZ8hTHmUP2uKoreKJtdqbpIsdgqv7WUEtufyKxnhm0UUsq_4bOMzana88M8JZIlqqBERXnJSTeKXNJgtKY9lQQ8LXcfGxmye2wxzIdM_qex5IVtZfStbR5zUIwXhE3YfkDBSTr_2mE_YD4bmA\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/eabc065e9f3543b98172188e466c67d7\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzMwNjczNzNhYjFlMzQ5NzY4ZTczMGNiOGRhYzQ4Yjk4EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"2248\",\"deviceType\":\"DESKTOP\"},{\"name\":\"projects/6397409268031532647/screens/02cf9a644499450e952a5e3b04ce403d\",\"title\":\"Jovina Diniz — Assinatura Autoral\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/88fd410de380438ca3c2aee08590830e\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1VB4Y88LJsfJ6-edjUd5UmQlJFhipSU3THZ1bdi0ZkLQ2VdtGWv4J8ocV7YC1_SHm_hhRHx1RjzaBeBz9TOvaOlntHI0tFpaZmDCluD9wFc45CAL5ULPOMgzkwQn1X98FkpKDifUu8YhKgt-DPPmBFDgUQ8ByRRnKDhHHd5XwrSgxxiKrE1DK_QKTC_OdmuJO2H94er8GYCdt3D1zR9tIiqn5hnJKS22_77rKX2mvW5bEAqGLxxJ0UVIy4\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/bd9354a21c9a47dab66412c9a03c551e\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzhmNThiNTViZWJiMjRhMzQ5YWYyMzM1NmVkMzk1MDYwEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"image/svg+xml\"},\"width\":\"900\",\"height\":\"320\"},{\"name\":\"projects/6397409268031532647/screens/b61c041225c74a6692c3e09c89e2688c\",\"title\":\"Opção 09 — Monograma Escultural JD\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/313d9e63a28e40feb07407d162ce257b\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1VXN72-MnVf6JDeBYFVVhnft06orgD2qfAQhUYK7Wclbqz-012D3esnPKiNiUq8OzhiZbn2sPlxvNfht83tNQM3XycWqGpMCJBYVMGILP90A_nSFxuit6Yip_qBddOEEjBjaUHI-FV7Q-qBxB4jBsTEGKsVfrGm2wU_fIWUXp4SG-lbegzz2YXU8etpiqlJ2mOQkc3iY7RGA8LyyE2wQdSbkPetIs_RtD1wZJrxxhfKSAll9NCxYIsTcro\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/0e5a43e4770b43129eac192e960ab387\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzFmNzk4N2VlNjAzNTRkNzY5MDc2N2IyODBhYWE2Y2VkEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"2060\",\"deviceType\":\"DESKTOP\"},{\"name\":\"projects/6397409268031532647/screens/6c81029d6a364e1981105a78dd0e7dcb\",\"title\":\"Contemporary Luxury Logo — Jovina Diniz\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/88e1c6b9ab5d4ae38d5a65381dbca3a2\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1UMl_UfcVC2x3qoY1EXQYN5s9PO4wsoJ89AID3dAAU33pHB00Q2Ep6I6z1o5dly4sZ7gOhpynHXg6F2CB03nkeEFq43LX6bOLY5Xqe_3Xowp75aOlOm8Y_vXVGs48__aX1CjJuOU99oR5eja15Ap_z2Ds4NzmDmI_hJp2NBdrMwpFYvvknIYW8T8PEi_eS6BqxxR4isRB3kJXauXvCP9RMTB6PuBcKULUN9LUAyKv9QePteNvJOdh9C1tA\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/ca234dba0973471a90f2c4d68f574080\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzA1Yzk5MWU5NGRkZDQzM2U4NzBjMjdiYmEwNjg1OTAxEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"image/svg+xml\"},\"width\":\"900\",\"height\":\"460\"},{\"name\":\"projects/6397409268031532647/screens/cc9680e732ca4b659f206bfe44019ccc\",\"title\":\"Opção 04 — Monograma em Curvas Contínuas JD\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/6c18532347504d00a53a244f016abf76\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1Ws0wlAvx4m8H7oFSD3WIF6t4ztzEd0bwZEO6uXdTbJfefWpDonY8Q0xrdQ0EIgD2pksoUPKCyn2UVfO8qzNUmkLEW6BlZPRyUzboEILKRsiTIBl-Yx8bzrvxcpCgksOtXJ4s_iLfCVy3SuBDzFIb47TX2KdXuaA6wIl2oJ49J_3VhOh75-FZLfMmzpI6MemySRCU157-rYeGtXIM7zY0aZDiReDg9pLV7A4j1Y770JbJtWqFMg9FFsaC4\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/3fe3df65eb8d4bd7b7b71a262c9aabfc\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2JmZDI2ODAxMjQzNDQ4ZTg5ZWViMmJhOWZmMWU1N2YxEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"2086\",\"deviceType\":\"DESKTOP\"},{\"name\":\"projects/6397409268031532647/screens/2cb4ce48ab4843e280683695ad51d461\",\"title\":\"Opção 05 — Símbolo Arquitetônico Abstrato\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/d191572c932348d1b3c6155f330eb00e\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1Xm2N7mNa7zNbQmHc4i25qMOTC3fPaIhOtBLneCemrA6iKscfvoJbneXDt6BkCvphmCxshGPeNtUiWDXjeDb9kZE9sVtVIgBCEKHDcqos0o4WY9_LgU8jvmRfxEKbEO7MB7tOrlu2RLvIQOI4JQ6nvN7ZmBS7QGPZTj6jtHYxBKmQWmYSrQ1dukEldyTGUN8NIBRyQHAf6yFt2RyBx4NF0lfIK9RBNWuV6fnzfGkyNJPrnRGDIdXuuac-A\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/130407d6fb544a469290f3590f90c70c\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzE3MzRjOWJhNDViYjQwM2E5NmM0NmVjMzRkZWM3YTBiEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"2048\",\"deviceType\":\"DESKTOP\"},{\"name\":\"projects/6397409268031532647/screens/2ec5a9f4a3e348aea28901033e28abcf\",\"title\":\"Avatar Monograma Escultural JD\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/b357309c43ff4dbd994cb4f7069284df\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1WdnDfA2ZAapD8ro3X2eF3aoW8p1Dfgx_RHCyCQyabKDXwt92_eMAxlK8J1Z_bUUQX6wW5VH_f0TZct1XDfVbbiVY2Yp_B3AQ603rvpOsSCSiylQvnFpTq0nvbjnEzcLgSggMl0_-XPDFbGxJ2czxvrXzmOI2LXbiJB0DGGziy6P_ZlWnJ0hIiSIg9CgRtKhXGTnRwy4b4EzTf0-5SlOHqN5vzdUFjwwKgpMAm3BZzfL6i7Kuj2ISgMuXU\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/5a6f56228c5b4ae48f1cf8c87001c2c9\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2NkMzZiYjEwOTI3YTQ2MTU4NzFiNWY5ZGFjODdjNTE5EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"image/svg+xml\"},\"width\":\"100\",\"height\":\"100\"},{\"name\":\"projects/6397409268031532647/screens/7c3ffecc971248aea04563c683f8a8a5\",\"title\":\"Ícone Portal Arquitetônico Favicon\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/6dfb06cc7a2946b5b5e84f4be4c2d3f1\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1U1uQlywlwDMraG75fnBOT4_OAWBzhwCjGSFNDAuEMN9DdlaFk927wyKc89tmTg_D3SVhDXZgkfoFxKD5ZYP-9vQTGxAEhbNmZcz0LR5hTPc8AcOFlVTgC9Uc7aLU_KCPiNdoEo8orpmZskyZ5Lw8iMl4d9j1vO1zn61Q3xd0r9A2o2-uFl2VdwHK36CnUG7mfgiZkLKlIbBdYU2UygeBh8BW6kdnL_d2l8k2dK_8ctJVlW01khijZSfX8\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/a422873ce800408289010fd21beb5768\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzU1ZTQyMDAyYjQxMTRjMDhiZWY1ODM4NjZhOThhN2FkEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"image/svg+xml\"},\"width\":\"100\",\"height\":\"100\"},{\"name\":\"projects/6397409268031532647/screens/85a707e53cb34844a1eb33c7470885a5\",\"title\":\"Símbolo Arquitetônico Abstrato — Opção 05\",\"screenshot\":{\"name\":\"projects/6397409268031532647/files/f0f5f90d21b346a9a2d3505a7dbdfb58\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1UJ6y-fthPkpkMY2RritpOV-3zn59DJ8bvGUbaM0gBJKt2MH5GqgUllo9rDeTzTyd68v6ZI3uPOC0OVItgs7EUSPTvhydt3DgcWIhB38jqayzvcBy9e30u4ise5hd4mTPQ5AP0YJrDLCUHeOndjD4vEoqoZApfRi0rC6kkmDY4u5BDAxfN6gQivTbw_F1C7IkrkIdoBMrkMREvhpb8gcNO_DjeU9TrcQ0JD1OZyLQzpcrdklUCkyvkLOw\"},\"htmlCode\":{\"name\":\"projects/6397409268031532647/files/9054e019f1a740959443388ed10b77b5\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2FjYzE0MzRjODYzOTQ0ZTdiZDA0MDJmMGVmOTEyOWM1EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242\",\"mimeType\":\"image/svg+xml\"},\"width\":\"100\",\"height\":\"100\"}]}"
+      }
+    ],
+    "structuredContent": {
+      "screens": [
+        {
+          "deviceType": "DESKTOP",
+          "height": "9796",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2Y0OTc1Yzc0YzYwYjRiNzdiYmNmOWY5MjQ3ODYxMTE4EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "text/html",
+            "name": "projects/6397409268031532647/files/ef5b2e6a6701480db3847e94cff55f56"
+          },
+          "name": "projects/6397409268031532647/screens/5fcfec58ebf447b39897bb1633eded3e",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1WuSd-r25fxL-RbkWtRv46IXnKra6L6Od8MVVxGfXRX26lN1QABXzpeo3xqv84E-EmyPSxYvfxn4oKiHkxzNRYgzSvXO1TABr1bKslYhhNBFOI7Wd1ZlXsicmRs7qAh3vzsXAoQWNV7VphachaBxKagc-mbKa6qA_s2f9Zu-jlOmgYMe2X4A93TUbOEwlDassLuiotOMiDM6LSYRWhWnREBGGLk0zfrrcWa0ERzYYQ2WGeiHYmdAVbk-A",
+            "name": "projects/6397409268031532647/files/8df0aac149c14f67b752ca22f239dc38"
+          },
+          "title": "Jovina Diniz — Brand Identity Presentation Board",
+          "width": "2560"
+        },
+        {
+          "deviceType": "DESKTOP",
+          "height": "2048",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2QyNDA3N2RjYzdhYjQ4ZGZhZWY3MjA2NWM4Yzg4ZjQyEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "text/html",
+            "name": "projects/6397409268031532647/files/34e5bfe9b10e48059f18a6613a1a0331"
+          },
+          "name": "projects/6397409268031532647/screens/f94a5bdb4ed64e02b2c3a7a2955c0df5",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1W9NU9aEGJk5HCn_CveYdrGjnGzegwmJEBYh9vPYodE94AYASPg41OPp0LmWaBNCav9EV03M2Lqs6Urey92FXbnS0KxfKmm4RpZ0izswEvltiHDFeUW_-YE3AhHEgXZNtycy1YVl4NVaRYIG5inwT8RH0Py2ymfm_Af6Bbn1cU65pb5SO-cNEMuWhYlYG87GYjssAd8baSHoJxpCisoh4jUeFp0hYbj_6C7Kmyk1YPSSO6LC2fi3SutL5k",
+            "name": "projects/6397409268031532647/files/490031b1900348a1970c6faa6d965ae0"
+          },
+          "title": "Opção 02 — Assinatura Autoral",
+          "width": "2560"
+        },
+        {
+          "deviceType": "DESKTOP",
+          "height": "2048",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzlkZDc4NGQwOGFlNzRlNDJiYTdlYmE3OGMwMzJkM2Q1EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "text/html",
+            "name": "projects/6397409268031532647/files/8ac713ed7d2d455699f1b2fd108ab15d"
+          },
+          "name": "projects/6397409268031532647/screens/28a34198672b47629a47ebf42f4fd2ae",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1WATVgb9tNTXGJyDcmytsKlSdQ29jeSFvhpNXH-ffDDEDx9FJXiLdPYCJpKvEax8wZyRiuHZ6udY1iUPBGUcG7TOq56aq2k9D4REexltd18bDKgwmfbLljCyqPBBNoZrTiQloqXRtDO706MKO1dxYjHJewNryUkxbRuzdnxAlLvioCk-kyexMey-Y0Zbu7HLNt8Kqe2wZ3nBoAsj9DciaXRf-GYDUUAAkUBhv9wbL9JVeCMoMzq6L3WPZ8",
+            "name": "projects/6397409268031532647/files/f57e5141dcc94ab489cb288d1ac529c9"
+          },
+          "title": "Opção 01 — Wordmark Editorial",
+          "width": "2560"
+        },
+        {
+          "deviceType": "DESKTOP",
+          "height": "2048",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzI1NDNiYjUyM2ZiMTQ0ZmU4ZWQ3NTkwMjJmOTJlOGQ4EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "text/html",
+            "name": "projects/6397409268031532647/files/12b5e8e573594e3b98c1699446fdc91b"
+          },
+          "name": "projects/6397409268031532647/screens/90baa91f24f24ba39493902df1d365a6",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1UZgioGJy2xxF0idD3kywaMZjuGoKsZxn1h7_H8AkJOBtSOnerWFaqQr7oHMXMARndjc9P3N-svqW0YDw-ZdqWz8t81iywLYwK2UBzwGUH16kVkNS0h0pTi8UAhZLyt5uo6sZNTZjFWDEe-k8WB67HkASOc9uQ8E9iNz6xP_nXQevQr9yzsr7kS1TpbAXu5EsXWL2x-yeVdsksS-aApoz5FpaKobwetme1xMBDzdTXVveeI6XllKB67IAc",
+            "name": "projects/6397409268031532647/files/5c32a73ec322482c8d0363e8b5eff6b6"
+          },
+          "title": "Opção 08 — Contemporary Luxury",
+          "width": "2560"
+        },
+        {
+          "height": "100",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzVmZTU3YmMxMGM0NjRmMTY5YWNmODlkMWRhM2Y1MTk1EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "image/svg+xml",
+            "name": "projects/6397409268031532647/files/7b6e21f00e8741e1b58e044f607dba79"
+          },
+          "name": "projects/6397409268031532647/screens/617e8aeaae114a0fbf0b166953883246",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1XBcTw0OcjEfYfD3G9slaTBG9MAuRxN0o5fjwyeBRmWGD4Ar1R675wPH7n3j2GID5d7SkZ18w_4xywcjA3DhXpP1-cy9qAXayVVAt0dbSUVFjPJBNSByrBATqblcyEIfFNdHDepXXt93SPvmTlecuMkH9GX-yNXLjr9XvpF4WgwwWDrIH3KGIwzH0eBc9WVpS66Iy5aiX2IT03hRp5SxxLIf5t0dyAVeukUtGgStB4A3s2oGK3RgVkGKRM",
+            "name": "projects/6397409268031532647/files/290e7bfe06a14b809ac1d6ac37ca1572"
+          },
+          "title": "Opção 07 — Lockup Tipográfico Empilhado Primário",
+          "width": "100"
+        },
+        {
+          "height": "100",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2EzNjFhOTM1ZjgyYjQxOTlhNmI5M2FhNjM4Mjc4MzQ5EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "image/svg+xml",
+            "name": "projects/6397409268031532647/files/a5cb433a47e2474b8f6da1e3a3a7fa04"
+          },
+          "name": "projects/6397409268031532647/screens/2807605f7fd84a74996f94231c2d2dc9",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1U0CJSX20guQuAEpB2DE0CMhZrE3Nfhh1EarUjKhojPBRQ8euY0AuBEN6FOh6mK8FNOuqhLJ9mfoUsplPtQkkPG0SxfkvRYZvsI8BGdol1go8xCE8ExYkd-cwtDr5wiaD0g9InUY-BxvBJMsxecOiWcfZanbndFqfL9YPHxZZ_VYEmXYxCF0shSRSIdPWmJBA0UMk6hBWnDdBFfy7qyYeoM7nsRgssrFSzYMngKPoEw9y8yCHPQiyj3Kko",
+            "name": "projects/6397409268031532647/files/0bbdf52338f246bf9234422f06b7fb36"
+          },
+          "title": "Opção 07 — Versão Horizontal Compacta",
+          "width": "100"
+        },
+        {
+          "height": "100",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2E1YWMzNmNkMmI5MDQ2NjZhYjVmZTEzNmFlZDliMDQ1EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "image/svg+xml",
+            "name": "projects/6397409268031532647/files/2b6b157280534b8496023cfe5285cb77"
+          },
+          "name": "projects/6397409268031532647/screens/6ae800a4c4d943d0ab4c9f52e2ed9ebc",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1Vf2qA6pPECussWFo7m5latRNz-jjUVDFON9Rl8qBp3MWqPyq3Ieoi2c3LOBRLvbyemyaESFJG1X0bqEPmaIKGnSpw_eVn3zTIh1CMvhqXcc7AgXR_D7-xvtf58duBoUwFEj-LdToMBmzG_8SGjg8j4kLt123rxZHk2wSJDqq8j8GjeHBBfzmZ9haBl_ve9GnUNj8tXfCpQFF4FeGOA0lDQjhLFOnRCukFVuCeyAHF_IQswL9aSQdcoVeg",
+            "name": "projects/6397409268031532647/files/4f6891bc45ce405982531c590bddcd27"
+          },
+          "title": "Selo Reduzido JD 32-48px",
+          "width": "100"
+        },
+        {
+          "deviceType": "DESKTOP",
+          "height": "2048",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2JhZWY1N2RhNzI4ZTQwMDE5ZDRhM2E2NjVkYzZkYzUwEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "text/html",
+            "name": "projects/6397409268031532647/files/96cd95d010dd4121aec7d6105368191a"
+          },
+          "name": "projects/6397409268031532647/screens/449761468f7249a5854a732f8aed1855",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1WKO-aTINFoJFZ3Pc4zVkyiuY6G_lKwk-4I7sFYSW8DM8jopKw0VSLRotHVMqIteEYwJawbFRCxKKN44OdeYWmYiImKFvomGhCBIkhT1vFgxzAoODv2B-l6e9kYW0tS4cUEWnC-3sLr9IPgaGgo4BJgQcr2nrd_u99d2-ZlGP766uKlS_KKSq5PGeoc4XrR0q4GC1nu04ZfxMkQ0y9O-r0VyO7l9M5dfbf6KgE-gmiopqWLW11uZUMtVdk",
+            "name": "projects/6397409268031532647/files/45b7bc9843f64d25a11d3db89195b389"
+          },
+          "title": "Opção 06 — Selo e Emblema Premium JD",
+          "width": "2560"
+        },
+        {
+          "height": "100",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2UxZTNlODhmM2FiODRkMzliZWU3YzQxYTNjMGNkNWU1EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "image/svg+xml",
+            "name": "projects/6397409268031532647/files/825b4fb909c64799ad2ced8fe8aa95d9"
+          },
+          "name": "projects/6397409268031532647/screens/b9d01163b6534f388cde54e237baf37c",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1UY5SRMMOePNzRvAF3zZYU6u-IGqhO1TYssJrxPp60jCr5Cvse7NB0hukDI55xxRVdp-rVnL9ekj5hY6AHevdDvgHRyF4vnxV2P-wgNacrUzAuiU-G51Djhz0TmgYwIcqv2RY8P2IMT9xiY6jJS3q5urcxHcQa-JfsNuEniwmgjOvAg1QDpjkDJCwlHKWhTwgJGkAkBAgiLkcfw9yFknBQAlejzUlpnwV5x_eKJbDC3xdG3_A6PcF_cYYI",
+            "name": "projects/6397409268031532647/files/578b090879684bf782ec1d685403a462"
+          },
+          "title": "Contemporary Luxury Icon Mark",
+          "width": "100"
+        },
+        {
+          "height": "9796",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBKNARIhYXBwX2NvbXBhbmlvbl91c2VyX3VwbG9hZGVkX2ZpbGVzGmgKM3VzZXJfdXBsb2FkZWRfaHRtbF8wMDA2NWM0NDMwNTRjMjRmMDVjMmZmYTkxNjA3YmEzNhILEgcQqLX5yNAQGAGSASMKCnByb2plY3RfaWQSFUITNjM5NzQwOTI2ODAzMTUzMjY0Nw&filename=&opi=96797242",
+            "mimeType": "text/html",
+            "name": "projects/6397409268031532647/files/8963930988555115369"
+          },
+          "name": "projects/6397409268031532647/screens/8963930988555114179",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1XjpEgyB4Aeju9Ntqm_H5B1rnOsCVxsCaR42qWv0N8BJT9n6UW4JBcfFkiPcKAKDzU6t2XksaUhwEVw4kUBib_vGUOIbYhXBlFNIZo1JU_AxWNKowbvpy6zzR3AUoRvQh3TJq32W5dYv-g95mc3kzb9LgfYsyaraWRxAXyUZbg-8CU24utbpHo6t5VESigU5rgZx-HjzK3pCiLtUD447W8zHf_HbGNOROVoekOeXxPZgRHv5bQpBAiGZcJIbqXYwnLDKcDFAnCpqQ",
+            "name": "projects/6397409268031532647/files/8963930988555114774"
+          },
+          "title": "Jovina Diniz — Proposta de Identidade Visual",
+          "width": "2560"
+        },
+        {
+          "height": "1768",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBKNARIhYXBwX2NvbXBhbmlvbl91c2VyX3VwbG9hZGVkX2ZpbGVzGmgKM3VzZXJfdXBsb2FkZWRfaHRtbF8wMDA2NWM0NDFjMzkxMjI1MDUzYjc1MWM3NzFhMTRlMxILEgcQqLX5yNAQGAGSASMKCnByb2plY3RfaWQSFUITNjM5NzQwOTI2ODAzMTUzMjY0Nw&filename=&opi=96797242",
+            "mimeType": "text/markdown",
+            "name": "projects/6397409268031532647/files/11458765886093727386"
+          },
+          "name": "projects/6397409268031532647/screens/11458765886093725855",
+          "screenshot": {},
+          "title": "DESIGN.md",
+          "width": "780"
+        },
+        {
+          "height": "600",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzdlMGZmMGRkZjkyZTRiMDliZmEwZmIyMzM4NDRjOGUxEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "image/svg+xml",
+            "name": "projects/6397409268031532647/files/12c188d421c14e23b13ca745336c862c"
+          },
+          "name": "projects/6397409268031532647/screens/1d5469c68e3b4fe2a61116861249f7fa",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1XEXdQNjj1RTS67uIF6Rq-AuENvrOk8MwsIPRByijKDMTmTXlpNEgZzM3n-eP9HMouNIyip5zghrne5G-hiztJK6b7HvDfZbFmC-T-dFHw6EaAp9l5Z6zKhwCU5zDUb7ZNCovTt4hfhhdnR7uSmdjE31FVkP0PCg02rz_rpYiqbUQ85o6-r9Sx5PLB3oZUUQPI4R3rGQlnXU1dSx22BhXBI0yFi5EiJIVSQxOZH_XzL_E2SavbqM1isYZ8",
+            "name": "projects/6397409268031532647/files/b227f977ca754031a57a00cf34a0c8c2"
+          },
+          "title": "Monograma Escultural JD",
+          "width": "600"
+        },
+        {
+          "deviceType": "DESKTOP",
+          "height": "2268",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2RhZDAyNWQ0MTA2ODQ2MGZhNzgzZWRiMWUyZWFhMGRkEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "text/html",
+            "name": "projects/6397409268031532647/files/938046d07e124590a81629eaf582149a"
+          },
+          "name": "projects/6397409268031532647/screens/31ef9720ab7f476dac392c4cf6ecb021",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1XY-2ElCFvdPykdz_GRHgaY8IshTKN-W4VvCfJykegRZsffakALnhNYX0QgzWsV0vfVb0iLZ-M35bjUerRiNY-3fDrNhN-DZVuwKMbn4HUSK3e23Y46kAnGb5vnrmQeWrrfwZLEyZq5GqezudVIey1Ppj-gtH0kxoyonuMCUyMWla5iMzTvdnOesmspQnkY_vjeRdSlyESNOw1UNbWjTwmfv2e0RK0xQ5oNZMOtJij7u8ij6K1FCYePjU8",
+            "name": "projects/6397409268031532647/files/c4f1bf1bf5c24e419ac5be6c32f43eb7"
+          },
+          "title": "Opção 07 — Lockup Tipográfico Empilhado",
+          "width": "2560"
+        },
+        {
+          "height": "600",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzA4MzIyMDFmYjcwMzRkZTY5MmE2ZTUzMzEzNmQ2MmY2EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "image/svg+xml",
+            "name": "projects/6397409268031532647/files/a21a116a2880420b8323eed9af26bc09"
+          },
+          "name": "projects/6397409268031532647/screens/3f4e10ba7b244fea85f3b96e2b66f59a",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1V68GDlel06oxabB76fe4LRv0-VS5P8Y-tosaEJhT9PC8r3i42tsOX0MyH6IaCMoC7uWAa0XSSIXIIugPnpq_k4g2DKqfxZg8wfXan3sOuIS2P64IEfgnofCJv53NyyYVsjcHpD70z1Ls0ZlEE-trk7Q_JEIH04xhC5qJYSb3GzpUaOHt7EELp4tfA21LhHFCMjDd-UFa4ea8y_RYv6UVlqHs2lR21nW8Z79ElMHwndaxLnMkGKfgH9Gp0",
+            "name": "projects/6397409268031532647/files/fb13c6aa764840e6a06ce252c4383846"
+          },
+          "title": "Emblema Selo Premium JD — Jovina Diniz",
+          "width": "600"
+        },
+        {
+          "deviceType": "DESKTOP",
+          "height": "2248",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzMwNjczNzNhYjFlMzQ5NzY4ZTczMGNiOGRhYzQ4Yjk4EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "text/html",
+            "name": "projects/6397409268031532647/files/eabc065e9f3543b98172188e466c67d7"
+          },
+          "name": "projects/6397409268031532647/screens/5e255f33163747698d946248b70a9bce",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1U1u4uecx5lO-_nrIv9DxDNiihC2P2HTMloZAiOgzlhzM9FcPBmLT_f2JP0Df3R5PpF2Kb_Uiy2cBrIP3vHzR1zkeqtDfPVGpuKgeXS33LZ8hTHmUP2uKoreKJtdqbpIsdgqv7WUEtufyKxnhm0UUsq_4bOMzana88M8JZIlqqBERXnJSTeKXNJgtKY9lQQ8LXcfGxmye2wxzIdM_qex5IVtZfStbR5zUIwXhE3YfkDBSTr_2mE_YD4bmA",
+            "name": "projects/6397409268031532647/files/87bee33350c64e6997975b9dbc4321a7"
+          },
+          "title": "Opção 03 — Monograma Geométrico JD",
+          "width": "2560"
+        },
+        {
+          "height": "320",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzhmNThiNTViZWJiMjRhMzQ5YWYyMzM1NmVkMzk1MDYwEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "image/svg+xml",
+            "name": "projects/6397409268031532647/files/bd9354a21c9a47dab66412c9a03c551e"
+          },
+          "name": "projects/6397409268031532647/screens/02cf9a644499450e952a5e3b04ce403d",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1VB4Y88LJsfJ6-edjUd5UmQlJFhipSU3THZ1bdi0ZkLQ2VdtGWv4J8ocV7YC1_SHm_hhRHx1RjzaBeBz9TOvaOlntHI0tFpaZmDCluD9wFc45CAL5ULPOMgzkwQn1X98FkpKDifUu8YhKgt-DPPmBFDgUQ8ByRRnKDhHHd5XwrSgxxiKrE1DK_QKTC_OdmuJO2H94er8GYCdt3D1zR9tIiqn5hnJKS22_77rKX2mvW5bEAqGLxxJ0UVIy4",
+            "name": "projects/6397409268031532647/files/88fd410de380438ca3c2aee08590830e"
+          },
+          "title": "Jovina Diniz — Assinatura Autoral",
+          "width": "900"
+        },
+        {
+          "deviceType": "DESKTOP",
+          "height": "2060",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzFmNzk4N2VlNjAzNTRkNzY5MDc2N2IyODBhYWE2Y2VkEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "text/html",
+            "name": "projects/6397409268031532647/files/0e5a43e4770b43129eac192e960ab387"
+          },
+          "name": "projects/6397409268031532647/screens/b61c041225c74a6692c3e09c89e2688c",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1VXN72-MnVf6JDeBYFVVhnft06orgD2qfAQhUYK7Wclbqz-012D3esnPKiNiUq8OzhiZbn2sPlxvNfht83tNQM3XycWqGpMCJBYVMGILP90A_nSFxuit6Yip_qBddOEEjBjaUHI-FV7Q-qBxB4jBsTEGKsVfrGm2wU_fIWUXp4SG-lbegzz2YXU8etpiqlJ2mOQkc3iY7RGA8LyyE2wQdSbkPetIs_RtD1wZJrxxhfKSAll9NCxYIsTcro",
+            "name": "projects/6397409268031532647/files/313d9e63a28e40feb07407d162ce257b"
+          },
+          "title": "Opção 09 — Monograma Escultural JD",
+          "width": "2560"
+        },
+        {
+          "height": "460",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzA1Yzk5MWU5NGRkZDQzM2U4NzBjMjdiYmEwNjg1OTAxEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "image/svg+xml",
+            "name": "projects/6397409268031532647/files/ca234dba0973471a90f2c4d68f574080"
+          },
+          "name": "projects/6397409268031532647/screens/6c81029d6a364e1981105a78dd0e7dcb",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1UMl_UfcVC2x3qoY1EXQYN5s9PO4wsoJ89AID3dAAU33pHB00Q2Ep6I6z1o5dly4sZ7gOhpynHXg6F2CB03nkeEFq43LX6bOLY5Xqe_3Xowp75aOlOm8Y_vXVGs48__aX1CjJuOU99oR5eja15Ap_z2Ds4NzmDmI_hJp2NBdrMwpFYvvknIYW8T8PEi_eS6BqxxR4isRB3kJXauXvCP9RMTB6PuBcKULUN9LUAyKv9QePteNvJOdh9C1tA",
+            "name": "projects/6397409268031532647/files/88e1c6b9ab5d4ae38d5a65381dbca3a2"
+          },
+          "title": "Contemporary Luxury Logo — Jovina Diniz",
+          "width": "900"
+        },
+        {
+          "deviceType": "DESKTOP",
+          "height": "2086",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2JmZDI2ODAxMjQzNDQ4ZTg5ZWViMmJhOWZmMWU1N2YxEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "text/html",
+            "name": "projects/6397409268031532647/files/3fe3df65eb8d4bd7b7b71a262c9aabfc"
+          },
+          "name": "projects/6397409268031532647/screens/cc9680e732ca4b659f206bfe44019ccc",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1Ws0wlAvx4m8H7oFSD3WIF6t4ztzEd0bwZEO6uXdTbJfefWpDonY8Q0xrdQ0EIgD2pksoUPKCyn2UVfO8qzNUmkLEW6BlZPRyUzboEILKRsiTIBl-Yx8bzrvxcpCgksOtXJ4s_iLfCVy3SuBDzFIb47TX2KdXuaA6wIl2oJ49J_3VhOh75-FZLfMmzpI6MemySRCU157-rYeGtXIM7zY0aZDiReDg9pLV7A4j1Y770JbJtWqFMg9FFsaC4",
+            "name": "projects/6397409268031532647/files/6c18532347504d00a53a244f016abf76"
+          },
+          "title": "Opção 04 — Monograma em Curvas Contínuas JD",
+          "width": "2560"
+        },
+        {
+          "deviceType": "DESKTOP",
+          "height": "2048",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzE3MzRjOWJhNDViYjQwM2E5NmM0NmVjMzRkZWM3YTBiEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "text/html",
+            "name": "projects/6397409268031532647/files/130407d6fb544a469290f3590f90c70c"
+          },
+          "name": "projects/6397409268031532647/screens/2cb4ce48ab4843e280683695ad51d461",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1Xm2N7mNa7zNbQmHc4i25qMOTC3fPaIhOtBLneCemrA6iKscfvoJbneXDt6BkCvphmCxshGPeNtUiWDXjeDb9kZE9sVtVIgBCEKHDcqos0o4WY9_LgU8jvmRfxEKbEO7MB7tOrlu2RLvIQOI4JQ6nvN7ZmBS7QGPZTj6jtHYxBKmQWmYSrQ1dukEldyTGUN8NIBRyQHAf6yFt2RyBx4NF0lfIK9RBNWuV6fnzfGkyNJPrnRGDIdXuuac-A",
+            "name": "projects/6397409268031532647/files/d191572c932348d1b3c6155f330eb00e"
+          },
+          "title": "Opção 05 — Símbolo Arquitetônico Abstrato",
+          "width": "2560"
+        },
+        {
+          "height": "100",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2NkMzZiYjEwOTI3YTQ2MTU4NzFiNWY5ZGFjODdjNTE5EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "image/svg+xml",
+            "name": "projects/6397409268031532647/files/5a6f56228c5b4ae48f1cf8c87001c2c9"
+          },
+          "name": "projects/6397409268031532647/screens/2ec5a9f4a3e348aea28901033e28abcf",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1WdnDfA2ZAapD8ro3X2eF3aoW8p1Dfgx_RHCyCQyabKDXwt92_eMAxlK8J1Z_bUUQX6wW5VH_f0TZct1XDfVbbiVY2Yp_B3AQ603rvpOsSCSiylQvnFpTq0nvbjnEzcLgSggMl0_-XPDFbGxJ2czxvrXzmOI2LXbiJB0DGGziy6P_ZlWnJ0hIiSIg9CgRtKhXGTnRwy4b4EzTf0-5SlOHqN5vzdUFjwwKgpMAm3BZzfL6i7Kuj2ISgMuXU",
+            "name": "projects/6397409268031532647/files/b357309c43ff4dbd994cb4f7069284df"
+          },
+          "title": "Avatar Monograma Escultural JD",
+          "width": "100"
+        },
+        {
+          "height": "100",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzU1ZTQyMDAyYjQxMTRjMDhiZWY1ODM4NjZhOThhN2FkEgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "image/svg+xml",
+            "name": "projects/6397409268031532647/files/a422873ce800408289010fd21beb5768"
+          },
+          "name": "projects/6397409268031532647/screens/7c3ffecc971248aea04563c683f8a8a5",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1U1uQlywlwDMraG75fnBOT4_OAWBzhwCjGSFNDAuEMN9DdlaFk927wyKc89tmTg_D3SVhDXZgkfoFxKD5ZYP-9vQTGxAEhbNmZcz0LR5hTPc8AcOFlVTgC9Uc7aLU_KCPiNdoEo8orpmZskyZ5Lw8iMl4d9j1vO1zn61Q3xd0r9A2o2-uFl2VdwHK36CnUG7mfgiZkLKlIbBdYU2UygeBh8BW6kdnL_d2l8k2dK_8ctJVlW01khijZSfX8",
+            "name": "projects/6397409268031532647/files/6dfb06cc7a2946b5b5e84f4be4c2d3f1"
+          },
+          "title": "Ícone Portal Arquitetônico Favicon",
+          "width": "100"
+        },
+        {
+          "height": "100",
+          "htmlCode": {
+            "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2FjYzE0MzRjODYzOTQ0ZTdiZDA0MDJmMGVmOTEyOWM1EgsSBxCotfnI0BAYAZIBIwoKcHJvamVjdF9pZBIVQhM2Mzk3NDA5MjY4MDMxNTMyNjQ3&filename=&opi=96797242",
+            "mimeType": "image/svg+xml",
+            "name": "projects/6397409268031532647/files/9054e019f1a740959443388ed10b77b5"
+          },
+          "name": "projects/6397409268031532647/screens/85a707e53cb34844a1eb33c7470885a5",
+          "screenshot": {
+            "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1UJ6y-fthPkpkMY2RritpOV-3zn59DJ8bvGUbaM0gBJKt2MH5GqgUllo9rDeTzTyd68v6ZI3uPOC0OVItgs7EUSPTvhydt3DgcWIhB38jqayzvcBy9e30u4ise5hd4mTPQ5AP0YJrDLCUHeOndjD4vEoqoZApfRi0rC6kkmDY4u5BDAxfN6gQivTbw_F1C7IkrkIdoBMrkMREvhpb8gcNO_DjeU9TrcQ0JD1OZyLQzpcrdklUCkyvkLOw",
+            "name": "projects/6397409268031532647/files/f0f5f90d21b346a9a2d3505a7dbdfb58"
+          },
+          "title": "Símbolo Arquitetônico Abstrato — Opção 05",
+          "width": "100"
+        }
+      ]
+    }
+  }
+}
