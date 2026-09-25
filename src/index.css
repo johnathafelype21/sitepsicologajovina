@@ -1851,3 +1851,35 @@ main > section:not(.hero-v2):not(.living-marquee):not(.cinematic-scroll) {
   content-visibility: auto;
   contain-intrinsic-size: 900px;
 }
+
+
+/* --- Video scrub mode: hardware-decoded, aspect-ratio safe --- */
+.cinematic-scroll-video-mode .cinematic-scroll-sticky {
+  display: block;
+  background: #EDE2D5;
+}
+
+.cinematic-scroll-scrub-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@media (max-width: 767px) {
+  .cinematic-scroll-video-mode .cinematic-scroll-sticky {
+    height: 100dvh;
+  }
+
+  .cinematic-scroll-scrub-video {
+    width: 100vw;
+    height: 100dvh;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
