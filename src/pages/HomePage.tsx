@@ -2,7 +2,8 @@ import { ArrowRight, MapPin, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import CTASection from '../components/CTASection';
 import EditorialArt from '../components/EditorialArt';
-import ImmersiveCard from '../components/ImmersiveCard';
+import HomePathways from '../components/HomePathways';
+import LivingMarquee from '../components/LivingMarquee';
 import SectionHeading from '../components/SectionHeading';
 import WhatsAppIcon from '../components/WhatsAppIcon';
 import { siteData } from '../data/mockData';
@@ -11,8 +12,6 @@ import { useWhatsApp } from '../hooks/useWhatsApp';
 export interface HomePageProps {
   readonly className?: string;
 }
-
-const marqueeItems = ['Terapia', 'Identidade', 'Presença', 'Clareza', 'Direção', 'Novos ciclos'];
 
 export default function HomePage({ className = '' }: Readonly<HomePageProps>) {
   const { buildUrl } = useWhatsApp({ defaultMessage: 'Olá, Jovina. Gostaria de agendar um atendimento.' });
@@ -63,11 +62,7 @@ export default function HomePage({ className = '' }: Readonly<HomePageProps>) {
         </div>
       </section>
 
-      <div className="sideways-band" aria-hidden="true">
-        <div className="sideways-track">
-          {[...marqueeItems, ...marqueeItems].map((item, index) => <span key={`${item}-${index}`}>{item}</span>)}
-        </div>
-      </div>
+      <LivingMarquee />
 
       <section className="motion-stage bg-canvas py-24 md:py-32">
         <div className="mx-auto grid max-w-[1180px] items-start gap-14 px-5 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
@@ -93,19 +88,8 @@ export default function HomePage({ className = '' }: Readonly<HomePageProps>) {
             <SectionHeading overline="TRÊS CAMINHOS" title="Nem toda fase pede a mesma forma de cuidado." text="Cada experiência foi pensada para um momento diferente da jornada." />
           </div>
 
-          <div className="immersive-card-grid immersive-card-grid-services mt-14">
-            {siteData.home.services.map((item, index) => (
-              <ImmersiveCard
-                key={item.to}
-                index={index + 1}
-                eyebrow={item.overline}
-                title={item.title}
-                text={item.text}
-                to={item.to}
-                variant="service"
-                motion={index === 0 ? 'left' : index === 1 ? 'rise' : 'right'}
-              />
-            ))}
+          <div className="mt-14">
+            <HomePathways items={siteData.home.services} />
           </div>
         </div>
       </section>
