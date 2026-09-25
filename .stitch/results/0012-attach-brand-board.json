@@ -1,0 +1,52 @@
+{
+  "ok": true,
+  "request": {
+    "action": "upload_url_to_stitch",
+    "projectId": "6397409268031532647",
+    "filename": "jovina-brand-identity-board.html",
+    "title": "Jovina Diniz — Proposta de Identidade Visual"
+  },
+  "upload": {
+    "bytes": 27297,
+    "stitchResponse": {
+      "results": [
+        {
+          "screen": {
+            "screenshot": {
+              "name": "projects/6397409268031532647/files/8963930988555114774",
+              "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1XjpEgyB4Aeju9Ntqm_H5B1rnOsCVxsCaR42qWv0N8BJT9n6UW4JBcfFkiPcKAKDzU6t2XksaUhwEVw4kUBib_vGUOIbYhXBlFNIZo1JU_AxWNKowbvpy6zzR3AUoRvQh3TJq32W5dYv-g95mc3kzb9LgfYsyaraWRxAXyUZbg-8CU24utbpHo6t5VESigU5rgZx-HjzK3pCiLtUD447W8zHf_HbGNOROVoekOeXxPZgRHv5bQpBAiGZcJIbqXYwnLDKcDFAnCpqQ"
+            },
+            "htmlCode": {
+              "name": "projects/6397409268031532647/files/8963930988555115369",
+              "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBKNARIhYXBwX2NvbXBhbmlvbl91c2VyX3VwbG9hZGVkX2ZpbGVzGmgKM3VzZXJfdXBsb2FkZWRfaHRtbF8wMDA2NWM0NDMwNTRjMjRmMDVjMmZmYTkxNjA3YmEzNhILEgcQqLX5yNAQGAGSASMKCnByb2plY3RfaWQSFUITNjM5NzQwOTI2ODAzMTUzMjY0Nw&filename=&opi=96797242",
+              "mimeType": "text/html"
+            },
+            "id": "8963930988555114179",
+            "generatedBy": "UserUploadedHtml: stitch::generate-design + stitch::upload-to-stitch",
+            "width": "2560",
+            "height": "9796",
+            "title": "Jovina Diniz — Proposta de Identidade Visual",
+            "name": "projects/6397409268031532647/screens/8963930988555114179",
+            "theme": {},
+            "screenType": "DESIGN",
+            "isCreatedByClient": true,
+            "screenMetadata": {
+              "status": "COMPLETE",
+              "displayMode": "HTML"
+            }
+          }
+        }
+      ],
+      "screenInstances": [
+        {
+          "id": "8963930988555114179",
+          "sourceScreen": "projects/6397409268031532647/screens/8963930988555114179",
+          "x": 1380,
+          "width": 1280,
+          "height": 4898
+        }
+      ]
+    },
+    "log": "File:      .stitch/tmp/jovina-brand-identity-board.html\nMIME type: text/html\nBase64:    36396 chars\n\nUploading to project: 6397409268031532647\nAPI URL:   https://stitch.googleapis.com\nCalling urlopen...\nurlopen returned. Status: 200\nResponse status: 200\nResponse body (first 1000 chars): {\n  \"results\": [\n    {\n      \"screen\": {\n        \"screenshot\": {\n          \"name\": \"projects/6397409268031532647/files/8963930988555114774\",\n          \"downloadUrl\": \"https://lh3.googleusercontent.com/aida/AEtjO1XjpEgyB4Aeju9Ntqm_H5B1rnOsCVxsCaR42qWv0N8BJT9n6UW4JBcfFkiPcKAKDzU6t2XksaUhwEVw4kUBib_vGUOIbYhXBlFNIZo1JU_AxWNKowbvpy6zzR3AUoRvQh3TJq32W5dYv-g95mc3kzb9LgfYsyaraWRxAXyUZbg-8CU24utbpHo6t5VESigU5rgZx-HjzK3pCiLtUD447W8zHf_HbGNOROVoekOeXxPZgRHv5bQpBAiGZcJIbqXYwnLDKcDFAnCpqQ\"\n        },\n        \"htmlCode\": {\n          \"name\": \"projects/6397409268031532647/files/8963930988555115369\",\n          \"downloadUrl\": \"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBKNARIhYXBwX2NvbXBhbmlvbl91c2VyX3VwbG9hZGVkX2ZpbGVzGmgKM3VzZXJfdXBsb2FkZWRfaHRtbF8wMDA2NWM0NDMwNTRjMjRmMDVjMmZmYTkxNjA3YmEzNhILEgcQqLX5yNAQGAGSASMKCnByb2plY3RfaWQSFUITNjM5NzQwOTI2ODAzMTUzMjY0Nw&filename=&opi=96797242\",\n          \"mimeType\": \"text/html\"\n        },\n        \"id\": \"8963930988555114179\",\n        \"g\n\nResponse:\n{\n  \"results\": [\n    {\n      \"screen\": {\n        \"screenshot\": {\n          \"name\": \"projects/6397409268031532647/files/8963930988555114774\",\n          \"downloadUrl\": \"https://lh3.googleusercontent.com/aida/AEtjO1XjpEgyB4Aeju9Ntqm_H5B1rnOsCVxsCaR42qWv0N8BJT9n6UW4JBcfFkiPcKAKDzU6t2XksaUhwEVw4kUBib_vGUOIbYhXBlFNIZo1JU_AxWNKowbvpy6zzR3AUoRvQh3TJq32W5dYv-g95mc3kzb9LgfYsyaraWRxAXyUZbg-8CU24utbpHo6t5VESigU5rgZx-HjzK3pCiLtUD447W8zHf_HbGNOROVoekOeXxPZgRHv5bQpBAiGZcJIbqXYwnLDKcDFAnCpqQ\"\n        },\n        \"htmlCode\": {\n          \"name\": \"projects/6397409268031532647/files/8963930988555115369\",\n          \"downloadUrl\": \"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBKNARIhYXBwX2NvbXBhbmlvbl91c2VyX3VwbG9hZGVkX2ZpbGVzGmgKM3VzZXJfdXBsb2FkZWRfaHRtbF8wMDA2NWM0NDMwNTRjMjRmMDVjMmZmYTkxNjA3YmEzNhILEgcQqLX5yNAQGAGSASMKCnByb2plY3RfaWQSFUITNjM5NzQwOTI2ODAzMTUzMjY0Nw&filename=&opi=96797242\",\n          \"mimeType\": \"text/html\"\n        },\n        \"id\": \"8963930988555114179\",\n        \"generatedBy\": \"UserUploadedHtml: stitch::generate-design + stitch::upload-to-stitch\",\n        \"width\": \"2560\",\n        \"height\": \"9796\",\n        \"title\": \"Jovina Diniz \\u2014 Proposta de Identidade Visual\",\n        \"name\": \"projects/6397409268031532647/screens/8963930988555114179\",\n        \"theme\": {},\n        \"screenType\": \"DESIGN\",\n        \"isCreatedByClient\": true,\n        \"screenMetadata\": {\n          \"status\": \"COMPLETE\",\n          \"displayMode\": \"HTML\"\n        }\n      }\n    }\n  ],\n  \"screenInstances\": [\n    {\n      \"id\": \"8963930988555114179\",\n      \"sourceScreen\": \"projects/6397409268031532647/screens/8963930988555114179\",\n      \"x\": 1380,\n      \"width\": 1280,\n      \"height\": 4898\n    }\n  ]\n}\n"
+  }
+}
