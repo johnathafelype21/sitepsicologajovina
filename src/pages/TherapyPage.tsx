@@ -30,7 +30,7 @@ export default function TherapyPage({ className = '' }: Readonly<TherapyPageProp
               <Link to="/faq" className="button-secondary">Tirar dúvidas <ArrowRight size={14} /></Link>
             </div>
           </div>
-          <div className="motion-scale"><EditorialArt variant="therapy" /></div>
+          <div className="motion-scale"><EditorialArt variant="therapy" src="/images/jovina/terapia-presenca-cuidado.webp" alt="Imagem editorial sobre presença, escuta e cuidado terapêutico" priority objectPosition="center 42%" /></div>
         </div>
       </section>
 
@@ -46,7 +46,7 @@ export default function TherapyPage({ className = '' }: Readonly<TherapyPageProp
       <section className="bg-[#ECE2D7] py-24 md:py-32">
         <div className="mx-auto grid max-w-[1180px] items-center gap-14 px-5 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
           <div className="motion-left">
-            <EditorialArt variant="therapy" label="Acolhimento, silêncio e presença" />
+            <EditorialArt variant="therapy" src="/images/jovina/terapia-acolhimento-presenca.webp" alt="Imagem editorial de acolhimento, silêncio e presença" objectPosition="center 45%" />
           </div>
           <div className="motion-right">
             <SectionHeading overline="COMO FUNCIONA" title="Um processo claro, sem perder delicadeza." />
