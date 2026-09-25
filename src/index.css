@@ -1866,8 +1866,9 @@ main > section:not(.hero-v2):not(.living-marquee):not(.cinematic-scroll) {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center center;
+  background: #EDE2D5;
   transform: translateZ(0);
   backface-visibility: hidden;
 }
@@ -1875,12 +1876,14 @@ main > section:not(.hero-v2):not(.living-marquee):not(.cinematic-scroll) {
 @media (max-width: 767px) {
   .cinematic-scroll-video-mode .cinematic-scroll-sticky {
     height: 100dvh;
+    background: #EDE2D5;
   }
 
   .cinematic-scroll-scrub-video {
-    width: 100vw;
-    height: 100dvh;
-    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     object-position: center center;
+    background: #EDE2D5;
   }
 }
