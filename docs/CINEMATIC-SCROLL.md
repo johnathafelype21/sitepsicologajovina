@@ -15,3 +15,5 @@ Os vídeos de origem têm 24 fps e 10 segundos. A sequência web usa 240 frames 
 Status: implementação de frame sequence pronta para produção.
 
 Scroll 1:1: a posição da rolagem determina diretamente o frame exato; não há easing residual após o usuário parar. Frames adjacentes são interpolados visualmente para continuidade.
+
+Refino visual: removido crossfade entre quadros e ampliado o percurso de scroll para distribuir os 240 frames com maior precisão.
