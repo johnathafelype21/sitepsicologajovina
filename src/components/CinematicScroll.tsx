@@ -40,6 +40,9 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
     let targetTime = 0;
     let rafId: number | null = null;
     let cancelled = false;
+    let lastDesktopSeekAt = 0;
+
+    const DESKTOP_FRAME_INTERVAL = 1000 / 24;
 
     ScrollTrigger.config({
       limitCallbacks: true,
@@ -52,7 +55,7 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
       section.style.height = isMobile ? '500vh' : '560vh';
     };
 
-    const applyTarget = () => {
+    const applyTarget = (timestamp: number) => {
       rafId = null;
       if (cancelled || !duration) return;
 
@@ -65,11 +68,30 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
         return;
       }
 
-      // Suavização adaptativa: acompanha o scroll sem saltos bruscos,
-      // mas converge rápido quando o usuário faz um flick maior.
-      const step = diff * (isMobile ? 0.34 : 0.42);
-      video.currentTime += step;
+      if (!isMobile) {
+        // O MP4 desktop é 24 fps. Fazer seek a 60 fps só aumenta o trabalho
+        // de decodificação e produz jitter. Limitamos os seeks ao ritmo real
+        // do vídeo e deixamos o playhead responder mais rápido à roda do mouse.
+        const elapsed = timestamp - lastDesktopSeekAt;
 
+        if (elapsed < DESKTOP_FRAME_INTERVAL) {
+          rafId = window.requestAnimationFrame(applyTarget);
+          return;
+        }
+
+        lastDesktopSeekAt = timestamp;
+
+        const step = Math.abs(diff) > 0.45 ? diff * 0.82 : diff * 0.64;
+        video.currentTime += step;
+
+        if (Math.abs(targetTime - video.currentTime) > 0.008) {
+          rafId = window.requestAnimationFrame(applyTarget);
+        }
+        return;
+      }
+
+      // Mobile já está fluido: preserva exatamente o comportamento atual.
+      video.currentTime += diff * 0.34;
       rafId = window.requestAnimationFrame(applyTarget);
     };
 
