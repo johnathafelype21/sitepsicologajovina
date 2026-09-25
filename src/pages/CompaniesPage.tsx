@@ -1,6 +1,6 @@
 import ContactForm from '../components/ContactForm';
 import EditorialArt from '../components/EditorialArt';
-import ImmersiveCard from '../components/ImmersiveCard';
+import CompanyMosaic from '../components/CompanyMosaic';
 import SectionHeading from '../components/SectionHeading';
 
 export interface CompaniesPageProps { readonly className?: string; }
@@ -27,16 +27,8 @@ export default function CompaniesPage({ className = '' }: Readonly<CompaniesPage
       <section className="bg-canvas py-24 md:py-32">
         <div className="mx-auto max-w-[1180px] px-5 lg:px-8">
           <SectionHeading overline="TEMAS POSSÍVEIS" title="Conteúdo com profundidade e linguagem acessível." text="Cada encontro pode ser adaptado ao público, ao momento da organização e ao objetivo do evento." />
-          <div className="immersive-card-grid immersive-card-grid-companies mt-14">
-            {topics.map((topic, index) => (
-              <ImmersiveCard
-                key={topic}
-                index={index + 1}
-                title={topic}
-                variant="company"
-                motion={index % 3 === 0 ? 'left' : index % 3 === 1 ? 'rise' : 'right'}
-              />
-            ))}
+          <div className="mt-14">
+            <CompanyMosaic topics={topics} />
           </div>
         </div>
       </section>
