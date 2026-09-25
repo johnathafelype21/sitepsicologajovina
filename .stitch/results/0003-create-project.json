@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "request": {
+    "action": "call_tool",
+    "tool": "create_project"
+  },
+  "server": {
+    "version": {
+      "name": "StatelessServer",
+      "version": "scaffolding on HTTPServer2"
+    },
+    "capabilities": {
+      "resources": {
+        "subscribe": false,
+        "listChanged": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    }
+  },
+  "payload": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"name\":\"projects/6397409268031532647\",\"title\":\"Jovina Diniz — Identidade & Site\",\"visibility\":\"PRIVATE\",\"projectType\":\"PROJECT_DESIGN\",\"origin\":\"STITCH\"}"
+      }
+    ],
+    "structuredContent": {
+      "name": "projects/6397409268031532647",
+      "origin": "STITCH",
+      "projectType": "PROJECT_DESIGN",
+      "title": "Jovina Diniz — Identidade & Site",
+      "visibility": "PRIVATE"
+    }
+  }
+}
