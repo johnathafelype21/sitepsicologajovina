@@ -1550,3 +1550,220 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
     font-size: clamp(1.8rem, 7vw, 2.4rem);
   }
 }
+
+
+/* --- Cinematic "Volte para si" scroll experience --- */
+.cinematic-scroll {
+  --cinematic-progress: .5;
+  --cinematic-video-x: 0px;
+  --cinematic-text-a-x: 0px;
+  --cinematic-text-b-x: 0px;
+  position: relative;
+  height: 190vh;
+  background: #EDE2D5;
+  isolation: isolate;
+}
+
+.cinematic-scroll-sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100svh;
+  min-height: 620px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: #EDE2D5;
+}
+
+.cinematic-scroll-media {
+  position: absolute;
+  inset: -3%;
+  overflow: hidden;
+  transform: translate3d(var(--cinematic-video-x), 0, 0) scale(1.06);
+  will-change: transform;
+}
+
+.cinematic-scroll-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(.88) contrast(.96) brightness(1.02);
+}
+
+.cinematic-scroll-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(247,240,231,.28) 0%, rgba(247,240,231,.04) 34%, rgba(45,59,45,.04) 100%),
+    linear-gradient(180deg, rgba(252,250,247,.06), rgba(45,59,45,.06));
+  pointer-events: none;
+}
+
+.cinematic-scroll-grain {
+  position: absolute;
+  inset: 0;
+  opacity: .12;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(45,59,45,.22) .55px, transparent .55px);
+  background-size: 6px 6px;
+  mix-blend-mode: soft-light;
+}
+
+.cinematic-scroll-copy {
+  position: relative;
+  z-index: 3;
+  width: min(92vw, 1380px);
+  padding-inline: clamp(1.5rem, 5vw, 5rem);
+  pointer-events: none;
+}
+
+.cinematic-scroll-kicker {
+  margin: 0 0 1.1rem;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(45,59,45,.72);
+}
+
+.cinematic-scroll-title {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(5.2rem, 12vw, 11.5rem);
+  font-weight: 400;
+  line-height: .74;
+  letter-spacing: -.065em;
+  color: #2D3B2D;
+  text-shadow: 0 2px 28px rgba(252,250,247,.38);
+}
+
+.cinematic-scroll-line {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  will-change: transform;
+}
+
+.cinematic-scroll-line-a {
+  transform: translate3d(var(--cinematic-text-a-x), 0, 0);
+}
+
+.cinematic-scroll-line-b {
+  margin-left: clamp(8vw, 18vw, 260px);
+  font-style: italic;
+  color: #8D6645;
+  transform: translate3d(var(--cinematic-text-b-x), 0, 0);
+}
+
+.cinematic-scroll-note {
+  margin-top: clamp(2rem, 4vh, 3.4rem);
+  max-width: 26rem;
+  font-size: clamp(.82rem, 1vw, .95rem);
+  line-height: 1.8;
+  color: rgba(61,44,36,.7);
+}
+
+.cinematic-scroll-index {
+  position: absolute;
+  z-index: 4;
+  right: clamp(1.5rem, 4vw, 4rem);
+  bottom: clamp(1.5rem, 4vw, 3.5rem);
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  color: rgba(45,59,45,.55);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: .8rem;
+  font-style: italic;
+}
+
+.cinematic-scroll-index i {
+  width: 64px;
+  height: 1px;
+  background: rgba(45,59,45,.28);
+}
+
+@media (max-width: 767px) {
+  .cinematic-scroll {
+    height: 165vh;
+  }
+
+  .cinematic-scroll-sticky {
+    min-height: 560px;
+  }
+
+  .cinematic-scroll-media {
+    inset: -1.5%;
+    transform: translate3d(var(--cinematic-video-x), 0, 0) scale(1.025);
+  }
+
+  .cinematic-scroll-video {
+    object-position: center center;
+  }
+
+  .cinematic-scroll-copy {
+    width: 100%;
+    padding-inline: 1.25rem;
+    align-self: center;
+  }
+
+  .cinematic-scroll-kicker {
+    margin-bottom: .8rem;
+    font-size: 8px;
+    letter-spacing: .16em;
+  }
+
+  .cinematic-scroll-title {
+    font-size: clamp(4.1rem, 19vw, 6.6rem);
+    line-height: .79;
+    letter-spacing: -.055em;
+  }
+
+  .cinematic-scroll-line {
+    max-width: calc(100vw - 2.5rem);
+  }
+
+  .cinematic-scroll-line-b {
+    margin-left: 8vw;
+  }
+
+  .cinematic-scroll-note {
+    margin-top: 1.7rem;
+    max-width: 18rem;
+    font-size: .78rem;
+    line-height: 1.65;
+  }
+
+  .cinematic-scroll-index {
+    right: 1.25rem;
+    bottom: 1.15rem;
+  }
+
+  .cinematic-scroll-index i {
+    width: 34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-scroll {
+    height: 100svh;
+    min-height: 620px;
+  }
+
+  .cinematic-scroll-sticky {
+    position: relative;
+  }
+
+  .cinematic-scroll-media,
+  .cinematic-scroll-line-a,
+  .cinematic-scroll-line-b {
+    transform: none !important;
+  }
+
+  .cinematic-scroll-video {
+    animation: none !important;
+  }
+}
