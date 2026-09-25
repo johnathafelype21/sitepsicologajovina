@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "request": {
+    "action": "call_tool",
+    "tool": "list_design_systems"
+  },
+  "server": {
+    "version": {
+      "name": "StatelessServer",
+      "version": "scaffolding on HTTPServer2"
+    },
+    "capabilities": {
+      "resources": {
+        "subscribe": false,
+        "listChanged": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    }
+  },
+  "payload": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{}"
+      }
+    ],
+    "structuredContent": {}
+  }
+}
