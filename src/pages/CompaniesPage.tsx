@@ -2,9 +2,7 @@ import ContactForm from '../components/ContactForm';
 import SectionHeading from '../components/SectionHeading';
 import { useReveal } from '../hooks/useReveal';
 
-export interface CompaniesPageProps {
-  readonly className?: string;
-}
+export interface CompaniesPageProps { readonly className?: string; }
 
 export default function CompaniesPage({ className = '' }: Readonly<CompaniesPageProps>) {
   useReveal();
@@ -12,31 +10,28 @@ export default function CompaniesPage({ className = '' }: Readonly<CompaniesPage
 
   return (
     <main className={className}>
-      <section className="bg-canvas-soft py-20 dark:bg-dark-canvas">
-        <div className="mx-auto max-w-[1240px] px-5 lg:px-8">
-          <div className="reveal max-w-4xl">
-            <SectionHeading overline="PALESTRAS & EMPRESAS" title="Experiências para mulheres dentro das organizações" text="Palestras, conversas e encontros pensados para contextos corporativos que desejam aprofundar desenvolvimento emocional, identidade e relações." />
+      <section className="hero-shell border-b border-line/70 py-20">
+        <div className="mx-auto max-w-[1180px] px-5 lg:px-8">
+          <p className="eyebrow">PALESTRAS · EMPRESAS · GRUPOS</p>
+          <h1 className="mt-5 max-w-5xl font-display text-[clamp(3.3rem,7.5vw,6.7rem)] leading-[.94] tracking-[-0.05em] text-olive">
+            Conversas que fortalecem
+            <span className="block italic text-caramel">mulheres dentro das organizações.</span>
+          </h1>
+        </div>
+      </section>
+
+      <section className="bg-canvas py-24">
+        <div className="mx-auto max-w-[1180px] px-5 lg:px-8">
+          <SectionHeading overline="TEMAS POSSÍVEIS" title="Encontros construídos para cada contexto." text="Palestras e experiências podem ser adaptadas ao perfil da empresa, do grupo e ao objetivo do evento." />
+          <div className="mt-12 grid gap-px overflow-hidden rounded-[1.75rem] border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+            {topics.map((topic, index) => <div key={topic} className="reveal min-h-[190px] bg-canvas p-7"><span className="font-display text-2xl italic text-caramel/50">0{index + 1}</span><h3 className="mt-7 font-display text-2xl text-olive">{topic}</h3></div>)}
           </div>
         </div>
       </section>
 
-      <section className="bg-canvas py-20 dark:bg-dark-canvas">
-        <div className="mx-auto max-w-[1240px] px-5 lg:px-8">
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {topics.map((topic) => (
-              <div key={topic} className="reveal rounded-xl border border-line bg-surface p-6 dark:border-white/10 dark:bg-dark-surface">
-                <h3 className="font-display text-xl text-olive dark:text-dark-text">{topic}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#FBE3D8] py-20 dark:bg-dark-surface">
-        <div className="mx-auto grid max-w-[1240px] gap-10 px-5 lg:grid-cols-[.8fr_1.2fr] lg:px-8">
-          <div className="reveal">
-            <SectionHeading overline="SOLICITAR PROPOSTA" title="Vamos conversar sobre o seu evento?" text="Envie as informações principais. Ao enviar, o WhatsApp será aberto com a mensagem organizada para facilitar o primeiro contato." />
-          </div>
+      <section className="bg-surface/70 py-24">
+        <div className="mx-auto grid max-w-[1180px] gap-12 px-5 lg:grid-cols-[.8fr_1.2fr] lg:px-8">
+          <SectionHeading overline="SOLICITAR PROPOSTA" title="Conte um pouco sobre o seu evento." text="Ao enviar, o WhatsApp será aberto com as informações organizadas para facilitar o primeiro contato." />
           <div className="reveal"><ContactForm context="company" /></div>
         </div>
       </section>
