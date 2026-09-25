@@ -2,6 +2,7 @@ import { ArrowRight, MapPin, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import CTASection from '../components/CTASection';
 import EditorialArt from '../components/EditorialArt';
+import ImmersiveCard from '../components/ImmersiveCard';
 import SectionHeading from '../components/SectionHeading';
 import WhatsAppIcon from '../components/WhatsAppIcon';
 import { siteData } from '../data/mockData';
@@ -92,15 +93,18 @@ export default function HomePage({ className = '' }: Readonly<HomePageProps>) {
             <SectionHeading overline="TRÊS CAMINHOS" title="Nem toda fase pede a mesma forma de cuidado." text="Cada experiência foi pensada para um momento diferente da jornada." />
           </div>
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          <div className="immersive-card-grid immersive-card-grid-services mt-14">
             {siteData.home.services.map((item, index) => (
-              <article key={item.to} className={`offset-card motion-${index === 0 ? 'left' : index === 1 ? 'rise' : 'right'} rounded-[1.7rem] border border-line bg-canvas p-7 shadow-soft md:p-8`}>
-                <span className="font-display text-4xl italic text-caramel/45">{String(index + 1).padStart(2, '0')}</span>
-                <p className="mt-10 text-[9px] font-semibold uppercase tracking-[.17em] text-terracotta">{item.overline}</p>
-                <h3 className="mt-4 font-display text-3xl leading-tight text-olive">{item.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-umber/62">{item.text}</p>
-                <Link to={item.to} className="text-link mt-7">Explorar <ArrowRight size={14} /></Link>
-              </article>
+              <ImmersiveCard
+                key={item.to}
+                index={index + 1}
+                eyebrow={item.overline}
+                title={item.title}
+                text={item.text}
+                to={item.to}
+                variant="service"
+                motion={index === 0 ? 'left' : index === 1 ? 'rise' : 'right'}
+              />
             ))}
           </div>
         </div>
