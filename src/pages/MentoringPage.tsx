@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import CTASection from '../components/CTASection';
 import EditorialArt from '../components/EditorialArt';
 import MentoringStack from '../components/MentoringStack';
@@ -45,7 +46,7 @@ export default function MentoringPage({ className = '' }: Readonly<MentoringPage
           <div className="motion-right">
             <SectionHeading overline="IMPORTANTE" title="Mentoria e terapia não são a mesma coisa." light />
             <p className="mt-7 text-base leading-8 text-canvas/65">A mentoria é mais direcionada a clareza, identidade, escolhas e desenvolvimento. A terapia é um espaço de elaboração emocional e compreensão de padrões, relações e experiências.</p>
-            <a href="/contato" className="mt-8 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[.1em] text-canvas">Entender qual caminho faz sentido <ArrowRight size={14} /></a>
+            <Link to="/contato" className="mt-8 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[.1em] text-canvas">Entender qual caminho faz sentido <ArrowRight size={14} /></Link>
           </div>
         </div>
       </section>
