@@ -1,0 +1,7 @@
+{
+  "action": "call_tool",
+  "tool": "list_design_systems",
+  "arguments": {
+    "projectId": "6397409268031532647"
+  }
+}
