@@ -13,6 +13,12 @@ export interface HomePageProps {
   readonly className?: string;
 }
 
+const methodImages = [
+  '/images/jovina/metodo-compreender-historia.webp',
+  '/images/jovina/metodo-reconstruir-identidade.webp',
+  '/images/jovina/metodo-escolher-direcao.webp',
+] as const;
+
 export default function HomePage({ className = '' }: Readonly<HomePageProps>) {
   const { buildUrl } = useWhatsApp({ defaultMessage: 'Olá, Jovina. Gostaria de agendar um atendimento.' });
 
@@ -120,7 +126,13 @@ export default function HomePage({ className = '' }: Readonly<HomePageProps>) {
                       <h3 className="mt-4">{step.title}</h3>
                       <p>{step.text}</p>
                       <div className="mt-8 max-w-xl">
-                        <EditorialArt variant="identity" label={step.title} className="!min-h-[360px]" />
+                        <EditorialArt
+                          variant="identity"
+                          src={methodImages[index]}
+                          alt={`Arte conceitual do Método Identidade: ${step.title}`}
+                          className="!min-h-[360px]"
+                          objectPosition="center"
+                        />
                       </div>
                     </div>
                   </div>
