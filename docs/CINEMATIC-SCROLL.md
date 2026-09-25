@@ -23,3 +23,5 @@ O componente `CinematicScroll`:
 - não usa crossfade, autoplay ou easing residual.
 
 Isso evita o descarte de frames por pressão de memória e reduz travamentos em desktop e mobile.
+
+Cache: frame URLs incluem uma versão explícita para impedir reutilização de sequências anteriores após regeneração.
