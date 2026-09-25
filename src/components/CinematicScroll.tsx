@@ -5,43 +5,42 @@ export interface CinematicScrollProps {
 }
 
 const FRAME_COUNT = 240;
-const MAX_DECODED_FRAMES = 64;
-const DECODE_RADIUS = 24;
-const PREFETCH_WORKERS = 8;
-const FRAME_ASSET_VERSION = 'manual240-final-v2';
+const CACHE_LIMIT = 20;
+const LOAD_CONCURRENCY = 4;
+const AHEAD_RADIUS = 14;
+const BEHIND_RADIUS = 5;
+const MAX_FRAME_STEP_PER_TICK = 1;
+const FRAME_ASSET_VERSION = 'manual240-smooth-v3';
 
 function frameUrl(isMobile: boolean, index: number) {
   const folder = isMobile ? 'mobile' : 'desktop';
   return `/frames-final/${folder}/frame-${String(index + 1).padStart(4, '0')}.webp?v=${FRAME_ASSET_VERSION}`;
 }
 
-function isReady(image: HTMLImageElement | undefined) {
-  return Boolean(image?.complete && image.naturalWidth > 0);
-}
-
 function drawCover(
   context: CanvasRenderingContext2D,
-  image: HTMLImageElement,
+  image: CanvasImageSource,
+  imageWidth: number,
+  imageHeight: number,
   width: number,
   height: number,
 ) {
-  const imageRatio = image.naturalWidth / image.naturalHeight;
+  const imageRatio = imageWidth / imageHeight;
   const canvasRatio = width / height;
 
-  let sourceWidth = image.naturalWidth;
-  let sourceHeight = image.naturalHeight;
+  let sourceWidth = imageWidth;
+  let sourceHeight = imageHeight;
   let sourceX = 0;
   let sourceY = 0;
 
   if (imageRatio > canvasRatio) {
-    sourceWidth = image.naturalHeight * canvasRatio;
-    sourceX = (image.naturalWidth - sourceWidth) / 2;
+    sourceWidth = imageHeight * canvasRatio;
+    sourceX = (imageWidth - sourceWidth) / 2;
   } else {
-    sourceHeight = image.naturalWidth / canvasRatio;
-    sourceY = (image.naturalHeight - sourceHeight) / 2;
+    sourceHeight = imageWidth / canvasRatio;
+    sourceY = (imageHeight - sourceHeight) / 2;
   }
 
-  context.clearRect(0, 0, width, height);
   context.drawImage(
     image,
     sourceX,
@@ -58,12 +57,6 @@ function drawCover(
 export default function CinematicScroll({ className = '' }: Readonly<CinematicScrollProps>) {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const frameCacheRef = useRef<Map<number, HTMLImageElement>>(new Map());
-  const loadingRef = useRef<Map<number, Promise<HTMLImageElement | null>>>(new Map());
-  const desiredFrameRef = useRef(0);
-  const renderedFrameRef = useRef(-1);
-  const scrollRafRef = useRef<number | null>(null);
-  const lastScrollYRef = useRef(0);
 
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
@@ -83,18 +76,31 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
     const canvas = canvasRef.current;
     if (!section || !canvas) return;
 
-    const context = canvas.getContext('2d', { alpha: false });
+    const context = canvas.getContext('2d', {
+      alpha: false,
+      desynchronized: true,
+    });
     if (!context) return;
 
     let cancelled = false;
-    const prefetchAbort = new AbortController();
+    let rafId: number | null = null;
+    let resizeRafId: number | null = null;
+    let targetFrame = 0;
+    let animatedFrame = 0;
+    let renderedFrame = -1;
+    let direction = 1;
+    let lastScrollY = window.scrollY;
+    let activeLoads = 0;
 
-    frameCacheRef.current = new Map();
-    loadingRef.current = new Map();
-    renderedFrameRef.current = -1;
-    lastScrollYRef.current = window.scrollY;
+    const cache = new Map<number, ImageBitmap>();
+    const loading = new Set<number>();
+    const queued = new Set<number>();
+    const queue: number[] = [];
 
-    const getPixelsPerFrame = () => (isMobile ? 60 : 72);
+    // Mantém aproximadamente a mesma duração visual do layout original:
+    // ~600vh no desktop e ~500vh no mobile, mas distribui os 240 frames
+    // densamente para eliminar a sensação de "degraus" no scroll.
+    const getPixelsPerFrame = () => (isMobile ? 14 : 18);
 
     const syncSectionHeight = () => {
       const travel = (FRAME_COUNT - 1) * getPixelsPerFrame();
@@ -103,230 +109,254 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
 
     const resizeCanvas = () => {
       const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      // DPR muito alto aumenta drasticamente o custo de cada drawImage.
+      // 1.5 preserva nitidez e reduz o trabalho por frame.
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const width = Math.max(1, Math.round(rect.width * dpr));
       const height = Math.max(1, Math.round(rect.height * dpr));
 
       if (canvas.width !== width || canvas.height !== height) {
         canvas.width = width;
         canvas.height = height;
-        renderedFrameRef.current = -1;
+        renderedFrame = -1;
       }
     };
 
-    const pruneDecodedFrames = (center: number) => {
-      const cache = frameCacheRef.current;
-      if (cache.size <= MAX_DECODED_FRAMES) return;
+    const pruneCache = (center: number) => {
+      if (cache.size <= CACHE_LIMIT) return;
 
       const removable = [...cache.keys()]
-        .filter((index) => index !== renderedFrameRef.current && index !== center)
+        .filter((index) => index !== renderedFrame)
         .sort((a, b) => Math.abs(b - center) - Math.abs(a - center));
 
-      while (cache.size > MAX_DECODED_FRAMES && removable.length > 0) {
+      while (cache.size > CACHE_LIMIT && removable.length > 0) {
         const index = removable.shift();
         if (index === undefined) break;
 
-        const image = cache.get(index);
+        const bitmap = cache.get(index);
         cache.delete(index);
-
-        if (image) {
-          image.onload = null;
-          image.onerror = null;
-          image.src = '';
-        }
+        bitmap?.close();
       }
     };
 
     const drawFrame = (index: number) => {
-      const image = frameCacheRef.current.get(index);
-      if (!image || !isReady(image)) return false;
-      if (renderedFrameRef.current === index) return true;
+      if (index === renderedFrame) return true;
 
-      drawCover(context, image, canvas.width, canvas.height);
-      renderedFrameRef.current = index;
+      const bitmap = cache.get(index);
+      if (!bitmap) return false;
+
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      drawCover(
+        context,
+        bitmap,
+        bitmap.width,
+        bitmap.height,
+        canvas.width,
+        canvas.height,
+      );
+
+      renderedFrame = index;
       return true;
     };
 
-    const scheduleRender = () => {
-      if (scrollRafRef.current !== null) return;
+    const pumpQueue = () => {
+      while (!cancelled && activeLoads < LOAD_CONCURRENCY && queue.length > 0) {
+        const index = queue.shift();
+        if (index === undefined) break;
 
-      scrollRafRef.current = window.requestAnimationFrame(() => {
-        scrollRafRef.current = null;
-        drawFrame(desiredFrameRef.current);
-      });
-    };
+        queued.delete(index);
 
-    const loadFrame = (index: number): Promise<HTMLImageElement | null> => {
-      if (index < 0 || index >= FRAME_COUNT || cancelled) {
-        return Promise.resolve(null);
-      }
+        if (cache.has(index) || loading.has(index)) {
+          continue;
+        }
 
-      const cached = frameCacheRef.current.get(index);
-      if (cached && isReady(cached)) {
-        return Promise.resolve(cached);
-      }
+        activeLoads += 1;
+        loading.add(index);
 
-      const pending = loadingRef.current.get(index);
-      if (pending) return pending;
-
-      const promise = new Promise<HTMLImageElement | null>((resolve) => {
-        const image = new Image();
-        image.decoding = 'async';
-
-        image.onload = async () => {
+        void (async () => {
           try {
-            await image.decode();
+            const response = await fetch(frameUrl(isMobile, index), {
+              cache: 'force-cache',
+            });
+
+            if (!response.ok || cancelled) return;
+
+            const blob = await response.blob();
+            if (cancelled) return;
+
+            const bitmap = await createImageBitmap(blob);
+            if (cancelled) {
+              bitmap.close();
+              return;
+            }
+
+            cache.set(index, bitmap);
+            pruneCache(Math.round(animatedFrame));
           } catch {
-            // onload já garante um frame utilizável em navegadores sem decode().
+            // Se um frame falhar momentaneamente, ele poderá ser enfileirado
+            // novamente quando entrar na janela prioritária.
+          } finally {
+            loading.delete(index);
+            activeLoads -= 1;
+            pumpQueue();
           }
-
-          loadingRef.current.delete(index);
-
-          if (cancelled) {
-            image.src = '';
-            resolve(null);
-            return;
-          }
-
-          frameCacheRef.current.set(index, image);
-          pruneDecodedFrames(desiredFrameRef.current);
-
-          if (index === desiredFrameRef.current) {
-            scheduleRender();
-          }
-
-          resolve(image);
-        };
-
-        image.onerror = () => {
-          loadingRef.current.delete(index);
-          resolve(null);
-        };
-
-        image.src = frameUrl(isMobile, index);
-      });
-
-      loadingRef.current.set(index, promise);
-      return promise;
-    };
-
-    const warmDecodeWindow = (center: number, direction: number) => {
-      void loadFrame(center);
-
-      for (let distance = 1; distance <= DECODE_RADIUS; distance += 1) {
-        const preferred = center + distance * direction;
-        const opposite = center - distance * direction;
-        void loadFrame(preferred);
-        void loadFrame(opposite);
+        })();
       }
     };
 
-    const syncFromScroll = () => {
+    const enqueueFrame = (index: number, highPriority = false) => {
+      if (
+        index < 0 ||
+        index >= FRAME_COUNT ||
+        cache.has(index) ||
+        loading.has(index) ||
+        queued.has(index)
+      ) {
+        return;
+      }
+
+      queued.add(index);
+
+      if (highPriority) {
+        queue.unshift(index);
+      } else {
+        queue.push(index);
+      }
+    };
+
+    const warmWindow = (center: number) => {
+      enqueueFrame(center, true);
+
+      // Prioriza primeiro os próximos quadros no sentido do movimento.
+      for (let distance = 1; distance <= AHEAD_RADIUS; distance += 1) {
+        enqueueFrame(center + distance * direction, distance <= 4);
+      }
+
+      for (let distance = 1; distance <= BEHIND_RADIUS; distance += 1) {
+        enqueueFrame(center - distance * direction);
+      }
+
+      pumpQueue();
+    };
+
+    const nearestReadyFrame = (index: number) => {
+      if (cache.has(index)) return index;
+
+      // Pequeno fallback apenas para não congelar a tela caso um arquivo
+      // específico ainda esteja terminando de decodificar.
+      for (let distance = 1; distance <= 3; distance += 1) {
+        const towardMotion = index - distance * direction;
+        if (cache.has(towardMotion)) return towardMotion;
+
+        const opposite = index + distance * direction;
+        if (cache.has(opposite)) return opposite;
+      }
+
+      return renderedFrame;
+    };
+
+    const updateTargetFromScroll = () => {
       const rect = section.getBoundingClientRect();
       const travel = Math.max(section.offsetHeight - window.innerHeight, 1);
       const progress = Math.min(1, Math.max(0, -rect.top / travel));
-      const exactFrame = progress * (FRAME_COUNT - 1);
-      const frameIndex = Math.min(
-        FRAME_COUNT - 1,
-        Math.max(0, Math.round(exactFrame)),
-      );
+
+      targetFrame = progress * (FRAME_COUNT - 1);
 
       const currentScrollY = window.scrollY;
-      const direction = currentScrollY >= lastScrollYRef.current ? 1 : -1;
-      lastScrollYRef.current = currentScrollY;
-
-      desiredFrameRef.current = frameIndex;
-      warmDecodeWindow(frameIndex, direction);
-
-      if (!drawFrame(frameIndex)) {
-        // Se o quadro exato ainda está decodificando, mantém o quadro anterior
-        // na tela. Quando o arquivo terminar de decodificar, scheduleRender()
-        // coloca exatamente o frame solicitado, sem pular para um vizinho.
-        scheduleRender();
+      if (currentScrollY !== lastScrollY) {
+        direction = currentScrollY > lastScrollY ? 1 : -1;
+        lastScrollY = currentScrollY;
       }
+
+      warmWindow(Math.round(targetFrame));
+    };
+
+    const tick = () => {
+      if (cancelled) return;
+
+      const delta = targetFrame - animatedFrame;
+
+      if (Math.abs(delta) > 0.01) {
+        // O alvo pode saltar vários frames por causa da roda do mouse/trackpad,
+        // mas a imagem avança no máximo 1 frame por repaint. Isso transforma
+        // saltos de scroll em uma sequência visual contínua de até 60 fps.
+        const step = Math.max(
+          -MAX_FRAME_STEP_PER_TICK,
+          Math.min(MAX_FRAME_STEP_PER_TICK, delta),
+        );
+
+        animatedFrame += step;
+      } else {
+        animatedFrame = targetFrame;
+      }
+
+      const wanted = Math.max(
+        0,
+        Math.min(FRAME_COUNT - 1, Math.round(animatedFrame)),
+      );
+
+      warmWindow(wanted);
+
+      const ready = nearestReadyFrame(wanted);
+      if (ready >= 0) {
+        drawFrame(ready);
+      }
+
+      rafId = window.requestAnimationFrame(tick);
     };
 
     const handleScroll = () => {
-      if (scrollRafRef.current !== null) return;
-
-      scrollRafRef.current = window.requestAnimationFrame(() => {
-        scrollRafRef.current = null;
-        syncFromScroll();
-      });
+      updateTargetFromScroll();
     };
 
     const handleResize = () => {
-      syncSectionHeight();
-      resizeCanvas();
-      syncFromScroll();
-    };
+      if (resizeRafId !== null) return;
 
-    // Pré-carrega os bytes comprimidos dos 240 quadros com concorrência limitada.
-    // Isso aquece o cache HTTP sem manter 240 imagens gigantes decodificadas na RAM.
-    let prefetchCursor = 0;
-    const prefetchWorker = async () => {
-      while (!cancelled && prefetchCursor < FRAME_COUNT) {
-        const index = prefetchCursor;
-        prefetchCursor += 1;
-
-        try {
-          const response = await fetch(frameUrl(isMobile, index), {
-            cache: 'force-cache',
-            signal: prefetchAbort.signal,
-          });
-
-          if (response.ok) {
-            await response.arrayBuffer();
-          }
-        } catch {
-          if (prefetchAbort.signal.aborted) return;
-        }
-      }
+      resizeRafId = window.requestAnimationFrame(() => {
+        resizeRafId = null;
+        syncSectionHeight();
+        resizeCanvas();
+        updateTargetFromScroll();
+      });
     };
 
     syncSectionHeight();
     resizeCanvas();
+    updateTargetFromScroll();
 
-    // Primeiro quadro é prioridade absoluta.
-    void loadFrame(0).then(() => {
-      if (!cancelled) {
-        syncFromScroll();
-      }
-    });
-
-    // Deixa uma janela inicial pronta antes do usuário chegar à seção.
-    for (let index = 1; index <= DECODE_RADIUS * 2; index += 1) {
-      void loadFrame(index);
+    // Só prepara uma pequena janela inicial; não decodifica dezenas de imagens
+    // de uma vez e não baixa os 240 arquivos concorrendo com a rolagem.
+    for (let index = 0; index <= 10; index += 1) {
+      enqueueFrame(index, index <= 2);
     }
-
-    for (let worker = 0; worker < PREFETCH_WORKERS; worker += 1) {
-      void prefetchWorker();
-    }
-
-    syncFromScroll();
+    pumpQueue();
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
 
+    rafId = window.requestAnimationFrame(tick);
+
     return () => {
       cancelled = true;
-      prefetchAbort.abort();
 
-      if (scrollRafRef.current !== null) {
-        window.cancelAnimationFrame(scrollRafRef.current);
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+      }
+
+      if (resizeRafId !== null) {
+        window.cancelAnimationFrame(resizeRafId);
       }
 
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
 
-      frameCacheRef.current.forEach((image) => {
-        image.onload = null;
-        image.onerror = null;
-        image.src = '';
-      });
+      cache.forEach((bitmap) => bitmap.close());
+      cache.clear();
+      loading.clear();
+      queued.clear();
+      queue.length = 0;
 
-      frameCacheRef.current.clear();
-      loadingRef.current.clear();
       section.style.removeProperty('height');
     };
   }, [isMobile]);
