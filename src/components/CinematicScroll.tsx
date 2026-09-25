@@ -1,17 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export interface CinematicScrollProps {
   readonly className?: string;
 }
 
 const FRAME_COUNT = 240;
-const CACHE_LIMIT = 18;
-const LOAD_CONCURRENCY = 3;
-const PRELOAD_DECODE_COUNT = 12;
-const PREFETCH_BYTE_COUNT = 72;
-const AHEAD_RADIUS = 12;
-const BEHIND_RADIUS = 4;
-const FRAME_ASSET_VERSION = 'manual240-ultrasmooth-v4';
+const FRAME_ASSET_VERSION = 'manual240-gsap-v5';
 
 function frameUrl(isMobile: boolean, index: number) {
   const folder = isMobile ? 'mobile' : 'desktop';
@@ -20,28 +18,27 @@ function frameUrl(isMobile: boolean, index: number) {
 
 function drawCover(
   context: CanvasRenderingContext2D,
-  image: CanvasImageSource,
-  imageWidth: number,
-  imageHeight: number,
+  image: ImageBitmap,
   width: number,
   height: number,
 ) {
-  const imageRatio = imageWidth / imageHeight;
+  const imageRatio = image.width / image.height;
   const canvasRatio = width / height;
 
-  let sourceWidth = imageWidth;
-  let sourceHeight = imageHeight;
+  let sourceWidth = image.width;
+  let sourceHeight = image.height;
   let sourceX = 0;
   let sourceY = 0;
 
   if (imageRatio > canvasRatio) {
-    sourceWidth = imageHeight * canvasRatio;
-    sourceX = (imageWidth - sourceWidth) / 2;
+    sourceWidth = image.height * canvasRatio;
+    sourceX = (image.width - sourceWidth) / 2;
   } else {
-    sourceHeight = imageWidth / canvasRatio;
-    sourceY = (imageHeight - sourceHeight) / 2;
+    sourceHeight = image.width / canvasRatio;
+    sourceY = (image.height - sourceHeight) / 2;
   }
 
+  context.clearRect(0, 0, width, height);
   context.drawImage(
     image,
     sourceX,
@@ -84,58 +81,58 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
     if (!context) return;
 
     let cancelled = false;
-    let animationRaf: number | null = null;
     let resizeRaf: number | null = null;
-    let idleHandle: number | null = null;
-
-    let targetFrame = 0;
-    let animatedFrame = 0;
-    let renderedFrame = -1;
-    let direction = 1;
-    let lastScrollY = window.scrollY;
-    let lastWarmCenter = -1;
     let activeLoads = 0;
-    let isNearSection = false;
+    let lastRendered = -1;
+    let lastRequestedCenter = -1;
+    let prefetchStarted = false;
+
+    const cacheLimit = isMobile ? 14 : 22;
+    const loadConcurrency = isMobile ? 3 : 5;
+    const ahead = isMobile ? 10 : 16;
+    const behind = isMobile ? 3 : 5;
 
     const cache = new Map<number, ImageBitmap>();
     const loading = new Set<number>();
     const queued = new Set<number>();
     const queue: number[] = [];
 
-    const getPixelsPerFrame = () => (isMobile ? 12 : 16);
+    const playhead = { frame: 0 };
+
+    ScrollTrigger.config({
+      limitCallbacks: true,
+      ignoreMobileResize: true,
+    });
 
     const syncSectionHeight = () => {
-      const travel = (FRAME_COUNT - 1) * getPixelsPerFrame();
+      const pixelsPerFrame = isMobile ? 11 : 15;
+      const travel = (FRAME_COUNT - 1) * pixelsPerFrame;
       section.style.height = `${window.innerHeight + travel}px`;
     };
 
     const resizeCanvas = () => {
       const rect = canvas.getBoundingClientRect();
-
-      // Mobile GPUs are much more sensitive to large backing canvases.
-      const dprCap = isMobile ? 1.15 : 1.35;
-      const dpr = Math.min(window.devicePixelRatio || 1, dprCap);
+      const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.35);
       const width = Math.max(1, Math.round(rect.width * dpr));
       const height = Math.max(1, Math.round(rect.height * dpr));
 
       if (canvas.width !== width || canvas.height !== height) {
         canvas.width = width;
         canvas.height = height;
-        renderedFrame = -1;
+        lastRendered = -1;
       }
     };
 
     const pruneCache = (center: number) => {
-      if (cache.size <= CACHE_LIMIT) return;
+      if (cache.size <= cacheLimit) return;
 
       const removable = [...cache.keys()]
-        .filter((index) => index !== renderedFrame && index !== center)
+        .filter((index) => index !== lastRendered && index !== center)
         .sort((a, b) => Math.abs(b - center) - Math.abs(a - center));
 
-      while (cache.size > CACHE_LIMIT && removable.length > 0) {
+      while (cache.size > cacheLimit && removable.length > 0) {
         const index = removable.shift();
         if (index === undefined) break;
-
         const bitmap = cache.get(index);
         cache.delete(index);
         bitmap?.close();
@@ -143,32 +140,33 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
     };
 
     const drawFrame = (index: number) => {
-      if (index === renderedFrame) return true;
-
+      if (index === lastRendered) return true;
       const bitmap = cache.get(index);
       if (!bitmap) return false;
 
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      drawCover(
-        context,
-        bitmap,
-        bitmap.width,
-        bitmap.height,
-        canvas.width,
-        canvas.height,
-      );
-
-      renderedFrame = index;
+      drawCover(context, bitmap, canvas.width, canvas.height);
+      lastRendered = index;
       return true;
     };
 
+    const nearestReady = (index: number) => {
+      if (cache.has(index)) return index;
+
+      for (let distance = 1; distance <= 2; distance += 1) {
+        if (cache.has(index - distance)) return index - distance;
+        if (cache.has(index + distance)) return index + distance;
+      }
+
+      return lastRendered;
+    };
+
     const pumpQueue = () => {
-      while (!cancelled && activeLoads < LOAD_CONCURRENCY && queue.length > 0) {
+      while (!cancelled && activeLoads < loadConcurrency && queue.length > 0) {
         const index = queue.shift();
         if (index === undefined) break;
 
         queued.delete(index);
-        if (cache.has(index) || loading.has(index)) continue;
+        if (index < 0 || index >= FRAME_COUNT || cache.has(index) || loading.has(index)) continue;
 
         activeLoads += 1;
         loading.add(index);
@@ -177,7 +175,7 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
           try {
             const response = await fetch(frameUrl(isMobile, index), {
               cache: 'force-cache',
-              priority: index <= 3 ? 'high' : 'auto',
+              priority: index <= 2 ? 'high' : 'auto',
             } as RequestInit);
 
             if (!response.ok || cancelled) return;
@@ -192,17 +190,14 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
             }
 
             cache.set(index, bitmap);
-            pruneCache(Math.round(animatedFrame));
+            pruneCache(Math.round(playhead.frame));
 
-            if (index === 0 && renderedFrame < 0) {
-              drawFrame(0);
-            }
-
-            if (isNearSection) {
-              scheduleAnimation();
+            const wanted = Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(playhead.frame)));
+            if (index === wanted || lastRendered < 0) {
+              drawFrame(nearestReady(wanted));
             }
           } catch {
-            // A próxima janela de prioridade tenta novamente se necessário.
+            // A janela de prioridade tenta novamente se esse frame voltar a ser necessário.
           } finally {
             loading.delete(index);
             activeLoads -= 1;
@@ -212,7 +207,7 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
       }
     };
 
-    const enqueueFrame = (index: number, highPriority = false) => {
+    const enqueue = (index: number, priority = false) => {
       if (
         index < 0 ||
         index >= FRAME_COUNT ||
@@ -224,145 +219,48 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
       }
 
       queued.add(index);
-      if (highPriority) queue.unshift(index);
+      if (priority) queue.unshift(index);
       else queue.push(index);
     };
 
     const warmWindow = (center: number) => {
-      if (center === lastWarmCenter) return;
-      lastWarmCenter = center;
+      if (center === lastRequestedCenter) return;
+      lastRequestedCenter = center;
 
-      // Descarta apenas solicitações que ainda nem começaram. Assim um scroll
-      // rápido não deixa uma fila enorme de frames que já ficaram para trás.
       queue.length = 0;
       queued.clear();
 
-      enqueueFrame(center, true);
+      enqueue(center, true);
+      enqueue(center + 1, true);
+      enqueue(center - 1, true);
 
-      for (let distance = 1; distance <= AHEAD_RADIUS; distance += 1) {
-        enqueueFrame(center + distance * direction, distance <= 4);
+      for (let distance = 2; distance <= ahead; distance += 1) {
+        enqueue(center + distance, distance <= 4);
       }
 
-      for (let distance = 1; distance <= BEHIND_RADIUS; distance += 1) {
-        enqueueFrame(center - distance * direction);
+      for (let distance = 2; distance <= behind; distance += 1) {
+        enqueue(center - distance);
       }
 
       pumpQueue();
     };
 
-    const nearestReadyFrame = (index: number) => {
-      if (cache.has(index)) return index;
-
-      for (let distance = 1; distance <= 2; distance += 1) {
-        const behind = index - distance * direction;
-        if (cache.has(behind)) return behind;
-
-        const ahead = index + distance * direction;
-        if (cache.has(ahead)) return ahead;
-      }
-
-      return renderedFrame;
-    };
-
-    const updateTargetFromScroll = () => {
-      const rect = section.getBoundingClientRect();
-      const travel = Math.max(section.offsetHeight - window.innerHeight, 1);
-      const progress = Math.min(1, Math.max(0, -rect.top / travel));
-      targetFrame = progress * (FRAME_COUNT - 1);
-
-      const currentScrollY = window.scrollY;
-      if (currentScrollY !== lastScrollY) {
-        direction = currentScrollY > lastScrollY ? 1 : -1;
-        lastScrollY = currentScrollY;
-      }
-
-      const center = Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(targetFrame)));
-      warmWindow(center);
-    };
-
-    const animate = () => {
-      animationRaf = null;
-      if (cancelled || !isNearSection) return;
-
-      const delta = targetFrame - animatedFrame;
-
-      if (Math.abs(delta) > 0.015) {
-        // Easing adaptativo: suave para pequenos movimentos e capaz de
-        // acompanhar flicks maiores sem ficar muitos frames atrasado.
-        const easedStep = delta * 0.2;
-        const maxStep = isMobile ? 1.35 : 1.6;
-        const step = Math.max(-maxStep, Math.min(maxStep, easedStep));
-        animatedFrame += step;
-      } else {
-        animatedFrame = targetFrame;
-      }
-
-      const wanted = Math.max(
-        0,
-        Math.min(FRAME_COUNT - 1, Math.round(animatedFrame)),
-      );
-
+    const renderPlayhead = () => {
+      const wanted = Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(playhead.frame)));
       warmWindow(wanted);
-
-      const ready = nearestReadyFrame(wanted);
+      const ready = nearestReady(wanted);
       if (ready >= 0) drawFrame(ready);
-
-      const stillMoving = Math.abs(targetFrame - animatedFrame) > 0.015;
-      const exactFrameMissing = !cache.has(Math.round(targetFrame));
-
-      if (stillMoving || exactFrameMissing) {
-        animationRaf = window.requestAnimationFrame(animate);
-      }
     };
 
-    function scheduleAnimation() {
-      if (!isNearSection || animationRaf !== null) return;
-      animationRaf = window.requestAnimationFrame(animate);
-    }
+    const prefetchCompressed = async () => {
+      if (prefetchStarted || cancelled) return;
+      prefetchStarted = true;
 
-    const handleScroll = () => {
-      if (!isNearSection) return;
-      updateTargetFromScroll();
-      scheduleAnimation();
-    };
-
-    const handleResize = () => {
-      if (resizeRaf !== null) return;
-
-      resizeRaf = window.requestAnimationFrame(() => {
-        resizeRaf = null;
-        syncSectionHeight();
-        resizeCanvas();
-
-        if (isNearSection) {
-          updateTargetFromScroll();
-          scheduleAnimation();
-        }
-      });
-    };
-
-    // O componente só entra em modo de animação quando se aproxima da tela.
-    // Fora dessa área não existe loop contínuo de RAF.
-    const visibilityObserver = new IntersectionObserver(
-      ([entry]) => {
-        isNearSection = entry.isIntersecting;
-
-        if (isNearSection) {
-          updateTargetFromScroll();
-          scheduleAnimation();
-        } else if (animationRaf !== null) {
-          window.cancelAnimationFrame(animationRaf);
-          animationRaf = null;
-        }
-      },
-      { rootMargin: '125% 0px 125% 0px', threshold: 0 },
-    );
-
-    const prefetchCompressedBytes = async () => {
-      let cursor = PRELOAD_DECODE_COUNT;
+      let cursor = 0;
+      const workers = isMobile ? 2 : 3;
 
       const worker = async () => {
-        while (!cancelled && cursor < PREFETCH_BYTE_COUNT) {
+        while (!cancelled && cursor < FRAME_COUNT) {
           const index = cursor;
           cursor += 1;
 
@@ -371,54 +269,76 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
               cache: 'force-cache',
               priority: 'low',
             } as RequestInit);
-
             if (response.ok) await response.arrayBuffer();
           } catch {
-            // Prefetch é opcional: a janela ativa ainda consegue carregar.
+            // O carregamento ativo continua independente do prefetch.
           }
         }
       };
 
-      await Promise.all([worker(), worker()]);
+      await Promise.all(Array.from({ length: workers }, () => worker()));
     };
 
     syncSectionHeight();
     resizeCanvas();
 
-    // Um pequeno conjunto inicial fica pronto antes de o usuário chegar ao efeito.
-    for (let index = 0; index < PRELOAD_DECODE_COUNT; index += 1) {
-      enqueueFrame(index, index <= 2);
+    for (let index = 0; index < (isMobile ? 8 : 12); index += 1) {
+      enqueue(index, index <= 2);
     }
     pumpQueue();
 
-    const ric = window.requestIdleCallback?.bind(window);
-    if (ric) {
-      idleHandle = ric(() => {
-        void prefetchCompressedBytes();
-      }, { timeout: 1200 });
-    } else {
-      idleHandle = window.setTimeout(() => {
-        void prefetchCompressedBytes();
-      }, 700);
-    }
+    const tween = gsap.to(playhead, {
+      frame: FRAME_COUNT - 1,
+      ease: 'none',
+      paused: false,
+      onUpdate: renderPlayhead,
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: isMobile ? 0.16 : 0.12,
+        invalidateOnRefresh: true,
+        fastScrollEnd: false,
+        onEnter: () => void prefetchCompressed(),
+        onEnterBack: () => void prefetchCompressed(),
+      },
+    });
 
-    visibilityObserver.observe(section);
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    const prefetchObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          void prefetchCompressed();
+          prefetchObserver.disconnect();
+        }
+      },
+      {
+        rootMargin: isMobile ? '90% 0px 90% 0px' : '130% 0px 130% 0px',
+        threshold: 0,
+      },
+    );
+    prefetchObserver.observe(section);
+
+    const handleResize = () => {
+      if (resizeRaf !== null) return;
+
+      resizeRaf = window.requestAnimationFrame(() => {
+        resizeRaf = null;
+        syncSectionHeight();
+        resizeCanvas();
+        renderPlayhead();
+        ScrollTrigger.refresh();
+      });
+    };
+
     window.addEventListener('resize', handleResize);
 
     return () => {
       cancelled = true;
-      visibilityObserver.disconnect();
+      prefetchObserver.disconnect();
+      tween.scrollTrigger?.kill();
+      tween.kill();
 
-      if (animationRaf !== null) window.cancelAnimationFrame(animationRaf);
       if (resizeRaf !== null) window.cancelAnimationFrame(resizeRaf);
-
-      if (idleHandle !== null) {
-        if (window.cancelIdleCallback) window.cancelIdleCallback(idleHandle);
-        else window.clearTimeout(idleHandle);
-      }
-
-      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
 
       cache.forEach((bitmap) => bitmap.close());
