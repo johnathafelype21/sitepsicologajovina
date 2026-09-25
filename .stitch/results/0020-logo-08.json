@@ -1,0 +1,8 @@
+{
+  "ok": false,
+  "request": {
+    "action": "call_tool",
+    "tool": "generate_screen_from_text"
+  },
+  "error": "Request timed out"
+}
