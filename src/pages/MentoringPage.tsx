@@ -7,7 +7,7 @@ import SectionHeading from '../components/SectionHeading';
 
 export interface MentoringPageProps { readonly className?: string; }
 
-const pillars = [
+const pillars: readonly (readonly [string, string])[] = [
   ['Identidade', 'Reconhecer quem você é para além de papéis, expectativas e ciclos antigos.'],
   ['Clareza', 'Organizar pensamentos, prioridades e decisões com mais consciência.'],
   ['Direção', 'Transformar percepção em escolhas concretas para o momento atual.'],
