@@ -1,0 +1,7 @@
+{
+  "action": "call_tool",
+  "tool": "get_project",
+  "arguments": {
+    "name": "projects/6397409268031532647"
+  }
+}
