@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import CTASection from '../components/CTASection';
 import EditorialArt from '../components/EditorialArt';
 import FAQList from '../components/FAQList';
+import ImmersiveCard from '../components/ImmersiveCard';
 import SectionHeading from '../components/SectionHeading';
 import WhatsAppIcon from '../components/WhatsAppIcon';
 import { siteData } from '../data/mockData';
@@ -36,12 +37,15 @@ export default function TherapyPage({ className = '' }: Readonly<TherapyPageProp
       <section className="bg-canvas py-24 md:py-32">
         <div className="mx-auto max-w-[1180px] px-5 lg:px-8">
           <SectionHeading overline="O QUE PODE CHEGAR À SESSÃO" title="Nem toda dor tem nome logo no começo." text="O processo ajuda a perceber o que se repete, o que pesa e o que precisa de espaço para ser compreendido." />
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="immersive-card-grid immersive-card-grid-topics mt-14">
             {siteData.therapyTopics.map((topic, index) => (
-              <article key={topic} className={`offset-card motion-${index % 2 ? 'rise' : 'left'} rounded-[1.5rem] border border-line bg-surface/65 p-6`}>
-                <span className="font-display text-3xl italic text-caramel/45">{String(index + 1).padStart(2, '0')}</span>
-                <h3 className="mt-7 font-display text-2xl leading-tight text-olive">{topic}</h3>
-              </article>
+              <ImmersiveCard
+                key={topic}
+                index={index + 1}
+                title={topic}
+                variant="therapy"
+                motion={index % 3 === 0 ? 'left' : index % 3 === 1 ? 'rise' : 'right'}
+              />
             ))}
           </div>
         </div>
