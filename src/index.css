@@ -1810,3 +1810,44 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
     height: 120vh;
   }
 }
+
+
+/* --- Cinematic performance + mobile geometry hardening --- */
+.cinematic-scroll-sticky {
+  min-height: 0;
+  contain: layout paint;
+}
+
+.cinematic-scroll-canvas {
+  image-rendering: auto;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@media (max-width: 767px) {
+  .cinematic-scroll-sticky {
+    height: 100dvh;
+    min-height: 0;
+  }
+
+  .cinematic-scroll-canvas {
+    width: 100vw;
+    height: 100dvh;
+  }
+
+  .scroll-progress-track {
+    height: 2px;
+  }
+
+  /* Avoid compositing decorative animations while the device is under
+     heavier scroll/decode work. They remain visually intact but cheaper. */
+  .living-marquee-track {
+    animation-duration: 34s;
+  }
+}
+
+/* Let the browser defer painting distant home sections until needed. */
+main > section:not(.hero-v2):not(.living-marquee):not(.cinematic-scroll) {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
