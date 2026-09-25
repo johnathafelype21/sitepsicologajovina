@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "request": {
+    "action": "make_design_preview",
+    "slug": "about"
+  },
+  "preview": {
+    "previewPath": ".stitch/designs/about-preview.jpg",
+    "previewBytes": 115290,
+    "base64Path": ".stitch/designs/about-preview.b64.txt",
+    "base64Bytes": 153720,
+    "log": "115290"
+  }
+}

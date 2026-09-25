@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "request": {
+    "action": "make_design_preview",
+    "slug": "therapy"
+  },
+  "preview": {
+    "previewPath": ".stitch/designs/therapy-preview.jpg",
+    "previewBytes": 131173,
+    "base64Path": ".stitch/designs/therapy-preview.b64.txt",
+    "base64Bytes": 174900,
+    "log": "131173"
+  }
+}
