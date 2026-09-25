@@ -1,7 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import EditorialArt from '../components/EditorialArt';
-import ImmersiveCard from '../components/ImmersiveCard';
+import MentoringStack from '../components/MentoringStack';
 import SectionHeading from '../components/SectionHeading';
 
 export interface MentoringPageProps { readonly className?: string; }
@@ -33,17 +33,8 @@ export default function MentoringPage({ className = '' }: Readonly<MentoringPage
       <section className="bg-canvas py-24 md:py-32">
         <div className="mx-auto max-w-[1180px] px-5 lg:px-8">
           <SectionHeading overline="QUATRO EIXOS" title="Profundidade com direção." text="A mentoria organiza o caminho em quatro focos complementares." />
-          <div className="immersive-card-grid immersive-card-grid-mentoring mt-14">
-            {pillars.map(([title, text], index) => (
-              <ImmersiveCard
-                key={title}
-                index={index + 1}
-                title={title}
-                text={text}
-                variant="mentoring"
-                motion={index % 2 ? 'right' : 'left'}
-              />
-            ))}
+          <div className="mt-14">
+            <MentoringStack pillars={pillars} />
           </div>
         </div>
       </section>
