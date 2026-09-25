@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - ".stitch/requests/**/*.json"
+      - ".stitch/requests/**"
   workflow_dispatch:
 
 permissions:
