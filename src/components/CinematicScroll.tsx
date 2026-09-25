@@ -106,17 +106,23 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
       if (!image || image.src) return;
 
       image.decoding = 'async';
-      image.onload = () => {
+      image.onload = async () => {
+        if (cancelled) return;
+
+        try {
+          await image.decode();
+        } catch {
+          // O onload já garante que a imagem pode ser usada mesmo quando decode() não estiver disponível.
+        }
+
         if (cancelled) return;
 
         const current = exactFrameRef.current;
-        if (Math.abs(index - current) <= 2) {
-          if (rafRef.current === null) {
-            rafRef.current = window.requestAnimationFrame(() => {
-              rafRef.current = null;
-              renderExactFrame();
-            });
-          }
+        if (Math.abs(index - current) <= 2 && rafRef.current === null) {
+          rafRef.current = window.requestAnimationFrame(() => {
+            rafRef.current = null;
+            renderExactFrame();
+          });
         }
       };
       image.src = frameUrl(isMobile, index);
@@ -138,43 +144,29 @@ export default function CinematicScroll({ className = '' }: Readonly<CinematicSc
 
     const renderExactFrame = () => {
       const exact = Math.min(FRAME_COUNT - 1, Math.max(0, exactFrameRef.current));
-      const lowerIndex = Math.floor(exact);
-      const upperIndex = Math.min(FRAME_COUNT - 1, lowerIndex + 1);
-      const mix = exact - lowerIndex;
+      const exactIndex = Math.min(FRAME_COUNT - 1, Math.max(0, Math.round(exact)));
 
       loadNeighborhood(exact);
 
-      const lower = imagesRef.current[lowerIndex];
-      const upper = imagesRef.current[upperIndex];
-
-      context.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (isReady(lower)) {
-        drawImageCover(context, lower, canvas.width, canvas.height, 1);
-
-        // Blend contínuo entre frames consecutivos. Isso evita "degraus"
-        // mesmo quando o scroll para entre dois quadros.
-        if (upperIndex !== lowerIndex && mix > 0 && isReady(upper)) {
-          drawImageCover(context, upper, canvas.width, canvas.height, mix);
-        }
+      const exactImage = imagesRef.current[exactIndex];
+      if (isReady(exactImage)) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawImageCover(context, exactImage, canvas.width, canvas.height, 1);
         return;
       }
 
-      if (isReady(upper)) {
-        drawImageCover(context, upper, canvas.width, canvas.height, 1);
-        return;
-      }
-
-      // Fallback: mantém o quadro carregado mais próximo em vez de piscar.
+      // Mantém o último quadro carregado mais próximo enquanto o quadro exato termina de decodificar.
       for (let distance = 1; distance <= NEIGHBOR_RADIUS; distance += 1) {
-        const before = imagesRef.current[lowerIndex - distance];
-        const after = imagesRef.current[upperIndex + distance];
+        const before = imagesRef.current[exactIndex - distance];
+        const after = imagesRef.current[exactIndex + distance];
 
         if (isReady(before)) {
+          context.clearRect(0, 0, canvas.width, canvas.height);
           drawImageCover(context, before, canvas.width, canvas.height, 1);
           return;
         }
         if (isReady(after)) {
+          context.clearRect(0, 0, canvas.width, canvas.height);
           drawImageCover(context, after, canvas.width, canvas.height, 1);
           return;
         }
