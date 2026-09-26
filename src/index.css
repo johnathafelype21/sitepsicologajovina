@@ -17,12 +17,17 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
 h1, h2, h3, h4, p, span { overflow-wrap: break-word; word-wrap: break-word; }
 ::selection { background: rgba(192, 138, 78, 0.24); }
 
+/* Content must never depend on JS/IntersectionObserver to be visible.
+   This fixes blank CTA/section blocks on iPhone and in-app browsers. */
 .reveal {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 720ms cubic-bezier(.2,.65,.2,1), transform 720ms cubic-bezier(.2,.65,.2,1);
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
-.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
 
 .eyebrow {
   font-size: 10px;
