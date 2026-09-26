@@ -1,0 +1,8 @@
+{
+  "name": "Jovina Diniz — Terapeuta Integrativa",
+  "description": "Jovina Diniz — Terapeuta Integrativa e Mentora de Mulheres.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

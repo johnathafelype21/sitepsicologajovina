@@ -1,216 +1,241 @@
 import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from 'lenis';
 
-gsap.registerPlugin(ScrollTrigger);
+const TOTAL_FRAMES = 240;
+
+function getFrameUrl(index: number, isMobile: boolean): string {
+  // 1-indexed: frame-0001.webp to frame-0240.webp
+  const frameNum = Math.min(TOTAL_FRAMES, Math.max(1, index + 1));
+  const padded = String(frameNum).padStart(4, '0');
+  const dir = isMobile ? 'mobile' : 'desktop';
+  return `/frames-final/${dir}/frame-${padded}.webp`;
+}
 
 export interface CinematicScrollProps {
   readonly className?: string;
 }
 
-function videoUrl(isMobile: boolean) {
-  return isMobile
-    ? '/videos/mobile/VIDEO%20MOBILE.mp4'
-    : '/videos/desktop/VIDEO%20DESKTOP.mp4';
-}
-
 export default function CinematicScroll({ className = '' }: Readonly<CinematicScrollProps>) {
   const sectionRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia('(max-width: 768px)').matches;
+  });
 
-  const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
-  );
+  const imagesRef = useRef<(HTMLImageElement | null)[]>([]);
+  const currentFrameRef = useRef<number>(0);
+  const targetFrameRef = useRef<number>(0);
+  const lastDrawnFrameRef = useRef<number>(-1);
 
+  // Responsive device switch listener
   useEffect(() => {
-    const media = window.matchMedia('(max-width: 767px)');
-    const syncViewport = () => setIsMobile(media.matches);
-
-    syncViewport();
-    media.addEventListener('change', syncViewport);
-    return () => media.removeEventListener('change', syncViewport);
+    const mql = window.matchMedia('(max-width: 768px)');
+    const onChange = (e: MediaQueryListEvent) => {
+      setIsMobile(e.matches);
+    };
+    mql.addEventListener('change', onChange);
+    return () => mql.removeEventListener('change', onChange);
   }, []);
 
-
   useEffect(() => {
-    if (isMobile) return;
-
-    const lenis = new Lenis({
-      duration: 0.9,
-      smoothWheel: true,
-      wheelMultiplier: 0.92,
-      touchMultiplier: 1,
-    });
-
-    const onLenisScroll = () => {
-      ScrollTrigger.update();
-    };
-
-    const tick = (time: number) => {
-      lenis.raf(time * 1000);
-    };
-
-    lenis.on('scroll', onLenisScroll);
-    gsap.ticker.add(tick);
-    gsap.ticker.lagSmoothing(0);
-
-    return () => {
-      gsap.ticker.remove(tick);
-      lenis.off('scroll', onLenisScroll);
-      lenis.destroy();
-    };
-  }, [isMobile]);
-
-  useEffect(() => {
+    const canvas = canvasRef.current;
     const section = sectionRef.current;
-    const video = videoRef.current;
-    if (!section || !video) return;
+    if (!canvas || !section) return;
 
-    let duration = 0;
-    let targetTime = 0;
+    const ctx = canvas.getContext('2d', { alpha: false });
+    if (!ctx) return;
+
+    let isDisposed = false;
     let rafId: number | null = null;
-    let cancelled = false;
-    let lastDesktopSeekAt = 0;
 
-    const DESKTOP_FRAME_INTERVAL = 1000 / 24;
+    imagesRef.current = new Array(TOTAL_FRAMES).fill(null);
+    currentFrameRef.current = 0;
+    targetFrameRef.current = 0;
+    lastDrawnFrameRef.current = -1;
 
-    ScrollTrigger.config({
-      limitCallbacks: true,
-      ignoreMobileResize: true,
-    });
-
-    const syncSectionHeight = () => {
-      // Aproximadamente 5-6 telas de rolagem, suficiente para um scrub confortável
-      // sem deixar cada trecho do vídeo "parado" por tempo demais.
-      section.style.height = isMobile ? '500vh' : '560vh';
+    const getNearestFrame = (target: number): HTMLImageElement | null => {
+      const frames = imagesRef.current;
+      if (frames[target]?.complete && frames[target]?.naturalWidth) {
+        return frames[target];
+      }
+      for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
+        const prev = target - offset;
+        if (prev >= 0 && frames[prev]?.complete && frames[prev]?.naturalWidth) {
+          return frames[prev];
+        }
+        const next = target + offset;
+        if (next < TOTAL_FRAMES && frames[next]?.complete && frames[next]?.naturalWidth) {
+          return frames[next];
+        }
+      }
+      return null;
     };
 
-    const applyTarget = (timestamp: number) => {
-      rafId = null;
-      if (cancelled || !duration) return;
+    const drawFrame = (frameIndex: number) => {
+      if (!ctx || !canvas) return;
 
-      const diff = targetTime - video.currentTime;
+      const img = getNearestFrame(frameIndex);
+      if (!img || !img.complete || !img.naturalWidth) return;
 
-      if (Math.abs(diff) < 0.008) {
-        if (Math.abs(diff) > 0.001) {
-          video.currentTime = targetTime;
-        }
-        return;
+      const cw = canvas.width;
+      const ch = canvas.height;
+      const iw = img.naturalWidth;
+      const ih = img.naturalHeight;
+
+      if (!cw || !ch || !iw || !ih) return;
+
+      const scale = Math.max(cw / iw, ch / ih);
+      const sw = iw * scale;
+      const sh = ih * scale;
+      const sx = (cw - sw) / 2;
+      const sy = (ch - sh) / 2;
+
+      ctx.fillStyle = '#EDE2D5';
+      ctx.fillRect(0, 0, cw, ch);
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, 0, 0, iw, ih, sx, sy, sw, sh);
+      lastDrawnFrameRef.current = frameIndex;
+    };
+
+    const syncCanvasSize = (force = false) => {
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2);
+      const w = Math.round(rect.width * dpr);
+      const h = Math.round(rect.height * dpr);
+
+      const diffW = Math.abs(canvas.width - w);
+      const diffH = Math.abs(canvas.height - h);
+
+      if (force || diffW > 2 || (isMobile ? diffH > 40 : diffH > 2)) {
+        canvas.width = w;
+        canvas.height = h;
       }
 
-      if (!isMobile) {
-        // O MP4 desktop é 24 fps. Fazer seek a 60 fps só aumenta o trabalho
-        // de decodificação e produz jitter. Limitamos os seeks ao ritmo real
-        // do vídeo e deixamos o playhead responder mais rápido à roda do mouse.
-        const elapsed = timestamp - lastDesktopSeekAt;
+      drawFrame(Math.round(currentFrameRef.current));
+    };
 
-        if (elapsed < DESKTOP_FRAME_INTERVAL) {
-          rafId = window.requestAnimationFrame(applyTarget);
-          return;
+    const requestFrame = (index: number) => {
+      if (index < 0 || index >= TOTAL_FRAMES) return;
+      if (imagesRef.current[index] || isDisposed) return;
+      const img = new Image();
+      imagesRef.current[index] = img;
+      img.onload = () => {
+        if (isDisposed) return;
+        const currentTarget = Math.round(currentFrameRef.current);
+        if (Math.abs(currentTarget - index) <= 2) {
+          drawFrame(currentTarget);
         }
-
-        lastDesktopSeekAt = timestamp;
-
-        // O Lenis já suaviza a roda do mouse e entrega um progresso contínuo.
-        // Aqui seguimos o alvo diretamente no ritmo nativo do vídeo, evitando
-        // uma segunda camada de easing que deixava o desktop "borrachudo".
-        video.currentTime = targetTime;
-
-        if (Math.abs(targetTime - video.currentTime) > 0.008) {
-          rafId = window.requestAnimationFrame(applyTarget);
-        }
-        return;
-      }
-
-      // Mobile já está fluido: preserva exatamente o comportamento atual.
-      video.currentTime += diff * 0.34;
-      rafId = window.requestAnimationFrame(applyTarget);
+      };
+      img.src = getFrameUrl(index, isMobile);
     };
 
-    const scheduleApply = () => {
-      if (rafId !== null) return;
-      rafId = window.requestAnimationFrame(applyTarget);
+    // 1. Instantly load first frame
+    const firstImg = new Image();
+    firstImg.src = getFrameUrl(0, isMobile);
+    firstImg.onload = () => {
+      if (isDisposed) return;
+      imagesRef.current[0] = firstImg;
+      syncCanvasSize(true);
+      drawFrame(0);
     };
 
-    const setupScroll = () => {
-      duration = Number.isFinite(video.duration) ? video.duration : 0;
-      if (!duration) return;
-
-      video.pause();
-
-      const trigger = ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: false,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          targetTime = self.progress * duration;
-          scheduleApply();
-        },
-        onRefresh: (self) => {
-          targetTime = self.progress * duration;
-          scheduleApply();
-        },
-      });
-
-      return trigger;
-    };
-
-    syncSectionHeight();
-
-    let trigger: ScrollTrigger | undefined;
-
-    const onMetadata = () => {
-      trigger?.kill();
-      trigger = setupScroll();
-      ScrollTrigger.refresh();
-    };
-
-    video.addEventListener('loadedmetadata', onMetadata);
-    video.load();
-
-    if (video.readyState >= 1) {
-      onMetadata();
+    // 2. Preload anchor frames (every 5 frames across the timeline)
+    for (let i = 0; i < TOTAL_FRAMES; i += 5) {
+      requestFrame(i);
     }
 
-    const handleResize = () => {
-      syncSectionHeight();
-      ScrollTrigger.refresh();
+    // 3. Sliding preloader around current scroll position
+    const prioritizeAround = (frameIdx: number) => {
+      for (let offset = -8; offset <= 16; offset++) {
+        const idx = frameIdx + offset;
+        if (idx >= 0 && idx < TOTAL_FRAMES && !imagesRef.current[idx]) {
+          requestFrame(idx);
+        }
+      }
     };
 
-    window.addEventListener('resize', handleResize);
+    // 4. Background progressive batch loader
+    let batchIdx = 0;
+    const loadRemaining = () => {
+      if (isDisposed || batchIdx >= TOTAL_FRAMES) return;
+      const end = Math.min(batchIdx + 12, TOTAL_FRAMES);
+      for (; batchIdx < end; batchIdx++) {
+        requestFrame(batchIdx);
+      }
+      if (batchIdx < TOTAL_FRAMES) {
+        window.setTimeout(loadRemaining, 25);
+      }
+    };
+    const batchTimer = window.setTimeout(loadRemaining, 50);
+
+    syncCanvasSize(true);
+    const onResize = () => syncCanvasSize(true);
+    window.addEventListener('resize', onResize, { passive: true });
+
+    const updateTargetFromScroll = () => {
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const scrollable = section.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
+      const target = progress * (TOTAL_FRAMES - 1);
+      targetFrameRef.current = target;
+      prioritizeAround(Math.round(target));
+    };
+
+    window.addEventListener('scroll', updateTargetFromScroll, { passive: true });
+    updateTargetFromScroll();
+
+    const lerpRate = isMobile ? 0.45 : 0.35;
+
+    const renderLoop = () => {
+      if (isDisposed) return;
+
+      const diff = targetFrameRef.current - currentFrameRef.current;
+      if (Math.abs(diff) < 0.02) {
+        currentFrameRef.current = targetFrameRef.current;
+      } else {
+        currentFrameRef.current += diff * lerpRate;
+      }
+
+      const frameIndex = Math.round(currentFrameRef.current);
+      if (frameIndex !== lastDrawnFrameRef.current) {
+        drawFrame(frameIndex);
+      }
+
+      rafId = window.requestAnimationFrame(renderLoop);
+    };
+
+    rafId = window.requestAnimationFrame(renderLoop);
 
     return () => {
-      cancelled = true;
-      trigger?.kill();
-      video.removeEventListener('loadedmetadata', onMetadata);
-      window.removeEventListener('resize', handleResize);
+      isDisposed = true;
+      window.clearTimeout(batchTimer);
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('scroll', updateTargetFromScroll);
 
       if (rafId !== null) {
         window.cancelAnimationFrame(rafId);
       }
-
-      section.style.removeProperty('height');
     };
   }, [isMobile]);
 
   return (
     <section
       ref={sectionRef}
-      className={`cinematic-scroll cinematic-scroll-video-mode ${className}`}
-      aria-label="Experiência visual controlada pela rolagem"
+      className={`cinematic-scroll ${className}`}
+      aria-label="Abertura visual cinematográfica"
     >
       <div className="cinematic-scroll-sticky">
-        <video
-          ref={videoRef}
-          className="cinematic-scroll-scrub-video"
-          src={videoUrl(isMobile)}
-          muted
-          playsInline
-          preload="auto"
-          disablePictureInPicture
+        <canvas
+          ref={canvasRef}
+          className="cinematic-scroll-canvas"
           aria-hidden="true"
         />
       </div>

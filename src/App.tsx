@@ -28,7 +28,7 @@ function ScrollToTop() {
 
 export default function App({ className = '' }: Readonly<AppProps>) {
   return (
-    <div className={`min-h-screen bg-canvas font-body text-umber ${className}`}>
+    <div className={`min-h-screen bg-canvas font-body text-umber antialiased ${className}`}>
       <ScrollToTop />
       <ScrollProgress />
       <MotionObserver />

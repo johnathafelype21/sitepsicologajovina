@@ -10,9 +10,11 @@
   text-rendering: optimizeLegibility;
 }
 
-html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; background: #FCFAF7; }
+html { scroll-behavior: auto; }
+body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: clip; background: #FCFAF7; -webkit-tap-highlight-color: transparent; }
 * { box-sizing: border-box; }
+img, svg, video, canvas { max-width: 100%; height: auto; }
+h1, h2, h3, h4, p, span { overflow-wrap: break-word; word-wrap: break-word; }
 ::selection { background: rgba(192, 138, 78, 0.24); }
 
 .reveal {
@@ -170,11 +172,6 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
   html { scroll-behavior: auto; }
   .reveal, .reveal.is-visible { opacity: 1; transform: none; transition: none; }
   .depth-card:hover { transform: none; }
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
-  }
 }
 
 
@@ -467,16 +464,16 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
 
 @media (max-width: 1023px) {
   .sticky-story-grid { grid-template-columns: 1fr; gap: 0; }
-  .sticky-story-copy { position: relative; top: auto; padding: 5rem 0 1rem; }
-  .sticky-story-card { min-height: auto; padding: 3rem 0; }
-  .sticky-story-card-inner { grid-template-columns: 60px 1fr; }
+  .sticky-story-copy { position: relative; top: auto; padding: 1.5rem 0 1rem; }
+  .sticky-story-card { min-height: auto; padding: 1.5rem 0; }
+  .sticky-story-card-inner { grid-template-columns: 1fr; gap: 0.75rem; }
   .hero-v2 { min-height: auto; }
   .hero-v2-badge { left: .75rem; bottom: 1rem; }
   .page-hero-split { min-height: auto; }
 }
 
 @media (max-width: 767px) {
-  .editorial-art { min-height: 400px; border-radius: 1.5rem 1.5rem .55rem 1.5rem; }
+  .editorial-art { min-height: auto; border-radius: 1.5rem; }
   .sticky-story-card-inner { grid-template-columns: 1fr; }
   .sticky-story-number { font-size: 2rem; }
   .hero-v2-badge { position: relative; left: auto; bottom: auto; margin: -1.5rem .75rem 0; }
@@ -485,6 +482,7 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
   .offset-card:nth-child(even) { margin-top: 0; }
   .desktop-only { display: none !important; }
   .mobile-only { display: block; }
+  .cinematic-scroll { height: 190vh; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -863,7 +861,7 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
 }
 
 
-/* --- V3: each section gets its own visual language --- */
+/* --- V3: Living Marquee (Smooth Infinite Train Animation) --- */
 .living-marquee {
   position: relative;
   overflow: hidden;
@@ -872,53 +870,86 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
   background:
     radial-gradient(circle at 50% 50%, rgba(192,138,78,.09), transparent 42%),
     #F8F4EE;
-  padding: 1.25rem 0;
+  padding: 1.35rem 0;
+  user-select: none;
 }
 .living-marquee-perspective {
-  perspective: 1200px;
-  transform: rotateX(2.5deg);
+  width: 100%;
+  overflow: hidden;
 }
 .living-marquee-track {
   display: flex;
   width: max-content;
   align-items: center;
   gap: 0;
-  animation: living-marquee-run 26s linear infinite;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
-.living-marquee:hover .living-marquee-track { animation-play-state: paused; }
+.living-marquee-train {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
 .living-marquee-item {
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
-  padding-right: 2.5rem;
+  padding-right: 2.75rem;
   font-family: "Playfair Display", Georgia, serif;
-  font-size: clamp(1.7rem,3vw,3rem);
-  color: rgba(45,59,45,.42);
+  font-size: clamp(1.8rem, 3.2vw, 2.85rem);
+  color: rgba(45, 59, 45, 0.52);
+  letter-spacing: -0.01em;
 }
 .living-marquee-item em {
   font-style: italic;
-  transition: color 220ms ease, transform 220ms ease;
+  font-weight: 400;
+  transition: color 240ms ease;
 }
-.living-marquee-item:hover em { color: #2D3B2D; transform: translateY(-2px); }
+.living-marquee-item:hover em {
+  color: #2D3B2D;
+}
 .living-marquee-item i {
-  margin-left: 2.5rem;
-  font-size: .5em;
+  margin-left: 2.75rem;
+  font-size: 0.55em;
   font-style: normal;
-  color: rgba(192,138,78,.75);
-  animation: living-star-pulse 2.6s ease-in-out infinite;
+  color: rgba(192, 138, 78, 0.85);
+  display: inline-block;
+  animation: living-star-pulse 2.8s ease-in-out infinite;
 }
 .living-marquee-fade {
   position: absolute;
   inset-block: 0;
   z-index: 3;
-  width: 9%;
+  width: 10%;
+  max-width: 140px;
   pointer-events: none;
 }
-.living-marquee-fade-left { left: 0; background: linear-gradient(90deg,#F8F4EE,transparent); }
-.living-marquee-fade-right { right: 0; background: linear-gradient(-90deg,#F8F4EE,transparent); }
-@keyframes living-marquee-run { to { transform: translateX(-33.3333%); } }
-@keyframes living-star-pulse { 50% { transform: scale(1.25) rotate(18deg); opacity: .55; } }
+.living-marquee-fade-left {
+  left: 0;
+  background: linear-gradient(90deg, #F8F4EE 0%, rgba(248, 244, 238, 0) 100%);
+}
+.living-marquee-fade-right {
+  right: 0;
+  background: linear-gradient(-90deg, #F8F4EE 0%, rgba(248, 244, 238, 0) 100%);
+}
+@keyframes living-marquee-train {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes living-star-pulse {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.25) rotate(16deg);
+    opacity: 1;
+  }
+}
 
 .pathways-v3 {
   display: grid;
@@ -1322,8 +1353,6 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
 }
 
 @media (prefers-reduced-motion:reduce) {
-  .living-marquee-track,
-  .living-marquee-item i,
   .pathway-therapy-art span,
   .pathway-mentoring-rings i,
   .pathway-mentoring-rings b { animation:none !important; }
@@ -1552,14 +1581,10 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
 }
 
 
-/* --- Cinematic "Volte para si" scroll experience --- */
+/* --- Scroll-driven frame sequence --- */
 .cinematic-scroll {
-  --cinematic-progress: .5;
-  --cinematic-video-x: 0px;
-  --cinematic-text-a-x: 0px;
-  --cinematic-text-b-x: 0px;
   position: relative;
-  height: 190vh;
+  height: 380vh;
   background: #EDE2D5;
   isolation: isolate;
 }
@@ -1568,221 +1593,8 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
   position: sticky;
   top: 0;
   width: 100%;
-  height: 100svh;
-  min-height: 620px;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-  background: #EDE2D5;
-}
-
-.cinematic-scroll-media {
-  position: absolute;
-  inset: -3%;
-  overflow: hidden;
-  transform: translate3d(var(--cinematic-video-x), 0, 0) scale(1.06);
-  will-change: transform;
-}
-
-.cinematic-scroll-video {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  object-position: center;
-  filter: saturate(.88) contrast(.96) brightness(1.02);
-}
-
-.cinematic-scroll-veil {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgba(247,240,231,.28) 0%, rgba(247,240,231,.04) 34%, rgba(45,59,45,.04) 100%),
-    linear-gradient(180deg, rgba(252,250,247,.06), rgba(45,59,45,.06));
-  pointer-events: none;
-}
-
-.cinematic-scroll-grain {
-  position: absolute;
-  inset: 0;
-  opacity: .12;
-  pointer-events: none;
-  background-image: radial-gradient(rgba(45,59,45,.22) .55px, transparent .55px);
-  background-size: 6px 6px;
-  mix-blend-mode: soft-light;
-}
-
-.cinematic-scroll-copy {
-  position: relative;
-  z-index: 3;
-  width: min(92vw, 1380px);
-  padding-inline: clamp(1.5rem, 5vw, 5rem);
-  pointer-events: none;
-}
-
-.cinematic-scroll-kicker {
-  margin: 0 0 1.1rem;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: rgba(45,59,45,.72);
-}
-
-.cinematic-scroll-title {
-  margin: 0;
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: clamp(5.2rem, 12vw, 11.5rem);
-  font-weight: 400;
-  line-height: .74;
-  letter-spacing: -.065em;
-  color: #2D3B2D;
-  text-shadow: 0 2px 28px rgba(252,250,247,.38);
-}
-
-.cinematic-scroll-line {
-  display: block;
-  width: max-content;
-  max-width: 100%;
-  will-change: transform;
-}
-
-.cinematic-scroll-line-a {
-  transform: translate3d(var(--cinematic-text-a-x), 0, 0);
-}
-
-.cinematic-scroll-line-b {
-  margin-left: clamp(8vw, 18vw, 260px);
-  font-style: italic;
-  color: #8D6645;
-  transform: translate3d(var(--cinematic-text-b-x), 0, 0);
-}
-
-.cinematic-scroll-note {
-  margin-top: clamp(2rem, 4vh, 3.4rem);
-  max-width: 26rem;
-  font-size: clamp(.82rem, 1vw, .95rem);
-  line-height: 1.8;
-  color: rgba(61,44,36,.7);
-}
-
-.cinematic-scroll-index {
-  position: absolute;
-  z-index: 4;
-  right: clamp(1.5rem, 4vw, 4rem);
-  bottom: clamp(1.5rem, 4vw, 3.5rem);
-  display: flex;
-  align-items: center;
-  gap: .8rem;
-  color: rgba(45,59,45,.55);
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: .8rem;
-  font-style: italic;
-}
-
-.cinematic-scroll-index i {
-  width: 64px;
-  height: 1px;
-  background: rgba(45,59,45,.28);
-}
-
-@media (max-width: 767px) {
-  .cinematic-scroll {
-    height: 165vh;
-  }
-
-  .cinematic-scroll-sticky {
-    min-height: 560px;
-  }
-
-  .cinematic-scroll-media {
-    inset: -1.5%;
-    transform: translate3d(var(--cinematic-video-x), 0, 0) scale(1.025);
-  }
-
-  .cinematic-scroll-video {
-    object-position: center center;
-  }
-
-  .cinematic-scroll-copy {
-    width: 100%;
-    padding-inline: 1.25rem;
-    align-self: center;
-  }
-
-  .cinematic-scroll-kicker {
-    margin-bottom: .8rem;
-    font-size: 8px;
-    letter-spacing: .16em;
-  }
-
-  .cinematic-scroll-title {
-    font-size: clamp(4.1rem, 19vw, 6.6rem);
-    line-height: .79;
-    letter-spacing: -.055em;
-  }
-
-  .cinematic-scroll-line {
-    max-width: calc(100vw - 2.5rem);
-  }
-
-  .cinematic-scroll-line-b {
-    margin-left: 8vw;
-  }
-
-  .cinematic-scroll-note {
-    margin-top: 1.7rem;
-    max-width: 18rem;
-    font-size: .78rem;
-    line-height: 1.65;
-  }
-
-  .cinematic-scroll-index {
-    right: 1.25rem;
-    bottom: 1.15rem;
-  }
-
-  .cinematic-scroll-index i {
-    width: 34px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cinematic-scroll {
-    height: 100svh;
-    min-height: 620px;
-  }
-
-  .cinematic-scroll-sticky {
-    position: relative;
-  }
-
-  .cinematic-scroll-media,
-  .cinematic-scroll-line-a,
-  .cinematic-scroll-line-b {
-    transform: none !important;
-  }
-
-  .cinematic-scroll-video {
-    animation: none !important;
-  }
-}
-
-
-/* --- Scroll-driven frame sequence (final) --- */
-.cinematic-scroll {
-  position: relative;
-  height:  620vh;
-  background: #EDE2D5;
-  isolation: isolate;
-}
-
-.cinematic-scroll-sticky {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 100svh;
-  min-height: 620px;
+  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   background: #EDE2D5;
 }
@@ -1793,135 +1605,33 @@ body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; backg
   width: 100%;
   height: 100%;
   display: block;
-}
-
-@media (max-width: 767px) {
-  .cinematic-scroll {
-    height:  540vh;
-  }
-
-  .cinematic-scroll-sticky {
-    min-height: 560px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cinematic-scroll {
-    height: 120vh;
-  }
-}
-
-
-/* --- Cinematic performance + mobile geometry hardening --- */
-.cinematic-scroll-sticky {
-  min-height: 0;
-  contain: layout paint;
-}
-
-.cinematic-scroll-canvas {
+  pointer-events: none;
   image-rendering: auto;
   transform: translateZ(0);
   backface-visibility: hidden;
 }
 
 @media (max-width: 767px) {
+  .cinematic-scroll {
+    height: 260vh;
+  }
+
   .cinematic-scroll-sticky {
     height: 100dvh;
     min-height: 0;
   }
 
   .cinematic-scroll-canvas {
-    width: 100vw;
-    height: 100dvh;
+    width: 100%;
+    height: 100%;
   }
 
   .scroll-progress-track {
     height: 2px;
   }
 
-  /* Avoid compositing decorative animations while the device is under
-     heavier scroll/decode work. They remain visually intact but cheaper. */
   .living-marquee-track {
-    animation-duration: 34s;
+    animation-duration: 22s;
   }
 }
 
-/* Let the browser defer painting distant home sections until needed. */
-main > section:not(.hero-v2):not(.living-marquee):not(.cinematic-scroll) {
-  content-visibility: auto;
-  contain-intrinsic-size: 900px;
-}
-
-
-/* --- Video scrub mode: hardware-decoded, aspect-ratio safe --- */
-/* production refresh */
-.cinematic-scroll-video-mode .cinematic-scroll-sticky {
-  display: block;
-  background: #EDE2D5;
-}
-
-.cinematic-scroll-scrub-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: contain;
-  object-position: center center;
-  background: #EDE2D5;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-@media (max-width: 767px) {
-  .cinematic-scroll-video-mode .cinematic-scroll-sticky {
-    height: 100dvh;
-    background: #EDE2D5;
-  }
-
-  .cinematic-scroll-scrub-video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center center;
-    background: #EDE2D5;
-  }
-}
-
-
-/* --- Final desktop smooth-scroll + cinematic sizing --- */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-@media (min-width: 768px) {
-  .cinematic-scroll-video-mode .cinematic-scroll-sticky {
-    height: 100vh;
-    min-height: 100vh;
-    background: #EDE2D5;
-  }
-
-  .cinematic-scroll-scrub-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-    background: #EDE2D5;
-  }
-}
-
-@media (max-width: 767px) {
-  .cinematic-scroll-scrub-video {
-    object-fit: contain;
-    object-position: center center;
-  }
-}
