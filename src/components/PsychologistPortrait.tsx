@@ -12,14 +12,14 @@ export interface PsychologistPortraitProps {
 
 const photoConfig = {
   office: {
-    serverSrc: '/images/jovina/jovina-principal-escritorio.webp',
+    serverSrc: '/jovina 1.png',
     fallbackSrc: '/images/jovina/jovina-principal-escritorio.jpg',
     defaultAlt: 'Retrato oficial de Jovina Diniz — Terapeuta Integrativa e Mentora em seu consultório',
     badgeTitle: 'Jovina Diniz',
     badgeSubtitle: 'Terapeuta Integrativa & Mentora',
   },
   books: {
-    serverSrc: '/images/jovina/jovina-metodo-livros.webp',
+    serverSrc: '/jovina 2.png',
     fallbackSrc: '/images/jovina/jovina-metodo-livros.jpg',
     defaultAlt: 'Retrato de Jovina Diniz com livros de escuta e acompanhamento terapêutico',
     badgeTitle: 'Escuta & Método',
