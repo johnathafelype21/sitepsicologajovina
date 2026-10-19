@@ -30,7 +30,7 @@ export default function Logo({
       className={`group inline-flex min-w-0 items-center justify-center transition-opacity hover:opacity-90 ${className}`}
     >
       <img
-        src="/jovina%20logo.png?v=9594a3b6"
+        src="/jovina-logo.png?v=9594a3b6"
         alt="Jovina Diniz — Terapia e Mentoria"
         className={`block h-auto max-w-full object-contain object-left ${widths[size]}`}
         loading="eager"
