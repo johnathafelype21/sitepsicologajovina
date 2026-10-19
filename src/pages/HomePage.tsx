@@ -4,6 +4,7 @@ import CTASection from '../components/CTASection';
 import CinematicScroll from '../components/CinematicScroll';
 import EditorialArt from '../components/EditorialArt';
 import HomePathways from '../components/HomePathways';
+import InitialCareForm from '../components/InitialCareForm';
 import LivingMarquee from '../components/LivingMarquee';
 import PsychologistPortrait from '../components/PsychologistPortrait';
 import SectionHeading from '../components/SectionHeading';
@@ -253,6 +254,9 @@ export default function HomePage({ className = '' }: Readonly<HomePageProps>) {
           </div>
         </div>
       </section>
+
+      {/* PRÉ-ATENDIMENTO — mensagem pronta para WhatsApp */}
+      <InitialCareForm />
 
       {/* 7. CTA SECTION */}
       <CTASection title="Seu tempo de se escutar pode começar aqui." text="Se você deseja compreender suas emoções e descobrir caminhos possíveis para a sua história, podemos conversar. Entre em contato para conhecer o acompanhamento." />
