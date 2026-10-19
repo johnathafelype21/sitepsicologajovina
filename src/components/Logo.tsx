@@ -18,9 +18,9 @@ export default function Logo({
   className = '',
 }: Readonly<LogoProps>) {
   const widths = {
-    sm: 'w-32 sm:w-36',
-    md: variant === 'stacked' ? 'w-44 sm:w-56' : 'w-32 min-[360px]:w-40 sm:w-48',
-    lg: 'w-48 sm:w-64',
+    sm: 'w-36 sm:w-44',
+    md: variant === 'stacked' ? 'w-56 sm:w-72' : 'w-36 min-[360px]:w-44 sm:w-56',
+    lg: 'w-64 sm:w-80',
   } as const;
 
   return (
@@ -30,9 +30,9 @@ export default function Logo({
       className={`group inline-flex min-w-0 items-center justify-center transition-opacity hover:opacity-90 ${className}`}
     >
       <img
-        src="/jovina%20logo.png"
+        src="/jovina%20logo.png?v=9594a3b6"
         alt="Jovina Diniz — Terapia e Mentoria"
-        className={`block h-auto max-h-16 object-contain object-left sm:max-h-20 ${widths[size]}`}
+        className={`block h-auto max-w-full object-contain object-left ${widths[size]}`}
         loading="eager"
         decoding="async"
       />
